@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Display"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.viewers.ListViewer"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.layout.FillLayout"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.viewers.ArrayContentProvider"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.viewers.ViewerSorter"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Shell"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Composite"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.graphics.Point"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Control"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.layout.RowLayout"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.SWT"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Text"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.layout.RowData"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.IDialogConstants"/>
+<fullyQualifiedTypeName name="org.eclipse.jface.dialogs.TitleAreaDialog"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Listener"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.widgets.Combo"/>
+<fullyQualifiedTypeName name="org.eclipse.swt.layout.GridLayout"/>
+</qualifiedTypeNameHistroy>

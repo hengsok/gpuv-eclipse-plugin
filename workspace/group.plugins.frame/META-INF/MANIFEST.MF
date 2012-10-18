@@ -5,6 +5,7 @@ Bundle-SymbolicName: group.plugins.frame; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: group.plugins.frame.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
