@@ -1,5 +1,10 @@
 package group.plugins.frame.actions;
 
-public class InputTerminal {
+import java.io.IOException;
 
+public interface InputTerminal {
+
+	public Process echoInput(String command) throws IOException;
+	
+		
 }
