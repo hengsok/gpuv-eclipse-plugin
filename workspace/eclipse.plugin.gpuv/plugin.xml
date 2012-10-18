@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Configuration Action Set"
+            visible="true"
+            id="eclipse.plugin.gpuv.actionSet">
+         <menu
+               label="GPUVerify &amp;Menu"
+               id="gpuvMenu">
+            <separator
+                  name="gpuvGroup">
+            </separator>
+         </menu>
+         <action
+               class="eclipse.plugin.gpuv.actions.ConfigurationAction"
+               icon="icons/sample.gif"
+               id="eclipse.plugin.gpuv.actions.SampleAction"
+               label="&amp;Open Configuration"
+               menubarPath="gpuvMenu/gpuvGroup"
+               toolbarPath="gpuvGroup"
+               tooltip="Configure GPUVerify options">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="eclipse.plugin.gpuv.views.MainViewDisplayResults"
+            id="eclipse.plugin.gpuv.gpuview"
+            name="GPUVerify View"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
