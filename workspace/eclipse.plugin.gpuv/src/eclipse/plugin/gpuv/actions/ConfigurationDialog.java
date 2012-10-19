@@ -39,7 +39,13 @@ public class ConfigurationDialog extends Dialog {
 	
 
 	protected void okPressed(){
-		System.out.println("HAHA");
+
+		ShellCommand t = new ShellCommand(); 
+		try {
+			t.runCommand(getSelectedArgs());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected Control createDialogArea(Composite parent) {
@@ -92,7 +98,6 @@ public class ConfigurationDialog extends Dialog {
 					}
 					else{
 						selectedArgs.remove(eachArg);
-						System.out.println("No");
 					}
 				}
 			});
@@ -100,10 +105,11 @@ public class ConfigurationDialog extends Dialog {
 	}
 	
 	private void initContent() {
-		for (String arg : argList){
-			Button button = (Button) argCheckboxButtons.get(arg);
-			button.setSelection(selectedArgs.contains(arg));
-		}
+		//Might want to set selection only for certain often used checkboxes here
+		//		for (String arg : argList){
+		//			Button button = (Button) argCheckboxButtons.get(arg);
+		//			button.setSelection(selectedArgs.contains(arg));
+		//		}
 	}
 	
 	protected void configureShell(Shell shell) {

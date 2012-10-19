@@ -31,34 +31,17 @@ public class ConfigurationAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-		/*
-		 * Currently using a predefined InputDialog
-		 * to read in a shell command and execute.
-		 */
+
 		ConfigurationDialog dialog = null;
 		
 		try {
 			dialog = new ConfigurationDialog(window.getShell());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+		dialog.open();
 
-				
-				
-//		ConfigurationDialog id = new ConfigurationDialog(
-//			window.getShell());
-		dialog.open(); // open the text input dialog
-		
-
-		// perform action from Test class (running shell command)
-//		ShellCommand t = new ShellCommand(); 
-//		try {
-//			t.runCommand(id.getValue());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
 	}
 
 	/**

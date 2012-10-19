@@ -2,15 +2,21 @@ package eclipse.plugin.gpuv.actions;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Set;
 
 import eclipse.plugin.gpuv.views.IViewDisplayResultUpdate;
 import eclipse.plugin.gpuv.views.ViewDisplayResultUpdate;
 
 
 public class ShellCommand {
-	public void runCommand(String cmd) throws IOException {
+	public void runCommand(Set<String> argList) throws IOException {
 	    Runtime r = Runtime.getRuntime();
-	    String command = cmd;
+	    
+	    String command = "";
+	    for(String arg : argList){
+	    	command += " " + arg;
+	    }
+
 	    String[] nargs = { "sh", "-c", command };
 	    Process p = r.exec(nargs);
 	    
