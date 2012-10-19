@@ -44,8 +44,8 @@ public class MainViewDisplayResults extends ViewPart {
 		viewer.add(t);
 	}
 	
-	public void clearView(int index){
-		viewer.clear(index);
+	public void clearView(){
+		viewer.refresh();
 	}
 
 

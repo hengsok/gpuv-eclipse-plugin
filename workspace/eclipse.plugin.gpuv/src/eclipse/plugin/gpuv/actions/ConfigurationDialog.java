@@ -2,64 +2,126 @@ package eclipse.plugin.gpuv.actions;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.*;
 
+import org.eclipse.swt.layout.GridData; 
+import org.eclipse.swt.layout.GridLayout;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Rectangle;
+
+import org.eclipse.swt.widgets.*;
 
 public class ConfigurationDialog extends Dialog {
 	
-	protected ConfigurationDialog(Shell  parentShell) {
+	private Set<String> selectedArgs;
+	private Set <String> argList;
+	private Map<String, Button> argCheckboxButtons;
+	
+	public ConfigurationDialog(Shell parentShell) throws IOException {
 		super(parentShell);
+		
+		// Read in list of arguments
+		ConfigurationArgumentList configArgList = new ConfigurationArgumentList();
+		argList = configArgList.getArgList();
+		
+		this.selectedArgs = new HashSet<String>();
+		for (String arg : argList)
+			this.selectedArgs.add(arg);
 	}
 	
-	protected void createButtonsForButtonBar(Composite parent) {
-		System.out.println("createButtonsForButtonBar");
-    }
-	
-	protected Point getInitialSize(){
-        return new Point(800,600);
-    }
+
+	protected void okPressed(){
+		System.out.println("HAHA");
+	}
 	
 	protected Control createDialogArea(Composite parent) {
-		//Set dialog title
-		getShell().setText("GPUVerify Configuration");
-		//Set container layout
-        Composite container = (Composite) super.createDialogArea(parent);
-        container.setLayout(new GridLayout());
-        //Set Plain Text
-        Label label = new Label(container, SWT.BORDER);
-        label.setText("Label Display");
-        //Set Text Area
-        Text textDemo = new Text(container, SWT.BORDER);
-        textDemo.setText("Text Area Demo");
-        //Set drop down list
-        Combo combo = new Combo(container, SWT.BORDER);
-        combo.add("Combo Demo 1");
-        combo.add("Combo Demo 2");
-        combo.add("Combo Demo 3");
-        //Set Checkbox
-        Button checkBox = new Button(container, SWT.CHECK);
-        checkBox.setText("CheckBox Demo");
-        //Set RadioButton
-        new Button(container, SWT.RADIO).setText("RadioButton Demo 1");
-        new Button(container, SWT.RADIO).setText("RadioButton Demo 2");
-        
-        return container;
-    }
-	
-	protected void initializeBounds(){
-        Composite comp = (Composite)getButtonBar();
-        super.createButton(comp, IDialogConstants.OK_ID, "Run", true).addListener(OK, new Listener(){
+		Composite container = (Composite) super.createDialogArea(parent);
+		final GridLayout gridLayout = new GridLayout();
+		gridLayout.numColumns = 2;
+		gridLayout.marginLeft = 20;
+		gridLayout.marginRight = 20;
+		gridLayout.marginTop = 20;
 
-			@Override
-			public void handleEvent(Event event) {
-				System.out.println("Pass terminal command here!!!");
-			}});
-        super.createButton(comp, IDialogConstants.CLOSE_ID, "Cancel", false);
-    }
+		container.setLayout(gridLayout);
+		
+		//Instructions text
+		final Label instructionText = new Label(container, SWT.NONE);
+		instructionText.setLayoutData(new GridData(GridData.BEGINNING,
+				GridData.CENTER, false, false, 2, 1));
+		instructionText.setText("Select the arguments to be passed to GPUVerify");
+		
+
+		//Composite to hold check box
+		final Composite argCheckboxComposite = new Composite(container,
+				SWT.NONE);
+		final GridData gridDataSetting = new GridData(GridData.FILL,
+				GridData.FILL, false, false, 2, 1);
+		gridDataSetting.horizontalIndent = 20;
+		argCheckboxComposite.setLayoutData(gridDataSetting);
+		final GridLayout argCheckboxLayout = new GridLayout();
+		argCheckboxLayout.numColumns = 2;
+		argCheckboxComposite.setLayout(argCheckboxLayout);
+		
+		createArgCheckboxes(argCheckboxComposite);
+		initContent();
+
+		return container;
+	}
+
+	
+	private void createArgCheckboxes(Composite parent) {
+		argCheckboxButtons = new HashMap<String, Button>();
+		for (String arg : argList){
+			final String eachArg = arg;
+			
+			final Button button = new Button(parent, SWT.CHECK);
+			button.setText(eachArg);
+			argCheckboxButtons.put(eachArg, button);
+			button.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					if (button.getSelection()){
+						selectedArgs.add(eachArg);
+					}
+					else{
+						selectedArgs.remove(eachArg);
+						System.out.println("No");
+					}
+				}
+			});
+		}
+	}
+	
+	private void initContent() {
+		for (String arg : argList){
+			Button button = (Button) argCheckboxButtons.get(arg);
+			button.setSelection(selectedArgs.contains(arg));
+		}
+	}
+	
+	protected void configureShell(Shell shell) {
+		super.configureShell(shell);
+		shell.setText("GPUVerify Configurations");
+	
+	}
+	
+
+	protected void initializeBounds(){
+		super.initializeBounds();
+		this.getButton(IDialogConstants.OK_ID).setText("Run");
+	}
+
+	
+	public Set<String> getSelectedArgs() {
+		return selectedArgs;
+	}
+	
 }
 

@@ -34,6 +34,35 @@
             name="GPUVerify View"
             restorable="true">
       </view>
+      <category
+            id="eclipse.plugin.gpuv"
+            name="Sample Category">
+      </category>
+      <view
+            category="eclipse.plugin.gpuv"
+            class="eclipse.plugin.gpuv.views2.SampleView"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.views2.SampleView"
+            name="Sample View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="eclipse.plugin.gpuv.views2.SampleView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
    </extension>
 
 </plugin>

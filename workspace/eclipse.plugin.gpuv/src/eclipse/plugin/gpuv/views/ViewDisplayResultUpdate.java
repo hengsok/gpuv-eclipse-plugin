@@ -24,9 +24,7 @@ public class ViewDisplayResultUpdate implements IViewDisplayResultUpdate {
 	}
 	
 	public void clearItems(){
-		while(!items.isEmpty()){
-			view.clearView(0);
-		}
+			view.clearView();
 	}
 
 }

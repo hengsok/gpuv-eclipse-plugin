@@ -35,19 +35,29 @@ public class ConfigurationAction implements IWorkbenchWindowActionDelegate {
 		 * Currently using a predefined InputDialog
 		 * to read in a shell command and execute.
 		 */
-		InputDialog id = new InputDialog(
-			window.getShell(),
-			"Helloworld",
-			"Hello, Eclipse world","Type command",null);
-		id.open(); // open the text input dialog
-
-		// perform action from Test class (running shell command)
-		ShellCommand t = new ShellCommand(); 
+		ConfigurationDialog dialog = null;
+		
 		try {
-			t.runCommand(id.getValue());
-		} catch (IOException e) {
+			dialog = new ConfigurationDialog(window.getShell());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+				
+				
+//		ConfigurationDialog id = new ConfigurationDialog(
+//			window.getShell());
+		dialog.open(); // open the text input dialog
+		
+
+		// perform action from Test class (running shell command)
+//		ShellCommand t = new ShellCommand(); 
+//		try {
+//			t.runCommand(id.getValue());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		
 	}
 
