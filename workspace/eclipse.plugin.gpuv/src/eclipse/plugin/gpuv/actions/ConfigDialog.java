@@ -61,6 +61,17 @@ public class ConfigDialog extends Dialog {
 	}
 
 	protected Control createDialogArea(Composite parent) {
+		this.getShell().addListener(SWT.Traverse, new Listener() {
+			public void handleEvent(Event e) {
+				if (e.detail == SWT.TRAVERSE_ESCAPE) {
+					e.doit = false;
+				} else if (e.detail == SWT.TRAVERSE_RETURN) {
+					e.doit = false;
+				}
+			}
+		});
+		
+		
 		// Store composite for use by createAdvancedContent()
 		this.comp = parent;
 		// Create Tab Folder
@@ -125,15 +136,17 @@ public class ConfigDialog extends Dialog {
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
-		// TODO test code
-		table.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event event) {
-				String string = event.detail == SWT.CHECK ? "Checked"
-						: "Selected";
-				System.out.println(event.item + " " + string);
-			}
-		});
+		
+		// selected option list TODO
+		final Table selections = new Table(container_advance, SWT.BORDER);
+		//selections.setBounds(shellBounds.x + 160,shellBounds.y + 100,150,300);
 
+		selections.setSize(300,300);
+		new TableItem(selections, SWT.NONE);
+		new TableItem(selections, SWT.NONE);
+		new TableItem(selections, SWT.NONE);
+		new TableItem(selections, SWT.NONE);
+		
 		final RadixTree<String> rt = createSearchTree("keywords.txt");
 
 		// Keyboard actions
@@ -153,13 +166,19 @@ public class ConfigDialog extends Dialog {
 					table.setSelection(index);
 					event.doit = false;
 					break;
-				case SWT.CR: // Carriage Return
-					System.out.println("TEST");
-					
+				case SWT.CR: // TODO: Carriage Return
 					if (popupShell.isVisible()
 							&& table.getSelectionIndex() != -1) {
-						autoSuggest.setText(table.getSelection()[0].getText());
-						popupShell.setVisible(false);
+						
+//						TODO: remove
+//						String str = table.getSelection()[0].getText();
+//						autoSuggest.setText(str);
+//						autoSuggest.setSelection(str.length());
+//						popupShell.setVisible(false);
+						
+						table.getSelection()[0].setChecked(true);
+						new TableItem(selections, SWT.NONE);
+						
 					}
 					break;
 				case SWT.ESC:
@@ -195,7 +214,7 @@ public class ConfigDialog extends Dialog {
 						// can press enter to select the first match
 						table.setSelection(0);
 
-						Rectangle shellBounds = currShell.getBounds();
+						final Rectangle shellBounds = currShell.getBounds();
 						Rectangle textBounds = autoSuggest.getBounds();
 						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
 								textBounds.y + textBounds.height * 3
@@ -236,13 +255,8 @@ public class ConfigDialog extends Dialog {
 		});
 		/* ********************************* */
 
-		// selected option list TODO
-		// final Text selections = new Text(container_advance, SWT.BORDER);
-		// selections.setLayoutData(new GridData(300, SWT.DEFAULT));
-		// final Table selections = new Table(container_advance, SWT.SINGLE);
-		// selections.setBounds();
-		// new TableItem(selections, SWT.None).setText("aaaaaaaaaaaaaa");
-
+		
+		
 		// populate checkboxes
 		createArgCheckboxes(argCheckboxComposite);
 
