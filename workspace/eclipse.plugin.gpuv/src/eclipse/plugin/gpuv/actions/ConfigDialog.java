@@ -32,7 +32,6 @@ public class ConfigDialog extends Dialog {
 	private Set<String> argList;
 	private Map<String, Button> argCheckboxButtons;
 	private Composite comp;
-	private boolean isAdvanced = false;
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
@@ -111,7 +110,8 @@ public class ConfigDialog extends Dialog {
 		label.setText("Search Box");
 
 		/*
-		 * Set Text Area for auto suggestion
+		 * Set Text Area for auto suggestion TODO : search - do not care whether
+		 * upper- or lower-case. but display case-sensitive result.
 		 */
 		final Text autoSuggest = new Text(container_advance, SWT.BORDER);
 		autoSuggest.setLayoutData(new GridData(150, SWT.DEFAULT));
@@ -122,14 +122,23 @@ public class ConfigDialog extends Dialog {
 		final Shell currShell = this.getShell();
 		final Shell popupShell = new Shell(SWT.ON_TOP);
 		popupShell.setLayout(new FillLayout());
-		final Table table = new Table(popupShell, SWT.SINGLE);
+		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
+				| SWT.V_SCROLL | SWT.H_SCROLL);
+
+		// TODO test code
+		table.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event event) {
+				String string = event.detail == SWT.CHECK ? "Checked"
+						: "Selected";
+				System.out.println(event.item + " " + string);
+			}
+		});
 
 		final RadixTree<String> rt = createSearchTree("keywords.txt");
 
 		// Keyboard actions
 		autoSuggest.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
-				autoSuggest.setFocus();
 				switch (event.keyCode) {
 				case SWT.ARROW_DOWN:
 					int index = (table.getSelectionIndex() + 1)
@@ -145,12 +154,11 @@ public class ConfigDialog extends Dialog {
 					event.doit = false;
 					break;
 				case SWT.CR: // Carriage Return
+					System.out.println("TEST");
+					
 					if (popupShell.isVisible()
 							&& table.getSelectionIndex() != -1) {
-						System.out.println("pressed");
-						String str = table.getSelection()[0].getText();
-						autoSuggest.setText(str);
-						autoSuggest.setSelection(str.length());
+						autoSuggest.setText(table.getSelection()[0].getText());
 						popupShell.setVisible(false);
 					}
 					break;
@@ -163,7 +171,6 @@ public class ConfigDialog extends Dialog {
 		autoSuggest.addListener(SWT.Modify, new Listener() {
 			public void handleEvent(Event event) {
 				String string = autoSuggest.getText();
-
 				if (string.length() == 0) {
 					popupShell.setVisible(false);
 				} else {
@@ -171,14 +178,15 @@ public class ConfigDialog extends Dialog {
 							restriction);
 					int numOfItems = keywords.size();
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
-
+					// max. 8 items displayed, rest scrollable
+					
 					// displays only when there is an item
 					if (numOfItems <= 0) {
 						popupShell.setVisible(false);
 					} else {
-
 						table.removeAll();
-
+//TODO keep a complete list... checked or not ... and
+// another is for display. 
 						// add items to the table
 						for (int i = 0; i < numOfItems; i++) {
 							new TableItem(table, SWT.NONE).setText(keywords
@@ -194,7 +202,6 @@ public class ConfigDialog extends Dialog {
 										+ shellBounds.y, textBounds.width,
 								table.getItemHeight() * numToShow + 2);
 						popupShell.setVisible(true);
-
 					}
 				}
 			}
@@ -213,13 +220,14 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
+		// TODO remove popupShell on close
 		Listener focusOutListener = new Listener() {
 			public void handleEvent(Event event) {
-				popupShell.setVisible(false);
+		//		popupShell.setVisible(false);
 			}
 		};
-		table.addListener(SWT.FocusOut, focusOutListener);
-		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
+		 table.addListener(SWT.FocusOut, focusOutListener);
+		 autoSuggest.addListener(SWT.FocusOut, focusOutListener);
 
 		currShell.addListener(SWT.Move, new Listener() {
 			public void handleEvent(Event event) {
@@ -228,16 +236,12 @@ public class ConfigDialog extends Dialog {
 		});
 		/* ********************************* */
 
-		List list = new List(container_advance, SWT.MULTI | SWT.V_SCROLL);
-
-		list.add("Mercury");
-		list.add("Venus");
-		list.add("Earth");
-		list.add("JavaSoft");
-		list.add("Earth");
-		list.add("JavaSoft");
-		list.add("Earth");
-		list.add("JavaSoft");
+		// selected option list TODO
+		// final Text selections = new Text(container_advance, SWT.BORDER);
+		// selections.setLayoutData(new GridData(300, SWT.DEFAULT));
+		// final Table selections = new Table(container_advance, SWT.SINGLE);
+		// selections.setBounds();
+		// new TableItem(selections, SWT.None).setText("aaaaaaaaaaaaaa");
 
 		// populate checkboxes
 		createArgCheckboxes(argCheckboxComposite);
@@ -281,11 +285,6 @@ public class ConfigDialog extends Dialog {
 		return rt;
 	}
 
-	private void createAdvancedContent() {
-		isAdvanced = true;
-		comp.dispose();
-		createDialogArea(comp);
-	}
 
 	protected Control createButtonBar(final Composite parent) {
 		final Composite btnBar = new Composite(parent, SWT.NONE);
@@ -300,7 +299,6 @@ public class ConfigDialog extends Dialog {
 			public void widgetSelected(SelectionEvent e) {
 				if (advancedButton.getSelection()) {
 					System.out.println("hello");
-					createAdvancedContent();
 				} else {
 					System.out.println("No");
 				}
