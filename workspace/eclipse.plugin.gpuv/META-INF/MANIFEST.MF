@@ -7,8 +7,6 @@ Bundle-Activator: eclipse.plugin.gpuv.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
