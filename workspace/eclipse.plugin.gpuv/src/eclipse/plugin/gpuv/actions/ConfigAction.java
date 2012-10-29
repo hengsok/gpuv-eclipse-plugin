@@ -16,12 +16,12 @@ import org.eclipse.jface.dialogs.InputDialog;
  * delegated to it.
  * @see IWorkbenchWindowActionDelegate
  */
-public class ConfigurationAction implements IWorkbenchWindowActionDelegate {
+public class ConfigAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 	/**
 	 * The constructor.
 	 */
-	public ConfigurationAction() {
+	public ConfigAction() {
 	}
 
 	/**
@@ -32,15 +32,16 @@ public class ConfigurationAction implements IWorkbenchWindowActionDelegate {
 	 */
 	public void run(IAction action) {
 
-		ConfigurationDialog dialog = null;
+		ConfigDialog dialog = null;
 		
 		try {
-			dialog = new ConfigurationDialog(window.getShell());
+			dialog = new ConfigDialog(window.getShell());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	
 		dialog.open();
+		
 
 	}
 

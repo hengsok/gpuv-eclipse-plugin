@@ -16,7 +16,7 @@
             </separator>
          </menu>
          <action
-               class="eclipse.plugin.gpuv.actions.ConfigurationAction"
+               class="eclipse.plugin.gpuv.actions.ConfigAction"
                icon="icons/sample.gif"
                id="eclipse.plugin.gpuv.actions.SampleAction"
                label="&amp;Open Configuration"
@@ -29,6 +29,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
+            category="eclipse.plugin.gpuv"
             class="eclipse.plugin.gpuv.views.MainViewDisplayResults"
             id="eclipse.plugin.gpuv.gpuview"
             name="GPUVerify View"
@@ -36,15 +37,8 @@
       </view>
       <category
             id="eclipse.plugin.gpuv"
-            name="Sample Category">
+            name="GPUVerify">
       </category>
-      <view
-            category="eclipse.plugin.gpuv"
-            class="eclipse.plugin.gpuv.views2.SampleView"
-            icon="icons/sample.gif"
-            id="eclipse.plugin.gpuv.views2.SampleView"
-            name="Sample View">
-      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">

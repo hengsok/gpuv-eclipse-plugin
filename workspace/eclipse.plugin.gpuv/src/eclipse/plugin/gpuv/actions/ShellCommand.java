@@ -12,11 +12,11 @@ public class ShellCommand {
 	public void runCommand(Set<String> argList) throws IOException {
 	    Runtime r = Runtime.getRuntime();
 	    
-	    String command = "";
+	    String command = "ls";
 	    for(String arg : argList){
 	    	command += " " + arg;
 	    }
-
+	    System.out.println(command);
 	    String[] nargs = { "sh", "-c", command };
 	    Process p = r.exec(nargs);
 	    
