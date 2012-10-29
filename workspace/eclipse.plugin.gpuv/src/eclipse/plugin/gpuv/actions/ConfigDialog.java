@@ -32,6 +32,7 @@ public class ConfigDialog extends Dialog {
 	private Set<String> argList;
 	private Map<String, Button> argCheckboxButtons;
 	private Composite comp;
+	//TODO unused?
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
@@ -61,6 +62,8 @@ public class ConfigDialog extends Dialog {
 	}
 
 	protected Control createDialogArea(Composite parent) {
+		// Disabling ESC and CR for config box. 
+		// The keys are used only by auto-suggestion text field. 
 		this.getShell().addListener(SWT.Traverse, new Listener() {
 			public void handleEvent(Event e) {
 				if (e.detail == SWT.TRAVERSE_ESCAPE) {
@@ -70,7 +73,6 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
-		
 		
 		// Store composite for use by createAdvancedContent()
 		this.comp = parent;
@@ -93,7 +95,7 @@ public class ConfigDialog extends Dialog {
 		Composite container_advance = new Composite(settings, SWT.NONE);
 		// Set general container layout
 		GridLayout gridlayoutContainer = new GridLayout();
-		gridlayoutContainer.numColumns = 3;
+		gridlayoutContainer.numColumns = 2;
 		container_general.setLayout(gridlayoutContainer);
 		container_advance.setLayout(gridlayoutContainer);
 
@@ -125,7 +127,9 @@ public class ConfigDialog extends Dialog {
 		 * upper- or lower-case. but display case-sensitive result.
 		 */
 		final Text autoSuggest = new Text(container_advance, SWT.BORDER);
-		autoSuggest.setLayoutData(new GridData(150, SWT.DEFAULT));
+		GridData autoGrid = new GridData(150, SWT.DEFAULT);
+		autoGrid.verticalAlignment = GridData.BEGINNING;
+		autoSuggest.setLayoutData(autoGrid);
 
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
@@ -137,15 +141,33 @@ public class ConfigDialog extends Dialog {
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
 		
-		// selected option list TODO
-		final Table selections = new Table(container_advance, SWT.BORDER);
-		//selections.setBounds(shellBounds.x + 160,shellBounds.y + 100,150,300);
+		// selected option list
+		final Table selections = new Table(container_advance, SWT.CHECK | SWT.BORDER
+				| SWT.V_SCROLL | SWT.H_SCROLL);
+		GridData tableGrid = new GridData();
+		tableGrid.verticalSpan = 2;
+		tableGrid.widthHint = 150;
+		tableGrid.heightHint = 150;
+		selections.setLayoutData(tableGrid);
 
-		selections.setSize(300,300);
-		new TableItem(selections, SWT.NONE);
-		new TableItem(selections, SWT.NONE);
-		new TableItem(selections, SWT.NONE);
-		new TableItem(selections, SWT.NONE);
+		final Button removeButton = new Button(container_advance, SWT.PUSH);
+		GridData removeGrid = new GridData();
+		removeGrid.verticalAlignment = GridData.END;
+		removeGrid.horizontalAlignment = GridData.END;
+		removeButton.setLayoutData(removeGrid);
+		removeButton.setText("Remove");
+		
+		removeButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// Clear checked items from selections
+				TableItem ti[] = selections.getItems();
+				for(int i=ti.length-1; i >= 0; i--) {
+					if(ti[i].getChecked()) {
+						selections.remove(i);
+					}
+				}
+			}
+		});
 		
 		final RadixTree<String> rt = createSearchTree("keywords.txt");
 
@@ -166,19 +188,12 @@ public class ConfigDialog extends Dialog {
 					table.setSelection(index);
 					event.doit = false;
 					break;
-				case SWT.CR: // TODO: Carriage Return
+				case SWT.CR: // Carriage Return
 					if (popupShell.isVisible()
 							&& table.getSelectionIndex() != -1) {
-						
-//						TODO: remove
-//						String str = table.getSelection()[0].getText();
-//						autoSuggest.setText(str);
-//						autoSuggest.setSelection(str.length());
-//						popupShell.setVisible(false);
-						
+						String str = table.getSelection()[0].getText();
 						table.getSelection()[0].setChecked(true);
-						new TableItem(selections, SWT.NONE);
-						
+						addToSelection(str, selections);
 					}
 					break;
 				case SWT.ESC:
@@ -204,8 +219,7 @@ public class ConfigDialog extends Dialog {
 						popupShell.setVisible(false);
 					} else {
 						table.removeAll();
-//TODO keep a complete list... checked or not ... and
-// another is for display. 
+
 						// add items to the table
 						for (int i = 0; i < numOfItems; i++) {
 							new TableItem(table, SWT.NONE).setText(keywords
@@ -221,6 +235,8 @@ public class ConfigDialog extends Dialog {
 										+ shellBounds.y, textBounds.width,
 								table.getItemHeight() * numToShow + 2);
 						popupShell.setVisible(true);
+						
+						//TODO : if in the selections, make it checked.
 					}
 				}
 			}
@@ -239,10 +255,11 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
+		
 		// TODO remove popupShell on close
 		Listener focusOutListener = new Listener() {
 			public void handleEvent(Event event) {
-		//		popupShell.setVisible(false);
+				popupShell.setVisible(false);
 			}
 		};
 		 table.addListener(SWT.FocusOut, focusOutListener);
@@ -266,6 +283,20 @@ public class ConfigDialog extends Dialog {
 		initContent();
 
 		return settings;
+	}
+
+	// checks if the str is already selected, 
+	// add to the table 'selections' if not. 
+	private void addToSelection(String str, Table selections) {
+		// if exists, skip
+		TableItem ti[] = selections.getItems();
+		for (int i = 0; i < ti.length; i++) {
+			if (ti[i].getText().equals(str)) {
+				return; //exists, skip.
+			}
+		}
+		// if not, add to table
+		new TableItem(selections, SWT.NONE).setText(str);
 	}
 
 	private RadixTree<String> createSearchTree(String filename) {
