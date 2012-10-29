@@ -55,50 +55,52 @@ public class ConfigDialog extends Dialog {
 	protected Control createDialogArea(Composite parent) {
 		//Store composite for use by createAdvancedContent()
 		this.comp = parent;
-		
-		Composite container = (Composite) super.createDialogArea(parent);
-		final GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 2;
-		gridLayout.marginLeft = 20;
-		gridLayout.marginRight = 400;
-		gridLayout.marginTop = 20;
-
-		container.setLayout(gridLayout);
-		
+		//Create Tab Folder
+		TabFolder settings = new TabFolder(parent, SWT.NULL);
+		//Two Tab Options: general and advance
+		TabItem generalSetting = new TabItem(settings, SWT.NULL);
+		TabItem advanceSetting = new TabItem(settings, SWT.NULL);
+		//Set Folder Size
+		GridData gridData = new GridData(GridData.FILL, GridData.FILL, false, false);
+		//gridData.heightHint = 600;
+		//gridData.widthHint = 800;
+		settings.setLayoutData(gridData);
+		//Set Option title
+		generalSetting.setText("General");
+		advanceSetting.setText("Advance");
+		//Container for settings
+		Composite container_general = new Composite(settings, SWT.NONE);
+		Composite container_advance = new Composite(settings, SWT.NONE);
+		//Set general container layout
+		GridLayout gridlayoutContainer = new GridLayout();
+		gridlayoutContainer.numColumns = 3;
+		container_general.setLayout(gridlayoutContainer);
+		container_advance.setLayout(gridlayoutContainer);
+				
 		//Instructions text
-		final Label instructionText = new Label(container, SWT.NONE);
-		instructionText.setLayoutData(new GridData(GridData.BEGINNING,
-				GridData.CENTER, false, false, 2, 1));
+		Label instructionText = new Label(container_general, SWT.NONE);
+		gridData = new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 3, 1);
+		instructionText.setLayoutData(gridData);
 		instructionText.setText("Select the arguments to be passed to GPUVerify");
 		
 
 		//Composite to hold check box
-		final Composite argCheckboxComposite = new Composite(container,
-				SWT.NONE);
-		final GridData gridDataSetting = new GridData(GridData.FILL,
-				GridData.FILL, false, false, 2, 1);
-		gridDataSetting.horizontalIndent = 20;
-		argCheckboxComposite.setLayoutData(gridDataSetting);
+		Composite argCheckboxComposite = new Composite(container_general, SWT.NONE);
+		gridData = new GridData(GridData.FILL, GridData.FILL, false, false, 1, 1);
+		gridData.horizontalIndent = 20;
+		argCheckboxComposite.setLayoutData(gridData);
 		final GridLayout argCheckboxLayout = new GridLayout();
 		argCheckboxLayout.numColumns = 2;
 		argCheckboxComposite.setLayout(argCheckboxLayout);	
 	
-		//Set container layout
-		Composite container2 = (Composite) super.createDialogArea(comp);
-		GridLayout gridLayout2 = new GridLayout();
-		//gridLayout2.numColumns = 2;
-		//gridLayout2.marginLeft = 200;
-		//gridLayout2.marginRight = 200;
-		gridLayout2.marginTop = 20;
-		container2.setLayout(gridLayout2);
 		//Set Plain Text
-		Label label = new Label(container2, SWT.BORDER);
+		Label label = new Label(container_general, SWT.BORDER);
 		label.setText("Search Box");
 		//Set Text Area
-		Text textDemo = new Text(container2, SWT.BORDER);
+		Text textDemo = new Text(container_advance, SWT.BORDER);
 		textDemo.setText("Text Area Demo");
 	
-		final List list = new List(parent, SWT.MULTI |  SWT.V_SCROLL);
+		List list = new List(container_advance, SWT.MULTI |  SWT.V_SCROLL);
 	
 		list.add("Mercury");
 		list.add("Venus");
@@ -113,9 +115,13 @@ public class ConfigDialog extends Dialog {
 		 
 		 //populate checkboxes
 		createArgCheckboxes(argCheckboxComposite);
+		
+		generalSetting.setControl(container_general);
+		advanceSetting.setControl(container_advance);
+		
 		initContent();
 
-		return container;
+		return settings;
 	}
 	
 	private void createAdvancedContent(){
