@@ -63,8 +63,8 @@ public class ConfigDialog extends Dialog {
 
 	protected Control createDialogArea(Composite parent) {
 		final Shell currShell = this.getShell();
-		// Disabling ESC and CR for config box. 
-		// The keys are used only by auto-suggestion text field. 
+		// Disabling ESC and CR for config box.
+		// The keys are used only by auto-suggestion text field.
 		currShell.addListener(SWT.Traverse, new Listener() {
 			public void handleEvent(Event e) {
 				if (e.detail == SWT.TRAVERSE_ESCAPE) {
@@ -116,14 +116,13 @@ public class ConfigDialog extends Dialog {
 		argCheckboxLayout.numColumns = 2;
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
-		
 		// Set Plain Text
 		Label label = new Label(container_advance, SWT.BORDER);
 		label.setText("Option search Box");
 
 		// selected option list
-		final Table selections = new Table(container_advance, SWT.CHECK | SWT.BORDER
-				| SWT.V_SCROLL | SWT.H_SCROLL);
+		final Table selections = new Table(container_advance, SWT.CHECK
+				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData tableGrid = new GridData();
 		tableGrid.verticalSpan = 3;
 		tableGrid.widthHint = 150;
@@ -131,8 +130,7 @@ public class ConfigDialog extends Dialog {
 		selections.setLayoutData(tableGrid);
 
 		/*
-		 * Set Text Area for auto suggestion TODO : search - do not care whether
-		 * upper- or lower-case. but display case-sensitive result.
+		 * Set Text Area for auto suggestion
 		 */
 		final Text autoSuggest = new Text(container_advance, SWT.BORDER);
 		GridData autoGrid = new GridData(150, SWT.DEFAULT);
@@ -153,26 +151,26 @@ public class ConfigDialog extends Dialog {
 		removeGrid.horizontalAlignment = GridData.END;
 		removeButton.setLayoutData(removeGrid);
 		removeButton.setText("Remove");
-		
+
 		removeButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				// Clear checked items from selections
 				TableItem ti[] = selections.getItems();
-				for(int i=ti.length-1; i >= 0; i--) {
-					if(ti[i].getChecked()) {
+				for (int i = ti.length - 1; i >= 0; i--) {
+					if (ti[i].getChecked()) {
 						selections.remove(i);
 					}
 				}
 			}
 		});
-		
-         currShell.addDisposeListener(new DisposeListener() {
-             @Override
-             public void widgetDisposed(DisposeEvent arg0) {
-                 popupShell.dispose();
-             }
-         });
-		
+
+		currShell.addDisposeListener(new DisposeListener() {
+			@Override
+			public void widgetDisposed(DisposeEvent arg0) {
+				popupShell.dispose();
+			}
+		});
+
 		final RadixTree<String> rt = createSearchTree("keywords.txt");
 
 		// Keyboard actions
@@ -197,7 +195,7 @@ public class ConfigDialog extends Dialog {
 							&& table.getSelectionIndex() != -1) {
 						TableItem item = table.getSelection()[0];
 						String str = item.getText();
-						if(item.getChecked()) {
+						if (item.getChecked()) {
 							item.setChecked(false);
 							removeFromSelection(str, selections);
 						} else {
@@ -218,12 +216,12 @@ public class ConfigDialog extends Dialog {
 				if (string.length() == 0) {
 					popupShell.setVisible(false);
 				} else {
-					ArrayList<String> keywords = rt.searchPrefix(string,
-							restriction);
+					ArrayList<String> keywords = rt.searchPrefix(string
+							.toLowerCase(), restriction);
 					int numOfItems = keywords.size();
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
-					
+
 					// displays only when there is an item
 					if (numOfItems <= 0) {
 						popupShell.setVisible(false);
@@ -235,9 +233,10 @@ public class ConfigDialog extends Dialog {
 							TableItem ti = new TableItem(table, SWT.NONE);
 							ti.setText(keywords.get(i));
 							// if in the selections, make it checked.
-							ti.setChecked(isInSelection(keywords.get(i),selections));
+							ti.setChecked(isInSelection(keywords.get(i),
+									selections));
 						}
-						
+
 						// can press enter to select the first match
 						table.setSelection(0);
 
@@ -246,7 +245,7 @@ public class ConfigDialog extends Dialog {
 						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
 								textBounds.y + textBounds.height * 3
 										+ shellBounds.y, textBounds.width,
-								table.getItemHeight() * numToShow + 2);
+								table.getItemHeight() * numToShow + 5);
 						popupShell.setVisible(true);
 					}
 				}
@@ -266,14 +265,14 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
-		
+
 		Listener focusOutListener = new Listener() {
 			public void handleEvent(Event event) {
 				popupShell.setVisible(false);
 			}
 		};
-		 table.addListener(SWT.FocusOut, focusOutListener);
-		 autoSuggest.addListener(SWT.FocusOut, focusOutListener);
+		table.addListener(SWT.FocusOut, focusOutListener);
+		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
 
 		currShell.addListener(SWT.Move, new Listener() {
 			public void handleEvent(Event event) {
@@ -282,8 +281,6 @@ public class ConfigDialog extends Dialog {
 		});
 		/* ********************************* */
 
-		
-		
 		// populate checkboxes
 		createArgCheckboxes(argCheckboxComposite);
 
@@ -295,19 +292,20 @@ public class ConfigDialog extends Dialog {
 		return settings;
 	}
 
-	// checks if the str is already selected, 
-	// add to the table 'selections' if not. 
+	// checks if the str is already selected,
+	// add to the table 'selections' if not.
 	private void addToSelection(String str, Table selections) {
 		// if exists, skip
 		TableItem ti[] = selections.getItems();
 		for (int i = 0; i < ti.length; i++) {
 			if (ti[i].getText().equals(str)) {
-				return; //exists, skip.
+				return; // exists, skip.
 			}
 		}
 		// if not, add to table
 		new TableItem(selections, SWT.NONE).setText(str);
 	}
+
 	private void removeFromSelection(String str, Table selections) {
 		TableItem ti[] = selections.getItems();
 		for (int i = 0; i < ti.length; i++) {
@@ -316,6 +314,7 @@ public class ConfigDialog extends Dialog {
 			}
 		}
 	}
+
 	private boolean isInSelection(String str, Table selections) {
 		TableItem ti[] = selections.getItems();
 		for (int i = 0; i < ti.length; i++) {
@@ -338,9 +337,11 @@ public class ConfigDialog extends Dialog {
 					.getResourceAsStream(filename);
 			br = new BufferedReader(new InputStreamReader(is));
 			String line;
+			String key;
 			while ((line = br.readLine()) != null) {
-				if (!rt.contains(line)) {
-					rt.insert(line, line);
+				key = line.toLowerCase();
+				if (!rt.contains(key)) {
+					rt.insert(key, line);
 				}
 			}
 		} catch (IOException e) {
@@ -356,7 +357,6 @@ public class ConfigDialog extends Dialog {
 
 		return rt;
 	}
-
 
 	protected Control createButtonBar(final Composite parent) {
 		final Composite btnBar = new Composite(parent, SWT.NONE);
