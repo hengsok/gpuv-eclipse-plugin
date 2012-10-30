@@ -58,5 +58,64 @@
             file="contexts.xml">
       </contexts>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="eclipse.plugin.gpuv.category.wizards"
+            name="GPUVerify Custom Project">
+      </category>
+      <wizard
+            category="eclipse.plugin.gpuv.category.wizards"
+            class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.wizard.newProjectWizard"
+            name="GPUVerify Project">
+      </wizard>
+      <wizard
+            category="eclipse.plugin.gpuv.category.wizards"
+            class="eclipse.plugin.gpuv.wizards.NewFileWizard"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.wizards.NewFileWizard"
+            name="New OpenCL File">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="eclipse.plugin.gpuv.perspectives.GPUVerifyPerspective"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.perspective"
+            name="GPUVerify Perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="eclipse.plugin.gpuv.perspective">
+         <view
+               id="org.eclipse.ui.navigator.ProjectExplorer"
+               minimized="false"
+               ratio="0.15"
+               relationship="left"
+               relative="org.eclipse.ui.navigator.ProjectExplorer">
+         </view>
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.2"
+               relationship="bottom"
+               relative="org.eclipse.ui.console.ConsoleView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         id="eclipse.plugin.gpuv.natures"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="eclipse.plugin.gpuv.ProjectNature">
+         </run>
+      </runtime>
+   </extension>
 
 </plugin>
