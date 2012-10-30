@@ -62,9 +62,10 @@ public class ConfigDialog extends Dialog {
 	}
 
 	protected Control createDialogArea(Composite parent) {
+		final Shell currShell = this.getShell();
 		// Disabling ESC and CR for config box. 
 		// The keys are used only by auto-suggestion text field. 
-		this.getShell().addListener(SWT.Traverse, new Listener() {
+		currShell.addListener(SWT.Traverse, new Listener() {
 			public void handleEvent(Event e) {
 				if (e.detail == SWT.TRAVERSE_ESCAPE) {
 					e.doit = false;
@@ -118,9 +119,19 @@ public class ConfigDialog extends Dialog {
 		argCheckboxLayout.numColumns = 2;
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
+		
 		// Set Plain Text
-		Label label = new Label(container_general, SWT.BORDER);
-		label.setText("Search Box");
+		Label label = new Label(container_advance, SWT.BORDER);
+		label.setText("Option search Box");
+
+		// selected option list
+		final Table selections = new Table(container_advance, SWT.CHECK | SWT.BORDER
+				| SWT.V_SCROLL | SWT.H_SCROLL);
+		GridData tableGrid = new GridData();
+		tableGrid.verticalSpan = 3;
+		tableGrid.widthHint = 150;
+		tableGrid.heightHint = 150;
+		selections.setLayoutData(tableGrid);
 
 		/*
 		 * Set Text Area for auto suggestion TODO : search - do not care whether
@@ -134,21 +145,10 @@ public class ConfigDialog extends Dialog {
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
 
-		final Shell currShell = this.getShell();
 		final Shell popupShell = new Shell(SWT.ON_TOP);
 		popupShell.setLayout(new FillLayout());
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
-
-		
-		// selected option list
-		final Table selections = new Table(container_advance, SWT.CHECK | SWT.BORDER
-				| SWT.V_SCROLL | SWT.H_SCROLL);
-		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 2;
-		tableGrid.widthHint = 150;
-		tableGrid.heightHint = 150;
-		selections.setLayoutData(tableGrid);
 
 		final Button removeButton = new Button(container_advance, SWT.PUSH);
 		GridData removeGrid = new GridData();
@@ -168,6 +168,7 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
+		
 		
 		final RadixTree<String> rt = createSearchTree("keywords.txt");
 
@@ -191,9 +192,15 @@ public class ConfigDialog extends Dialog {
 				case SWT.CR: // Carriage Return
 					if (popupShell.isVisible()
 							&& table.getSelectionIndex() != -1) {
-						String str = table.getSelection()[0].getText();
-						table.getSelection()[0].setChecked(true);
-						addToSelection(str, selections);
+						TableItem item = table.getSelection()[0];
+						String str = item.getText();
+						if(item.getChecked()) {
+							item.setChecked(false);
+							removeFromSelection(str, selections);
+						} else {
+							item.setChecked(true);
+							addToSelection(str, selections);
+						}
 					}
 					break;
 				case SWT.ESC:
@@ -222,9 +229,12 @@ public class ConfigDialog extends Dialog {
 
 						// add items to the table
 						for (int i = 0; i < numOfItems; i++) {
-							new TableItem(table, SWT.NONE).setText(keywords
-									.get(i));
+							TableItem ti = new TableItem(table, SWT.NONE);
+							ti.setText(keywords.get(i));
+							// if in the selections, make it checked.
+							ti.setChecked(isInSelection(keywords.get(i),selections));
 						}
+						
 						// can press enter to select the first match
 						table.setSelection(0);
 
@@ -235,8 +245,6 @@ public class ConfigDialog extends Dialog {
 										+ shellBounds.y, textBounds.width,
 								table.getItemHeight() * numToShow + 2);
 						popupShell.setVisible(true);
-						
-						//TODO : if in the selections, make it checked.
 					}
 				}
 			}
@@ -297,6 +305,23 @@ public class ConfigDialog extends Dialog {
 		}
 		// if not, add to table
 		new TableItem(selections, SWT.NONE).setText(str);
+	}
+	private void removeFromSelection(String str, Table selections) {
+		TableItem ti[] = selections.getItems();
+		for (int i = 0; i < ti.length; i++) {
+			if (ti[i].getText().equals(str)) {
+				selections.remove(i);
+			}
+		}
+	}
+	private boolean isInSelection(String str, Table selections) {
+		TableItem ti[] = selections.getItems();
+		for (int i = 0; i < ti.length; i++) {
+			if (ti[i].getText().equals(str)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private RadixTree<String> createSearchTree(String filename) {
