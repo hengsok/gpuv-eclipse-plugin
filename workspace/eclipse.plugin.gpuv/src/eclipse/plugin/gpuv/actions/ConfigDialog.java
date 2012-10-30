@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
@@ -31,8 +33,6 @@ public class ConfigDialog extends Dialog {
 	private Set<String> selectedArgs;
 	private Set<String> argList;
 	private Map<String, Button> argCheckboxButtons;
-	private Composite comp;
-	//TODO unused?
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
@@ -74,9 +74,6 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
-		
-		// Store composite for use by createAdvancedContent()
-		this.comp = parent;
 		// Create Tab Folder
 		TabFolder settings = new TabFolder(parent, SWT.NULL);
 		// Two Tab Options: general and advance
@@ -169,6 +166,12 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 		
+         currShell.addDisposeListener(new DisposeListener() {
+             @Override
+             public void widgetDisposed(DisposeEvent arg0) {
+                 popupShell.dispose();
+             }
+         });
 		
 		final RadixTree<String> rt = createSearchTree("keywords.txt");
 
@@ -264,7 +267,6 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 		
-		// TODO remove popupShell on close
 		Listener focusOutListener = new Listener() {
 			public void handleEvent(Event event) {
 				popupShell.setVisible(false);
