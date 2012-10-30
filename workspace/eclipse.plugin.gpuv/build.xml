@@ -27,6 +27,7 @@
      <pathelement location="lib/org.eclipse.core.contenttype_3.4.100.dist.jar" />
   	 <pathelement location="lib/org.eclipse.equinox.app_1.3.100.dist.jar" />
      <pathelement location="lib/org.eclipse.core.resources_3.7.101.dist.jar" />
+     <pathelement location="org.eclipse.ui.ide_3.7.0.dist.jar" />
     <pathelement location="${build.dir}" />
   </path>
 	
