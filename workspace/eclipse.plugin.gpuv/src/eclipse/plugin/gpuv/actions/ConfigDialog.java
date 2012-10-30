@@ -33,13 +33,15 @@ public class ConfigDialog extends Dialog {
 	private Set<String> selectedArgs;
 	private Set<String> argList;
 	private Map<String, Button> argCheckboxButtons;
-
+	
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
 
 		// Read in list of arguments
 		ConfigArgumentList configArgList = new ConfigArgumentList();
+		ConfigRecentlyUsedArgs configRecentArgList = new ConfigRecentlyUsedArgs();
 		argList = configArgList.getArgList();
+		argList.addAll(configRecentArgList.getRecentArgs());
 
 		this.selectedArgs = new HashSet<String>();
 

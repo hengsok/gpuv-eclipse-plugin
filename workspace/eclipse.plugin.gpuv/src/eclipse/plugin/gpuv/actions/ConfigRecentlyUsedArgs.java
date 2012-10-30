@@ -2,29 +2,32 @@ package eclipse.plugin.gpuv.actions;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ConfigRecentlyUsedArgs {
-	private final String recentArgsFilename = "/Users/hengsok/test.txt";
+	private final String recentArgsFilename = "recentArgs.txt";
 
 	public ConfigRecentlyUsedArgs(){
 		
 	}
 	
 	public void storeRecentArgs(Set<String> recentArgsToStore){
-		BufferedWriter buf = null;
+		FileOutputStream fos = null;
 
 		try {
-			buf = new BufferedWriter(new FileWriter(recentArgsFilename));
+			fos = new FileOutputStream(new File(this.getClass().getClassLoader().getResource(recentArgsFilename).toString()));
 			
 			for(String arg : recentArgsToStore){
-				buf.write(arg);
-				buf.newLine();
+				fos.write(arg.getBytes());
+				fos.write("\r\n".getBytes());
 			}
 
 
@@ -34,9 +37,9 @@ public class ConfigRecentlyUsedArgs {
 			ex.printStackTrace();
 		} finally {
 			try {
-				if (buf != null) {
-					buf.flush();
-					buf.close();
+				if (fos != null) {
+					fos.flush();
+					fos.close();
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -49,7 +52,8 @@ public class ConfigRecentlyUsedArgs {
 		BufferedReader br = null;
 
 		try {
-			br = new BufferedReader(new FileReader(recentArgsFilename));
+			InputStream is = this.getClass().getClassLoader().getResourceAsStream(recentArgsFilename);
+			br = new BufferedReader(new InputStreamReader(is));
 
 			String strLine = null;
 			while ((strLine = br.readLine()) != null) {
