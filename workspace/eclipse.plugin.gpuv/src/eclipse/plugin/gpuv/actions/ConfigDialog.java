@@ -33,7 +33,7 @@ public class ConfigDialog extends Dialog {
 	private Set<String> selectedArgs;
 	private Set<String> argList;
 	private Map<String, Button> argCheckboxButtons;
-	
+
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
 
@@ -77,7 +77,7 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 		// Create Tab Folder
-		TabFolder settings = new TabFolder(parent, SWT.NULL);
+		final TabFolder settings = new TabFolder(parent, SWT.NULL);
 		// Two Tab Options: general and advanced
 		TabItem generalSetting = new TabItem(settings, SWT.NULL);
 		TabItem advancedSetting = new TabItem(settings, SWT.NULL);
@@ -125,16 +125,15 @@ public class ConfigDialog extends Dialog {
 		selectionLabel.setText("Selected options: ");
 
 		/*
-		 * Set Text Area for auto suggestion
-		 * TODO 1: connect general tab and advanced tab selection list
-		 * TODO 2: better display for the options (actual option + keyword)
+		 * Set Text Area for auto suggestion TODO 1: connect general tab and
+		 * advanced tab selection list TODO 2: better display for the options
+		 * (actual option + keyword)
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
 		GridData autoGrid = new GridData(150, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
 		autoSuggest.setLayoutData(autoGrid);
 
-		
 		// selected option list
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -172,10 +171,18 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
+		// closing popupShell on dispose of current shell
 		currShell.addDisposeListener(new DisposeListener() {
 			@Override
 			public void widgetDisposed(DisposeEvent arg0) {
 				popupShell.dispose();
+			}
+		});
+
+		// refreshing when switching between tabs
+		settings.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				refreshSelections(selections);
 			}
 		});
 
@@ -226,8 +233,8 @@ public class ConfigDialog extends Dialog {
 				if (string.length() == 0) {
 					popupShell.setVisible(false);
 				} else {
-					ArrayList<String> keywords = rt.searchPrefix(string
-							.toLowerCase(), restriction);
+					ArrayList<String> keywords = rt.searchPrefix(
+							string.toLowerCase(), restriction);
 					int numOfItems = keywords.size();
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
@@ -301,10 +308,15 @@ public class ConfigDialog extends Dialog {
 		return settings;
 	}
 
-	private void refreshSelections(Table selections){
+	// refresh selection table and checkboxes
+	private void refreshSelections(Table selections) {
 		selections.removeAll();
-		for(String arg : selectedArgs) {
+		for (String arg : selectedArgs) {
 			new TableItem(selections, SWT.NONE).setText(arg);
+		}
+		// only check the buttons that are in selectedArgs
+		for (String arg : argCheckboxButtons.keySet()) {
+			argCheckboxButtons.get(arg).setSelection(selectedArgs.contains(arg));
 		}
 	}
 
@@ -349,23 +361,24 @@ public class ConfigDialog extends Dialog {
 
 		// Add an advanced button so that more options can be shown
 		// TODO: remove unnecessary button
-//		final Button advancedButton = new Button(btnBar, SWT.PUSH);
-//		advancedButton.setText("Advanced");
-//		advancedButton.addSelectionListener(new SelectionAdapter() {
-//			public void widgetSelected(SelectionEvent e) {
-//				if (advancedButton.getSelection()) {
-//					System.out.println("hello");
-//				} else {
-//					System.out.println("No");
-//				}
-//			}
-//		});
+		// final Button advancedButton = new Button(btnBar, SWT.PUSH);
+		// advancedButton.setText("Advanced");
+		// advancedButton.addSelectionListener(new SelectionAdapter() {
+		// public void widgetSelected(SelectionEvent e) {
+		// if (advancedButton.getSelection()) {
+		// System.out.println("hello");
+		// } else {
+		// System.out.println("No");
+		// }
+		// }
+		// });
 
-//		final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
-//				true);
-//		advancedBtn.grabExcessHorizontalSpace = true;
-//		advancedBtn.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
-//		advancedButton.setLayoutData(advancedBtn);
+		// final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
+		// true);
+		// advancedBtn.grabExcessHorizontalSpace = true;
+		// advancedBtn.horizontalIndent =
+		// convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
+		// advancedButton.setLayoutData(advancedBtn);
 
 		// Initialise default buttons
 		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
