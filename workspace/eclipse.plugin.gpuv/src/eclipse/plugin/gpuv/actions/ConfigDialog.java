@@ -148,8 +148,8 @@ public class ConfigDialog extends Dialog {
 		selectionLabel.setText("Selected options: ");
 
 		/*
-		 * Set Text Area for auto suggestion TODO 1: connect general tab and
-		 * advanced tab selection list TODO 2: better display for the options
+		 * Set Text Area for auto suggestion 
+		 * TODO: better display for the options
 		 * (actual option + keyword)
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
@@ -337,27 +337,10 @@ public class ConfigDialog extends Dialog {
 		for (String arg : selectedArgs) {
 			new TableItem(selections, SWT.NONE).setText(arg);
 		}
-		// if not, add to table
-		new TableItem(selections, SWT.NONE).setText(str);
-	}
-
-	private void removeFromSelection(String str, Table selections) {
-		TableItem ti[] = selections.getItems();
-		for (int i = 0; i < ti.length; i++) {
-			if (ti[i].getText().equals(str)) {
-				selections.remove(i);
-			}
+		// only check the buttons that are in selectedArgs
+		for (String arg : argCheckboxButtons.keySet()) {
+			argCheckboxButtons.get(arg).setSelection(selectedArgs.contains(arg));
 		}
-	}
-
-	private boolean isInSelection(String str, Table selections) {
-		TableItem ti[] = selections.getItems();
-		for (int i = 0; i < ti.length; i++) {
-			if (ti[i].getText().equals(str)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private RadixTree<String> createSearchTree(String filename) {
