@@ -165,9 +165,10 @@ public class ConfigDialog extends Dialog {
 				TableItem ti[] = selections.getItems();
 				for (int i = ti.length - 1; i >= 0; i--) {
 					if (ti[i].getChecked()) {
-						selections.remove(i);
+						selectedArgs.remove(ti[i].getText());
 					}
 				}
+				refreshSelections(selections);
 			}
 		});
 
@@ -204,10 +205,12 @@ public class ConfigDialog extends Dialog {
 						String str = item.getText();
 						if (item.getChecked()) {
 							item.setChecked(false);
-							removeFromSelection(str, selections);
+							selectedArgs.remove(str);
+							refreshSelections(selections);
 						} else {
 							item.setChecked(true);
-							addToSelection(str, selections);
+							selectedArgs.add(str);
+							refreshSelections(selections);
 						}
 					}
 					break;
@@ -240,8 +243,7 @@ public class ConfigDialog extends Dialog {
 							TableItem ti = new TableItem(table, SWT.NONE);
 							ti.setText(keywords.get(i));
 							// if in the selections, make it checked.
-							ti.setChecked(isInSelection(keywords.get(i),
-									selections));
+							ti.setChecked(selectedArgs.contains(keywords.get(i)));
 						}
 
 						// can press enter to select the first match
@@ -299,37 +301,11 @@ public class ConfigDialog extends Dialog {
 		return settings;
 	}
 
-	// checks if the str is already selected,
-	// add to the table 'selections' if not.
-	private void addToSelection(String str, Table selections) {
-		// if exists, skip
-		TableItem ti[] = selections.getItems();
-		for (int i = 0; i < ti.length; i++) {
-			if (ti[i].getText().equals(str)) {
-				return; // exists, skip.
-			}
+	private void refreshSelections(Table selections){
+		selections.removeAll();
+		for(String arg : selectedArgs) {
+			new TableItem(selections, SWT.NONE).setText(arg);
 		}
-		// if not, add to table
-		new TableItem(selections, SWT.NONE).setText(str);
-	}
-
-	private void removeFromSelection(String str, Table selections) {
-		TableItem ti[] = selections.getItems();
-		for (int i = 0; i < ti.length; i++) {
-			if (ti[i].getText().equals(str)) {
-				selections.remove(i);
-			}
-		}
-	}
-
-	private boolean isInSelection(String str, Table selections) {
-		TableItem ti[] = selections.getItems();
-		for (int i = 0; i < ti.length; i++) {
-			if (ti[i].getText().equals(str)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private RadixTree<String> createSearchTree(String filename) {
