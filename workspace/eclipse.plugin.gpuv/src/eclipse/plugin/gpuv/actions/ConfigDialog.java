@@ -125,8 +125,8 @@ public class ConfigDialog extends Dialog {
 		selectionLabel.setText("Selected options: ");
 
 		/*
-		 * Set Text Area for auto suggestion TODO 1: connect general tab and
-		 * advanced tab selection list TODO 2: better display for the options
+		 * Set Text Area for auto suggestion
+		 * TODO 2: better display for the options
 		 * (actual option + keyword)
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
