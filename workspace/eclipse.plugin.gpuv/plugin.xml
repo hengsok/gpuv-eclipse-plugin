@@ -55,6 +55,7 @@
       <wizard
             category="eclipse.plugin.gpuv.category.wizards"
             class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
+            finalPerspective="eclipse.plugin.gpuv.perspective"
             icon="icons/sample.gif"
             id="eclipse.plugin.gpuv.wizard.newProjectWizard"
             name="GPUVerify Project">
@@ -71,30 +72,11 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="eclipse.plugin.gpuv.perspectives.GPUVerifyPerspective"
+            fixed="true"
             icon="icons/sample.gif"
             id="eclipse.plugin.gpuv.perspective"
             name="GPUVerify Perspective">
       </perspective>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="eclipse.plugin.gpuv.perspective">
-         <view
-               id="org.eclipse.ui.navigator.ProjectExplorer"
-               minimized="false"
-               ratio="0.15"
-               relationship="left"
-               relative="org.eclipse.ui.navigator.ProjectExplorer">
-         </view>
-         <view
-               id="org.eclipse.ui.console.ConsoleView"
-               minimized="false"
-               ratio="0.2"
-               relationship="bottom"
-               relative="org.eclipse.ui.console.ConsoleView">
-         </view>
-      </perspectiveExtension>
    </extension>
    <extension
          id="eclipse.plugin.gpuv.natures"
@@ -104,6 +86,26 @@
                class="eclipse.plugin.gpuv.ProjectNature">
          </run>
       </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="eclipse.plugin.gpuv.perspective">
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.8"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.navigator.ProjectExplorer"
+               minimized="false"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
    </extension>
 
 </plugin>

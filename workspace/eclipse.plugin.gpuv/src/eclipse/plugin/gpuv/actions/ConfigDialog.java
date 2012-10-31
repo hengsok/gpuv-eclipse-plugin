@@ -1,12 +1,5 @@
 package eclipse.plugin.gpuv.actions;
 
-import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogConstants;
-
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,14 +10,33 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
+import eclipse.plugin.gpuv.CustomProjectSupport;
 import eclipse.plugin.gpuv.radix.RadixTree;
 import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 
@@ -33,7 +45,7 @@ public class ConfigDialog extends Dialog {
 	private Set<String> selectedArgs;
 	private Set<String> argList;
 	private Map<String, Button> argCheckboxButtons;
-	
+
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
 
@@ -52,6 +64,17 @@ public class ConfigDialog extends Dialog {
 		// later
 		ConfigRecentlyUsedArgs configRecentUsed = new ConfigRecentlyUsedArgs();
 		configRecentUsed.storeRecentArgs(selectedArgs);
+		
+		String containerName = "/Test/src";
+		String fileName = "main.cl";
+		try {
+			System.out.println(CustomProjectSupport.getCurrentProjectFile(
+					containerName, fileName).getName()
+					+ " used");
+		} catch (CoreException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		// run the arguments with shell
 		ShellCommand t = new ShellCommand();
@@ -125,16 +148,15 @@ public class ConfigDialog extends Dialog {
 		selectionLabel.setText("Selected options: ");
 
 		/*
-		 * Set Text Area for auto suggestion
-		 * TODO 1: connect general tab and advanced tab selection list
-		 * TODO 2: better display for the options (actual option + keyword)
+		 * Set Text Area for auto suggestion TODO 1: connect general tab and
+		 * advanced tab selection list TODO 2: better display for the options
+		 * (actual option + keyword)
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
 		GridData autoGrid = new GridData(150, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
 		autoSuggest.setLayoutData(autoGrid);
 
-		
 		// selected option list
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -223,8 +245,8 @@ public class ConfigDialog extends Dialog {
 				if (string.length() == 0) {
 					popupShell.setVisible(false);
 				} else {
-					ArrayList<String> keywords = rt.searchPrefix(string
-							.toLowerCase(), restriction);
+					ArrayList<String> keywords = rt.searchPrefix(
+							string.toLowerCase(), restriction);
 					int numOfItems = keywords.size();
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
@@ -373,23 +395,24 @@ public class ConfigDialog extends Dialog {
 
 		// Add an advanced button so that more options can be shown
 		// TODO: remove unnecessary button
-//		final Button advancedButton = new Button(btnBar, SWT.PUSH);
-//		advancedButton.setText("Advanced");
-//		advancedButton.addSelectionListener(new SelectionAdapter() {
-//			public void widgetSelected(SelectionEvent e) {
-//				if (advancedButton.getSelection()) {
-//					System.out.println("hello");
-//				} else {
-//					System.out.println("No");
-//				}
-//			}
-//		});
+		// final Button advancedButton = new Button(btnBar, SWT.PUSH);
+		// advancedButton.setText("Advanced");
+		// advancedButton.addSelectionListener(new SelectionAdapter() {
+		// public void widgetSelected(SelectionEvent e) {
+		// if (advancedButton.getSelection()) {
+		// System.out.println("hello");
+		// } else {
+		// System.out.println("No");
+		// }
+		// }
+		// });
 
-//		final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
-//				true);
-//		advancedBtn.grabExcessHorizontalSpace = true;
-//		advancedBtn.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
-//		advancedButton.setLayoutData(advancedBtn);
+		// final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
+		// true);
+		// advancedBtn.grabExcessHorizontalSpace = true;
+		// advancedBtn.horizontalIndent =
+		// convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
+		// advancedButton.setLayoutData(advancedBtn);
 
 		// Initialise default buttons
 		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
