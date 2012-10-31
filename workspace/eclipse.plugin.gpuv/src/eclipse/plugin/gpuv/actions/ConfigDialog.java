@@ -119,17 +119,14 @@ public class ConfigDialog extends Dialog {
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
 		// Set Plain Text
-		Label label = new Label(container_advance, SWT.BORDER);
-		label.setText("Option search Box");
+		Label searchLabel = new Label(container_advance, SWT.BORDER);
+		searchLabel.setText("Option search Box");
 
-		// selected option list
-		final Table selections = new Table(container_advance, SWT.CHECK
-				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 3;
-		tableGrid.widthHint = 150;
-		tableGrid.heightHint = 150;
-		selections.setLayoutData(tableGrid);
+		// Set Plain Text
+		Label selectionLabel = new Label(container_advance, SWT.BORDER);
+		selectionLabel.setText("Selected options: ");
+		
+		
 
 		/*
 		 * Set Text Area for auto suggestion
@@ -138,6 +135,16 @@ public class ConfigDialog extends Dialog {
 		GridData autoGrid = new GridData(150, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
 		autoSuggest.setLayoutData(autoGrid);
+
+		
+		// selected option list
+		final Table selections = new Table(container_advance, SWT.CHECK
+				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		GridData tableGrid = new GridData();
+		tableGrid.verticalSpan = 2;
+		tableGrid.widthHint = 150;
+		tableGrid.heightHint = 150;
+		selections.setLayoutData(tableGrid);
 
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
@@ -367,23 +374,24 @@ public class ConfigDialog extends Dialog {
 		btnBar.setLayout(layout);
 
 		// Add an advanced button so that more options can be shown
-		final Button advancedButton = new Button(btnBar, SWT.PUSH);
-		advancedButton.setText("Advanced");
-		advancedButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				if (advancedButton.getSelection()) {
-					System.out.println("hello");
-				} else {
-					System.out.println("No");
-				}
-			}
-		});
+		// TODO: remove unnecessary button
+//		final Button advancedButton = new Button(btnBar, SWT.PUSH);
+//		advancedButton.setText("Advanced");
+//		advancedButton.addSelectionListener(new SelectionAdapter() {
+//			public void widgetSelected(SelectionEvent e) {
+//				if (advancedButton.getSelection()) {
+//					System.out.println("hello");
+//				} else {
+//					System.out.println("No");
+//				}
+//			}
+//		});
 
-		final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
-				true);
-		advancedBtn.grabExcessHorizontalSpace = true;
-		advancedBtn.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
-		advancedButton.setLayoutData(advancedBtn);
+//		final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
+//				true);
+//		advancedBtn.grabExcessHorizontalSpace = true;
+//		advancedBtn.horizontalIndent = convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
+//		advancedButton.setLayoutData(advancedBtn);
 
 		// Initialise default buttons
 		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
