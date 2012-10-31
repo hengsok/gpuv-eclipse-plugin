@@ -78,9 +78,9 @@ public class ConfigDialog extends Dialog {
 		});
 		// Create Tab Folder
 		TabFolder settings = new TabFolder(parent, SWT.NULL);
-		// Two Tab Options: general and advance
+		// Two Tab Options: general and advanced
 		TabItem generalSetting = new TabItem(settings, SWT.NULL);
-		TabItem advanceSetting = new TabItem(settings, SWT.NULL);
+		TabItem advancedSetting = new TabItem(settings, SWT.NULL);
 		// Set Folder Size
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, false,
 				false);
@@ -89,15 +89,15 @@ public class ConfigDialog extends Dialog {
 		settings.setLayoutData(gridData);
 		// Set Option title
 		generalSetting.setText("General");
-		advanceSetting.setText("Advance");
+		advancedSetting.setText("Advanced");
 		// Container for settings
 		Composite container_general = new Composite(settings, SWT.NONE);
-		Composite container_advance = new Composite(settings, SWT.NONE);
+		Composite container_advanced = new Composite(settings, SWT.NONE);
 		// Set general container layout
 		GridLayout gridlayoutContainer = new GridLayout();
 		gridlayoutContainer.numColumns = 2;
 		container_general.setLayout(gridlayoutContainer);
-		container_advance.setLayout(gridlayoutContainer);
+		container_advanced.setLayout(gridlayoutContainer);
 
 		// Instructions text
 		Label instructionText = new Label(container_general, SWT.NONE);
@@ -105,7 +105,7 @@ public class ConfigDialog extends Dialog {
 				false, 3, 1);
 		instructionText.setLayoutData(gridData);
 		instructionText
-				.setText("Select the arguments to be passed to GPUVerify");
+				.setText(" Select the arguments to be passed to GPUVerify ");
 
 		// Composite to hold check box
 		Composite argCheckboxComposite = new Composite(container_general,
@@ -118,27 +118,25 @@ public class ConfigDialog extends Dialog {
 		argCheckboxLayout.numColumns = 2;
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
-		// Set Plain Text
-		Label searchLabel = new Label(container_advance, SWT.BORDER);
+		// Set labels for searchbox and selections
+		Label searchLabel = new Label(container_advanced, SWT.BORDER);
 		searchLabel.setText("Option search Box");
-
-		// Set Plain Text
-		Label selectionLabel = new Label(container_advance, SWT.BORDER);
+		Label selectionLabel = new Label(container_advanced, SWT.BORDER);
 		selectionLabel.setText("Selected options: ");
-		
-		
 
 		/*
 		 * Set Text Area for auto suggestion
+		 * TODO 1: connect general tab and advanced tab selection list
+		 * TODO 2: better display for the options (actual option + keyword)
 		 */
-		final Text autoSuggest = new Text(container_advance, SWT.BORDER);
+		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
 		GridData autoGrid = new GridData(150, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
 		autoSuggest.setLayoutData(autoGrid);
 
 		
 		// selected option list
-		final Table selections = new Table(container_advance, SWT.CHECK
+		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData tableGrid = new GridData();
 		tableGrid.verticalSpan = 2;
@@ -154,7 +152,7 @@ public class ConfigDialog extends Dialog {
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
-		final Button removeButton = new Button(container_advance, SWT.PUSH);
+		final Button removeButton = new Button(container_advanced, SWT.PUSH);
 		GridData removeGrid = new GridData();
 		removeGrid.verticalAlignment = GridData.END;
 		removeGrid.horizontalAlignment = GridData.END;
@@ -294,7 +292,7 @@ public class ConfigDialog extends Dialog {
 		createArgCheckboxes(argCheckboxComposite);
 
 		generalSetting.setControl(container_general);
-		advanceSetting.setControl(container_advance);
+		advancedSetting.setControl(container_advanced);
 
 		initContent();
 
