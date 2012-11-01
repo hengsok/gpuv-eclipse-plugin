@@ -107,5 +107,17 @@
          </view>
       </perspectiveExtension>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="false"
+            extensions="cl"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
+            name="OpenCL Editor">
+      </editor>
+   </extension>
 
 </plugin>
