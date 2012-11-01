@@ -29,7 +29,6 @@ public class GPUVerifyProjectWizard extends Wizard implements INewWizard, IExecu
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
