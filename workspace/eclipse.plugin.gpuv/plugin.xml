@@ -41,22 +41,71 @@
       </category>
    </extension>
    <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="org.eclipse.jdt.ui.JavaPerspective">
-         <view
-               id="eclipse.plugin.gpuv.views2.SampleView"
-               ratio="0.5"
-               relationship="right"
-               relative="org.eclipse.ui.views.TaskList">
-         </view>
-      </perspectiveExtension>
-   </extension>
-   <extension
          point="org.eclipse.help.contexts">
       <contexts
             file="contexts.xml">
       </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="eclipse.plugin.gpuv.category.wizards"
+            name="GPUVerify Custom Project">
+      </category>
+      <wizard
+            category="eclipse.plugin.gpuv.category.wizards"
+            class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
+            finalPerspective="eclipse.plugin.gpuv.perspective"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.wizard.newProjectWizard"
+            name="GPUVerify Project">
+      </wizard>
+      <wizard
+            category="eclipse.plugin.gpuv.category.wizards"
+            class="eclipse.plugin.gpuv.wizards.NewFileWizard"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.wizards.NewFileWizard"
+            name="New OpenCL File">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="eclipse.plugin.gpuv.perspectives.GPUVerifyPerspective"
+            fixed="true"
+            icon="icons/sample.gif"
+            id="eclipse.plugin.gpuv.perspective"
+            name="GPUVerify Perspective">
+      </perspective>
+   </extension>
+   <extension
+         id="eclipse.plugin.gpuv.natures"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="eclipse.plugin.gpuv.ProjectNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="eclipse.plugin.gpuv.perspective">
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.8"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.navigator.ProjectExplorer"
+               minimized="false"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
    </extension>
 
 </plugin>
