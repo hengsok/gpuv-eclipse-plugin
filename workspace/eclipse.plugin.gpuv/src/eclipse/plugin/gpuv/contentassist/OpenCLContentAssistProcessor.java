@@ -11,6 +11,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
+import eclipse.plugin.gpuv.radix.*;
 
 public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 	// Proposal part before cursor
@@ -33,6 +34,7 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		// Retrieve current document
 		IDocument doc = viewer.getDocument();
 
+		
 		// Retrieve current selection range
 		Point selectedRange = viewer.getSelectedRange();
 
@@ -98,56 +100,39 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 			int documentOffset, ArrayList<CompletionProposal> propList) {
 		int qlen = qualifier.length();
 		// Loop through all proposals
-		for (int i = 0; i < STRUCTTAGS1.length; i++) {
-			String startTag = STRUCTTAGS1[i];
+		//TODO change file name. -> will be using xml
+		XMLRadixTree rt = new XMLRadixTree("options2.txt");
+		ArrayList<String> prefixes = rt.searchPrefix(qualifier, 100);
+		for(String arg:prefixes) {
+			// Construct proposal
+			CompletionProposal proposal = new CompletionProposal(arg,
+					documentOffset - qlen, qlen, arg.length());
+			// and add to result list
+			propList.add(proposal);
 
-			// Check if proposal matches qualifier
-			if (startTag.startsWith(qualifier)) {
-
-				// Yes -- compute whole proposal text
-				String text = startTag;// + STRUCTTAGS2[i];
-
-				// Derive cursor position
-				int cursor = startTag.length();
-
-				// Construct proposal
-				CompletionProposal proposal = new CompletionProposal(text,
-						documentOffset - qlen, qlen, cursor);
-
-				// and add to result list
-				propList.add(proposal);
-			}
 		}
 	}
 
-	private String getQualifier(IDocument doc, int documentOffset) { // This is
-																		// modified
-		// Use string buffer to collect characters // at the moment not fully
-		// working for __kernel
+	private String getQualifier(IDocument doc, int documentOffset) { 
 		StringBuffer buf = new StringBuffer();
-		while (true) {
-			try {
-
-				// Read character backwards
+		int startOffset;
+		try {
+			// don't go over a line
+			startOffset = doc.getLineOffset(doc.getLineOfOffset(documentOffset));
+			while(startOffset < documentOffset){
+				// read in a complete word, and return. 
 				char c = doc.getChar(--documentOffset);
-
-				// This was not the start of a tag
-				if (c == '>' || Character.isWhitespace(c))
-					return "";
-
+				if(Character.isWhitespace(c)){
+					break;
+				}
 				// Collect character
 				buf.append(c);
-
-				// Start of tag. Return qualifier
-				if (c == '<' || c == '_' || c == 'u' || c == 'k' || c == 's')
-					return buf.reverse().toString();
-
-			} catch (BadLocationException e) {
-
-				// Document start reached, no tag found
-				return "";
 			}
+		} catch (BadLocationException e1) {
+			e1.printStackTrace();
 		}
+		return buf.reverse().toString();
+		
 	}
 
 	@Override

@@ -58,6 +58,7 @@ public class XMLConfiguration extends SourceViewerConfiguration {
 		   assistant.setContentAssistProcessor(processor, XMLPartitionScanner.XML_COMMENT);
 		   assistant.setContentAssistProcessor(processor, IDocument.DEFAULT_CONTENT_TYPE);
 		   assistant.enableAutoActivation(true);
+		   assistant.setAutoActivationDelay(0);
 		   // Return the content assistant   
 		   return assistant;
 	}

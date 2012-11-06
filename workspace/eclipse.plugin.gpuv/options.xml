@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<keywords>
+  <keyword id="1">
+    <name>Help</name>
+    <option1>-h</option1>
+    <option2>--help</option2>
+    <arg>NONE</arg>
+    <description>Display help message</description>
+    <type>General</type>
+  </keyword>
+  <keyword id="2">
+    <name>Include path</name>
+    <option1>-I</option1>
+    <option2></option2>
+    <arg>String</arg>
+    <description>Add directory to include search path</description>
+    <type>General</type>
+  </keyword>
+  
+  <keyword id="3">
+    <name>Define</name>
+    <option1>-D</option1>
+    <option2></option2>
+    <arg>String</arg>
+    <description>Define symbol</description>
+    <type>General</type>
+  </keyword>
+  
+</keywords>
+
+
+USAGE: GPUVerify.py [options] <inputs>
+
+GENERAL OPTIONS:
+  -h, --help              Display this message
+  -I <value>              Add directory to include search path
+  -D <value>              Define symbol
+  --findbugs              Run tool in bug-finding mode
+  --noinfer               Turn off invariant inference
+  --verify                Run tool in verification mode
+  --verbose               Show commands to run and use verbose output
+
+OPENCL OPTIONS:
+  --local_size=X          Specify whether work-group is 1D, 2D
+              =(X,Y)      or 3D and specify size for each
+              =(X,Y,Z)    dimension
+  --num_groups=X          Specify whether grid of work-groups is
+              =(X,Y)      1D, 2D or 3D and specify size for each
+              =(X,Y,Z)    dimension
+
+CUDA OPTIONS
+  --blockDim=X            Specify whether thread block is 1D, 2D
+              =(X,Y)      or 3D and specify size for each
+              =(X,Y,Z)    dimension
+  --gridDim=X             Specify whether grid of thread blocks is
+              =(X,Y)      1D, 2D or 3D and specify size for each
+              =(X,Y,Z)    dimension
