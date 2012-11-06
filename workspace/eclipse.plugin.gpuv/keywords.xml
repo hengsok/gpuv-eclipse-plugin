@@ -11,7 +11,48 @@
   </keyword>
   <keyword>
     <link>abstractDataTypes.html</link>
-    <name>Abstract Data Types</name>
+    <name>_cl_platform_id</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_device_id</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_context</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_command_queue</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_mem</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_program</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_kernel</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_event</name>
+    <type>Data Type</type>
+  </keyword>
+  <keyword>
+    <link>abstractDataTypes.html</link>
+    <name>_cl_sampler</name>
+    <type>Data Type</type>
   </keyword>
   <keyword>
     <link>accessQualifiers.html</link>
@@ -774,7 +815,7 @@
   </keyword>
   <keyword>
     <link>constant.html</link>
-    <name>__constant, constant</name>
+    <name>__constant</name>
   </keyword>
   <keyword>
     <link>attributes-blocksAndControlFlow.html</link>
@@ -1070,7 +1111,7 @@
   </keyword>
   <keyword>
     <link>global.html</link>
-    <name>__global, global</name>
+    <name>__global</name>
   </keyword>
   <keyword>
     <link>hadd.html</link>
@@ -1302,7 +1343,7 @@
   </keyword>
   <keyword>
     <link>functionQualifiers.html</link>
-    <name>__kernel, kernel</name>
+    <name>__kernel</name>
   </keyword>
   <keyword>
     <link>clCreateKernel.html</link>
@@ -1334,7 +1375,7 @@
   </keyword>
   <keyword>
     <link>local.html</link>
-    <name>__local, local</name>
+    <name>__local</name>
   </keyword>
   <keyword>
     <link>log.html</link>
@@ -1594,7 +1635,7 @@
   </keyword>
   <keyword>
     <link>private.html</link>
-    <name> __private, private</name>
+    <name> __private</name>
   </keyword>
   <keyword>
     <link>scalarDataTypes.html</link>

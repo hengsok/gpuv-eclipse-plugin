@@ -16,7 +16,7 @@ import java.io.File;
 /*
  * XML reader layer on top of Radix Tree implementation.
  * TODO: need to contain information of each keyword in the tree as 'value' -> class?
- * TODO: need to clean up keywords (e.g. "__kernel, kernel" should be "__kernel")
+ * TODO: need to clean up keywords (charn -> char8 ... and Abstract Data Types -> .... ) 
  */
 public class XMLRadixTree {
 	private RadixTree<String> rt;
