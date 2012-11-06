@@ -14,14 +14,6 @@ import org.eclipse.swt.graphics.Point;
 import eclipse.plugin.gpuv.radix.*;
 
 public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
-	// Proposal part before cursor
-	private final static String[] STRUCTTAGS1 = new String[] { "<P>",
-			"<A SRC=\"", "<TABLE>", "<TR>", "<TD>", "__kernel", "charn",
-			"ucharn", "shortn", "ushortn" };
-
-	// Proposal part after cursor
-	private final static String[] STRUCTTAGS2 = new String[] { "", "\"></A>",
-			"</TABLE>", "</TR>", "</TD>" };
 
 	private final static String[] STYLETAGS = new String[] { "b", "i", "code",
 			"strong" };
@@ -96,12 +88,15 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
 	}
 
+	/*
+	 * Read in keywords and find suggestions
+	 */
 	private void computeStructureProposals(String qualifier,
 			int documentOffset, ArrayList<CompletionProposal> propList) {
 		int qlen = qualifier.length();
 		// Loop through all proposals
 		//TODO change file name. -> will be using xml
-		XMLRadixTree rt = new XMLRadixTree("options2.txt");
+		XMLRadixTree rt = new XMLRadixTree("keywords.xml");
 		ArrayList<String> prefixes = rt.searchPrefix(qualifier, 100);
 		for(String arg:prefixes) {
 			// Construct proposal
@@ -113,6 +108,9 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		}
 	}
 
+	/*
+	 * Obtain the prefix string from the location of the cursor
+	 */
 	private String getQualifier(IDocument doc, int documentOffset) { 
 		StringBuffer buf = new StringBuffer();
 		int startOffset;
@@ -125,7 +123,7 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 				if(Character.isWhitespace(c)){
 					break;
 				}
-				// Collect character
+				// Collect each character
 				buf.append(c);
 			}
 		} catch (BadLocationException e1) {
@@ -142,6 +140,9 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		return null;
 	}
 
+	/*
+	 * define characters which invokes auto-popup of suggestion box
+	 */
 	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
 		return new char[] { '_' };
