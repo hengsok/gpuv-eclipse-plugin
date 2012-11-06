@@ -72,7 +72,6 @@ public class ConfigDialog extends Dialog {
 					containerName, fileName).getName()
 					+ " used");
 		} catch (CoreException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -150,6 +149,7 @@ public class ConfigDialog extends Dialog {
 		/*
 		 * Set Text Area for auto suggestion 
 		 * TODO: better display for the options
+		 * TODO 2: select all
 		 * (actual option + keyword)
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
@@ -161,11 +161,14 @@ public class ConfigDialog extends Dialog {
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 2;
+		tableGrid.verticalSpan = 3;
 		tableGrid.widthHint = 150;
 		tableGrid.heightHint = 150;
 		selections.setLayoutData(tableGrid);
 
+		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
+		descriptionLabel.setText("Type in keywords or '-' \n to search for options. \n Use arrows to navigate \n and press enter to select");
+		
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
 
@@ -381,27 +384,6 @@ public class ConfigDialog extends Dialog {
 		final GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		btnBar.setLayout(layout);
-
-		// Add an advanced button so that more options can be shown
-		// TODO: remove unnecessary button
-		// final Button advancedButton = new Button(btnBar, SWT.PUSH);
-		// advancedButton.setText("Advanced");
-		// advancedButton.addSelectionListener(new SelectionAdapter() {
-		// public void widgetSelected(SelectionEvent e) {
-		// if (advancedButton.getSelection()) {
-		// System.out.println("hello");
-		// } else {
-		// System.out.println("No");
-		// }
-		// }
-		// });
-
-		// final GridData advancedBtn = new GridData(SWT.LEFT, SWT.CENTER, true,
-		// true);
-		// advancedBtn.grabExcessHorizontalSpace = true;
-		// advancedBtn.horizontalIndent =
-		// convertHorizontalDLUsToPixels(IDialogConstants.HORIZONTAL_MARGIN);
-		// advancedButton.setLayoutData(advancedBtn);
 
 		// Initialise default buttons
 		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
