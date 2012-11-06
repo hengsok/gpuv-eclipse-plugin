@@ -212,7 +212,7 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
-		final RadixTree<String> rt = createSearchTree("keywords.txt");
+		final RadixTree<String> rt = createSearchTree("options.txt");
 
 		// Keyboard actions
 		autoSuggest.addListener(SWT.KeyDown, new Listener() {

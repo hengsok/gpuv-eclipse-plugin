@@ -1,7 +1,6 @@
 package eclipse.plugin.gpuv.contentassist;
 
 import java.util.ArrayList;
-
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
@@ -16,19 +15,17 @@ import org.eclipse.swt.graphics.Point;
 public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 	// Proposal part before cursor
 	private final static String[] STRUCTTAGS1 = new String[] { "<P>",
-			"<A SRC=\"", "<TABLE>", "<TR>", "<TD>", "__kernel", "charn", "ucharn", "shortn", "ushortn"};
+			"<A SRC=\"", "<TABLE>", "<TR>", "<TD>", "__kernel", "charn",
+			"ucharn", "shortn", "ushortn" };
 
 	// Proposal part after cursor
 	private final static String[] STRUCTTAGS2 = new String[] { "", "\"></A>",
 			"</TABLE>", "</TR>", "</TD>" };
-	
 
-	private final static String[] STYLETAGS = new String[] { 
-		"b", "i", "code", "strong" 
-	};
-	private final static String[] STYLELABELS = new String[] { 
-		"bold", "italic", "code", "strong" 
-	};
+	private final static String[] STYLETAGS = new String[] { "b", "i", "code",
+			"strong" };
+	private final static String[] STYLELABELS = new String[] { "bold",
+			"italic", "code", "strong" };
 
 	@Override
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
@@ -69,31 +66,32 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		return proposals;
 	}
 
-	private void computeStyleProposals(String selectedText, Point selectedRange,
-			ArrayList<CompletionProposal> propList) {
+	private void computeStyleProposals(String selectedText,
+			Point selectedRange, ArrayList<CompletionProposal> propList) {
 		// Loop through all styles
-		   for (int i = 0; i < STYLETAGS.length; i++) {
-		      String tag = STYLETAGS[i];
+		for (int i = 0; i < STYLETAGS.length; i++) {
+			String tag = STYLETAGS[i];
 
-		      // Compute replacement text
-		      String replacement = "<" + tag + ">" + selectedText + "</" + tag + ">";
+			// Compute replacement text
+			String replacement = "<" + tag + ">" + selectedText + "</" + tag
+					+ ">";
 
-		      // Derive cursor position
-		      int cursor = tag.length()+2;
+			// Derive cursor position
+			int cursor = tag.length() + 2;
 
-		      // Compute a suitable context information
-		      IContextInformation contextInfo = 
-		         new ContextInformation(null, STYLELABELS[i]+" Style");
+			// Compute a suitable context information
+			IContextInformation contextInfo = new ContextInformation(null,
+					STYLELABELS[i] + " Style");
 
-		      // Construct proposal
-		      CompletionProposal proposal = new CompletionProposal(replacement, 
-		         selectedRange.x, selectedRange.y, cursor, null, STYLELABELS[i], 
-		         contextInfo, replacement);
+			// Construct proposal
+			CompletionProposal proposal = new CompletionProposal(replacement,
+					selectedRange.x, selectedRange.y, cursor, null,
+					STYLELABELS[i], contextInfo, replacement);
 
-		      // and add to result list
-		      propList.add(proposal);
-		   }
-		
+			// and add to result list
+			propList.add(proposal);
+		}
+
 	}
 
 	private void computeStructureProposals(String qualifier,
@@ -107,7 +105,7 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 			if (startTag.startsWith(qualifier)) {
 
 				// Yes -- compute whole proposal text
-				String text = startTag ;//+ STRUCTTAGS2[i];
+				String text = startTag;// + STRUCTTAGS2[i];
 
 				// Derive cursor position
 				int cursor = startTag.length();
@@ -122,8 +120,10 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		}
 	}
 
-	private String getQualifier(IDocument doc, int documentOffset) { // This is modified
-		// Use string buffer to collect characters                   // at the moment not fully working for __kernel
+	private String getQualifier(IDocument doc, int documentOffset) { // This is
+																		// modified
+		// Use string buffer to collect characters // at the moment not fully
+		// working for __kernel
 		StringBuffer buf = new StringBuffer();
 		while (true) {
 			try {
