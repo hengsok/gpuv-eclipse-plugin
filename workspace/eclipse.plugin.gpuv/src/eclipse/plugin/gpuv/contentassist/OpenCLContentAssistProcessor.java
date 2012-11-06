@@ -43,15 +43,13 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
 		if (selectedRange.y > 0) {
 			try {
-
 				// Retrieve selected text
 				String text = doc.get(selectedRange.x, selectedRange.y);
 
 				// Compute completion proposals
 				computeStyleProposals(text, selectedRange, propList);
-
 			} catch (BadLocationException e) {
-
+				e.printStackTrace();
 			}
 		} else {
 			// Retrieve qualifier
