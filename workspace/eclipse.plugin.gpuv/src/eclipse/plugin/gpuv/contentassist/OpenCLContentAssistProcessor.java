@@ -161,14 +161,12 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
 	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		// TODO Auto-generated method stub
-		return null;
+		return new char[] { '_' };
 	}
 
 	@Override
 	public char[] getContextInformationAutoActivationCharacters() {
-		// TODO Auto-generated method stub
-		return null;
+		return new char[] { '_' };
 	}
 
 	@Override
