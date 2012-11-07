@@ -9,6 +9,9 @@
     <name>Help</name>
     <option>-h</option>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Help</searchKey>
+    </search>
     <description>Display help message</description>
   </keyword>
   <keyword id="2">
@@ -18,6 +21,13 @@
       <arg>String</arg>
     </arguments>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Add</searchKey>
+      <searchKey>Directory</searchKey>
+      <searchKey>Include</searchKey>
+      <searchKey>Search</searchKey>
+      <searchKey>Path</searchKey>
+    </search>
     <description>Add directory to include search path</description>
   </keyword>
   <keyword id="3">
@@ -27,30 +37,54 @@
       <arg>String</arg>
     </arguments>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Define</searchKey>
+      <searchKey>Symbol</searchKey>
+    </search>
     <description>Define symbol</description>
   </keyword>
   <keyword id="4">
     <name>findbugs</name>
     <option>--findbugs</option>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Bugs</searchKey>
+      <searchKey>Findbugs</searchKey>
+      <searchKey>Mode findbugs</searchKey>
+    </search>
     <description>Run tool in bug-finding mode</description>
   </keyword>
   <keyword id="5">
     <name>Inference</name>
     <option>--noinfer</option>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Invariant</searchKey>
+      <searchKey>Inference</searchKey>
+      <searchKey>Noinfer</searchKey>
+    </search>
     <description>Turn off invariant inference</description>
   </keyword>
   <keyword id="6">
     <name>Verify</name>
     <option>--verify</option>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Verify</searchKey>
+      <searchKey>Mode verify</searchKey>
+    </search>
     <description>Run tool in verification mode</description>
   </keyword>
   <keyword id="7">
     <name>Verbose</name>
     <option>--verbose</option>
     <type>GENERAL</type>
+    <search>
+      <searchKey>Verbose</searchKey>
+      <searchKey>Output</searchKey>
+      <searchKey>Show commands</searchKey>
+      <searchKey>Mode verbose</searchKey>
+    </search>
     <description>Show commands to run and use verbose output</description>
   </keyword>
   
@@ -62,6 +96,14 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <search>
+      <searchKey>Local_size 1D</searchKey>
+      <searchKey>Work-group 1D</searchKey>
+      <searchKey>Work group 1D</searchKey>
+      <searchKey>Dimension local_size 1D</searchKey>
+      <searchKey>Size local_size 1D</searchKey>
+      <searchKey>1D local_size</searchKey>
+    </search>
     <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="9">
@@ -72,6 +114,14 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <search>
+      <searchKey>Local_size 2D</searchKey>
+      <searchKey>Work-group 2D</searchKey>
+      <searchKey>Work group 2D</searchKey>
+      <searchKey>Dimension local_size 2D</searchKey>
+      <searchKey>Size local_size 2D</searchKey>
+      <searchKey>2D local_size</searchKey>
+    </search>
     <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="10">
@@ -83,6 +133,14 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <search>
+      <searchKey>Local_size 3D</searchKey>
+      <searchKey>Work-group 3D</searchKey>
+      <searchKey>Work group 3D</searchKey>
+      <searchKey>Dimension local_size 3D</searchKey>
+      <searchKey>Size local_size 3D</searchKey>
+      <searchKey>3D local_size</searchKey>
+    </search>
     <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="11">
@@ -92,6 +150,15 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <search>
+      <searchKey>Num_groups 1D</searchKey>
+      <searchKey>Work-groups 1D</searchKey>
+      <searchKey>Work groups 1D</searchKey>
+      <searchKey>Grid work_groups 1D</searchKey>
+      <searchKey>Dimension num_groups 1D</searchKey>
+      <searchKey>Size num_groups 1D</searchKey>
+      <searchKey>1D num_groups</searchKey>
+    </search>
     <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="12">
@@ -102,6 +169,15 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <search>
+      <searchKey>Num_groups 2D</searchKey>
+      <searchKey>Work-groups 2D</searchKey>
+      <searchKey>Work groups 2D</searchKey>
+      <searchKey>Grid work_groups 2D</searchKey>
+      <searchKey>Dimension num_groups 2D</searchKey>
+      <searchKey>Size num_groups 2D</searchKey>
+      <searchKey>2D num_groups</searchKey>
+    </search>
     <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="13">
@@ -113,6 +189,15 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <search>
+      <searchKey>Num_groups 3D</searchKey>
+      <searchKey>Work-groups 3D</searchKey>
+      <searchKey>Work groups 3D</searchKey>
+      <searchKey>Grid work_groups 3D</searchKey>
+      <searchKey>Dimension num_groups 3D</searchKey>
+      <searchKey>Size num_groups 3D</searchKey>
+      <searchKey>3D num_groups</searchKey>
+    </search>
     <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
 
@@ -124,6 +209,14 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <search>
+      <searchKey>blockDim 1D</searchKey>
+      <searchKey>Block dimension 1D</searchKey>
+      <searchKey>thread block 1D</searchKey>
+      <searchKey>Dimension blockDim 1D</searchKey>
+      <searchKey>Size blockDim 1D</searchKey>
+      <searchKey>1D blockDim</searchKey>
+    </search>
     <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="15">
@@ -134,6 +227,14 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <search>
+      <searchKey>blockDim 2D</searchKey>
+      <searchKey>Block dimension 2D</searchKey>
+      <searchKey>thread block 2D</searchKey>
+      <searchKey>Dimension blockDim 2D</searchKey>
+      <searchKey>Size blockDim 2D</searchKey>
+      <searchKey>2D blockDim</searchKey>
+    </search>
     <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="16">
@@ -145,36 +246,71 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <search>
+      <searchKey>blockDim 3D</searchKey>
+      <searchKey>Block dimension 3D</searchKey>
+      <searchKey>thread block 3D</searchKey>
+      <searchKey>Dimension blockDim 3D</searchKey>
+      <searchKey>Size blockDim 3D</searchKey>
+      <searchKey>3D blockDim</searchKey>
+    </search>
     <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="17">
     <name>Grid Dimension 1D</name>
-    <option>--blockDim=X</option>
+    <option>--gridDim=X</option>
     <arguments>
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <search>
+      <searchKey>gridDim 1D</searchKey>
+      <searchKey>Grid dimension 1D</searchKey>
+      <searchKey>thread blocks 1D</searchKey>
+      <searchKey>Grid thread blocks 1D</searchKey>
+      <searchKey>Dimension gridDim 1D</searchKey>
+      <searchKey>Size gridDim 1D</searchKey>
+      <searchKey>1D gridDim</searchKey>
+    </search>
     <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="18">
     <name>Grid Dimension 2D</name>
-    <option>--blockDim=(X,Y)</option>
+    <option>--gridDim=(X,Y)</option>
     <arguments>
       <arg>Integer</arg>
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <search>
+      <searchKey>gridDim 2D</searchKey>
+      <searchKey>Grid dimension 2D</searchKey>
+      <searchKey>thread blocks 2D</searchKey>
+      <searchKey>Grid thread blocks 2D</searchKey>
+      <searchKey>Dimension gridDim 2D</searchKey>
+      <searchKey>Size gridDim 2D</searchKey>
+      <searchKey>2D gridDim</searchKey>
+    </search>
     <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="19">
     <name>Grid Dimension 3D</name>
-    <option>--blockDim=(X,Y,Z)</option>
+    <option>--gridDim=(X,Y,Z)</option>
     <arguments>
       <arg>Integer</arg>
       <arg>Integer</arg>
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <search>
+      <searchKey>gridDim 3D</searchKey>
+      <searchKey>Grid dimension 3D</searchKey>
+      <searchKey>thread blocks 3D</searchKey>
+      <searchKey>Grid thread blocks 3D</searchKey>
+      <searchKey>Dimension gridDim 3D</searchKey>
+      <searchKey>Size gridDim 3D</searchKey>
+      <searchKey>3D gridDim</searchKey>
+    </search>
     <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   

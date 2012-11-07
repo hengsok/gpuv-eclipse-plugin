@@ -1,5 +1,7 @@
 package eclipse.plugin.gpuv.actions;
 
+
+//TODO cleanup packages (including in build.xml)
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +41,6 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import eclipse.plugin.gpuv.CustomProjectSupport;
-import eclipse.plugin.gpuv.radix.RadixTree;
-import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
 public class ConfigDialog extends Dialog {
@@ -221,7 +221,7 @@ public class ConfigDialog extends Dialog {
 
 		// case insensitive for option keyword search
 		// (for convenience)
-		final XMLRadixTree rt = new XMLRadixTree("options.xml", false);
+		final XMLRadixTree rt = new XMLRadixTree("options.xml", true);
 		
 		
 		// Keyboard actions

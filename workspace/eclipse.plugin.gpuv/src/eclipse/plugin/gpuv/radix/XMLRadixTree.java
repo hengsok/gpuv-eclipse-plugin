@@ -1,9 +1,5 @@
 package eclipse.plugin.gpuv.radix;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -11,7 +7,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.io.File;
 
 /*
  * XML reader layer on top of Radix Tree implementation.
@@ -21,16 +16,16 @@ import java.io.File;
  */
 public class XMLRadixTree {
 	private RadixTree<String> rt;
-	private boolean caseSensitive;
+	private boolean isOptionSearch;
 
-	public XMLRadixTree(String filename, boolean caseSensitive) {
+	public XMLRadixTree(String filename, boolean isOptionSearch) {
 		this.rt = new RadixTreeImpl<String>();
-		this.caseSensitive = caseSensitive;
+		this.isOptionSearch = isOptionSearch;
 		createSearchTree(filename);
 	}
 
 	public ArrayList<String> searchPrefix(String prefix, int recordLimit) {
-		if(!caseSensitive){
+		if(isOptionSearch){
 			prefix = prefix.toLowerCase();
 		}
 		return rt.searchPrefix(prefix, recordLimit);
@@ -55,14 +50,22 @@ public class XMLRadixTree {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					String keyword = getTagValue("name", eElement);
-					if (caseSensitive) {
-						if (!rt.contains(keyword)) {
-							rt.insert(keyword, keyword);
+					if (isOptionSearch) {
+						String option = getTagValue("option", eElement);
+						
+						NodeList searchKeys = eElement.getElementsByTagName("searchKey");
+						for(int i=0; i< searchKeys.getLength(); i++){
+							String searchKey = searchKeys.item(i).getTextContent().toLowerCase();
+							if (!rt.contains(searchKey)) {
+								rt.insert(searchKey, option);
+							}
+						}
+						if (!rt.contains(option)) {
+							rt.insert(option, option);
 						}
 					} else {
-						String lowerCase = keyword.toLowerCase();
-						if (!rt.contains(lowerCase)) {
-							rt.insert(lowerCase, keyword);
+						if (!rt.contains(keyword)) {
+							rt.insert(keyword, keyword);
 						}
 					}
 				}
