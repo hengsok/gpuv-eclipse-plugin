@@ -19,6 +19,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -33,6 +34,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
@@ -153,10 +155,12 @@ public class ConfigDialog extends Dialog {
 		 * TODO 2: select all
 		 * (actual option + keyword)
 		 */
-		final Text autoSuggest = new Text(container_advanced, SWT.BORDER);
+		final Text autoSuggest = new Text(container_advanced, SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH);
+		autoSuggest.setMessage("Type in to search");
 		GridData autoGrid = new GridData(150, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
 		autoSuggest.setLayoutData(autoGrid);
+		
 
 		// selected option list
 		final Table selections = new Table(container_advanced, SWT.CHECK
@@ -166,9 +170,9 @@ public class ConfigDialog extends Dialog {
 		tableGrid.widthHint = 150;
 		tableGrid.heightHint = 150;
 		selections.setLayoutData(tableGrid);
-
+		
 		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
-		descriptionLabel.setText("Type in keywords or '-' \n to search for options. \n Use arrows to navigate \n and press enter to select");
+		descriptionLabel.setText("Use arrows to navigate \n and press enter to select");
 		
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
@@ -178,6 +182,8 @@ public class ConfigDialog extends Dialog {
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
+		
+		
 		final Button removeButton = new Button(container_advanced, SWT.PUSH);
 		GridData removeGrid = new GridData();
 		removeGrid.verticalAlignment = GridData.END;
@@ -291,7 +297,7 @@ public class ConfigDialog extends Dialog {
 						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
 								textBounds.y + textBounds.height * 3
 										+ shellBounds.y, textBounds.width,
-								table.getItemHeight() * numToShow + 5);
+								table.getItemHeight() * numToShow + 30);
 						popupShell.setVisible(true);
 					}
 				}
@@ -325,7 +331,6 @@ public class ConfigDialog extends Dialog {
 				popupShell.setVisible(false);
 			}
 		});
-		/* ********************************* */
 
 		// populate checkboxes
 		createArgCheckboxes(argCheckboxComposite);
@@ -348,39 +353,6 @@ public class ConfigDialog extends Dialog {
 		for (String arg : argCheckboxButtons.keySet()) {
 			argCheckboxButtons.get(arg).setSelection(selectedArgs.contains(arg));
 		}
-	}
-
-	private RadixTree<String> createSearchTree(String filename) {
-		/*
-		 * Creating a search tree for the keywords
-		 */
-		RadixTree<String> rt = new RadixTreeImpl<String>();
-
-		BufferedReader br = null;
-		try {
-			InputStream is = this.getClass().getClassLoader()
-					.getResourceAsStream(filename);
-			br = new BufferedReader(new InputStreamReader(is));
-			String line;
-			String key;
-			while ((line = br.readLine()) != null) {
-				key = line.toLowerCase();
-				if (!rt.contains(key)) {
-					rt.insert(key, line);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-
-		return rt;
 	}
 
 	protected Control createButtonBar(final Composite parent) {
@@ -427,6 +399,7 @@ public class ConfigDialog extends Dialog {
 	}
 
 	private void initContent() {
+		//TODO
 		// Might want to set selection only for certain often used checkboxes
 		// here
 		// for (String arg : argList){
