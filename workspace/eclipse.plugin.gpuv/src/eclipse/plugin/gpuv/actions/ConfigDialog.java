@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Text;
 import eclipse.plugin.gpuv.CustomProjectSupport;
 import eclipse.plugin.gpuv.radix.RadixTree;
 import eclipse.plugin.gpuv.radix.RadixTreeImpl;
+import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
 public class ConfigDialog extends Dialog {
 
@@ -212,8 +213,11 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
-		final RadixTree<String> rt = createSearchTree("options.txt");
-
+		// case insensitive for option keyword search
+		// (for convenience)
+		final XMLRadixTree rt = new XMLRadixTree("options.xml", false);
+		
+		
 		// Keyboard actions
 		autoSuggest.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
@@ -260,7 +264,7 @@ public class ConfigDialog extends Dialog {
 					popupShell.setVisible(false);
 				} else {
 					ArrayList<String> keywords = rt.searchPrefix(
-							string.toLowerCase(), restriction);
+							string, restriction);
 					int numOfItems = keywords.size();
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable

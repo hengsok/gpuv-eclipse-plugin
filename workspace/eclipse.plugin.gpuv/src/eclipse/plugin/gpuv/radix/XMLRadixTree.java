@@ -20,13 +20,18 @@ import java.io.File;
  */
 public class XMLRadixTree {
 	private RadixTree<String> rt;
+	private boolean caseSensitive;
 
-	public XMLRadixTree(String filename) {
+	public XMLRadixTree(String filename, boolean caseSensitive) {
 		this.rt = new RadixTreeImpl<String>();
+		this.caseSensitive = caseSensitive;
 		createSearchTree(filename);
 	}
 
 	public ArrayList<String> searchPrefix(String prefix, int recordLimit) {
+		if(!caseSensitive){
+			prefix = prefix.toLowerCase();
+		}
 		return rt.searchPrefix(prefix, recordLimit);
 	}
 
@@ -34,7 +39,6 @@ public class XMLRadixTree {
 		/*
 		 * Creating a search tree for the keywords
 		 */
-
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
@@ -46,14 +50,19 @@ public class XMLRadixTree {
 			NodeList nList = doc.getElementsByTagName("keyword");
 
 			for (int temp = 0; temp < nList.getLength(); temp++) {
-
-
 				Node nNode = nList.item(temp);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					String keyword = getTagValue("name", eElement);
-					if (!rt.contains(keyword)) {
-						rt.insert(keyword, keyword);
+					if (caseSensitive) {
+						if (!rt.contains(keyword)) {
+							rt.insert(keyword, keyword);
+						}
+					} else {
+						String lowerCase = keyword.toLowerCase();
+						if (!rt.contains(lowerCase)) {
+							rt.insert(lowerCase, keyword);
+						}
 					}
 				}
 			}

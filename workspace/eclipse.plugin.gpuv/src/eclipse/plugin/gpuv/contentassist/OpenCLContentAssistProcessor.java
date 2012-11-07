@@ -95,8 +95,8 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 			int documentOffset, ArrayList<CompletionProposal> propList) {
 		int qlen = qualifier.length();
 		// Loop through all proposals
-		//TODO change file name. -> will be using xml
-		XMLRadixTree rt = new XMLRadixTree("keywords.xml");
+		//TODO: make the tree global, so you don't have to create every time. 
+		XMLRadixTree rt = new XMLRadixTree("keywords.xml", true);
 		ArrayList<String> prefixes = rt.searchPrefix(qualifier, 100);
 		for(String arg:prefixes) {
 			// Construct proposal

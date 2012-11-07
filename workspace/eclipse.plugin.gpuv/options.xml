@@ -1,58 +1,181 @@
 <?xml version="1.0"?>
 
+<!-- keywords with name, short option (if there are two versions),
+    type, description, arguments -->
 <keywords>
+
+<!-- GENERAL options -->
   <keyword id="1">
     <name>Help</name>
-    <option1>-h</option1>
-    <option2>--help</option2>
-    <arg>NONE</arg>
+    <option>-h</option>
+    <type>GENERAL</type>
     <description>Display help message</description>
-    <type>General</type>
   </keyword>
   <keyword id="2">
     <name>Include path</name>
-    <option1>-I</option1>
-    <option2></option2>
-    <arg>String</arg>
+    <option>-I</option>
+    <arguments>
+      <arg>String</arg>
+    </arguments>
+    <type>GENERAL</type>
     <description>Add directory to include search path</description>
-    <type>General</type>
   </keyword>
-  
   <keyword id="3">
     <name>Define</name>
-    <option1>-D</option1>
-    <option2></option2>
-    <arg>String</arg>
+    <option>-D</option>
+    <arguments>
+      <arg>String</arg>
+    </arguments>
+    <type>GENERAL</type>
     <description>Define symbol</description>
-    <type>General</type>
+  </keyword>
+  <keyword id="4">
+    <name>findbugs</name>
+    <option>--findbugs</option>
+    <type>GENERAL</type>
+    <description>Run tool in bug-finding mode</description>
+  </keyword>
+  <keyword id="5">
+    <name>Inference</name>
+    <option>--noinfer</option>
+    <type>GENERAL</type>
+    <description>Turn off invariant inference</description>
+  </keyword>
+  <keyword id="6">
+    <name>Verify</name>
+    <option>--verify</option>
+    <type>GENERAL</type>
+    <description>Run tool in verification mode</description>
+  </keyword>
+  <keyword id="7">
+    <name>Verbose</name>
+    <option>--verbose</option>
+    <type>GENERAL</type>
+    <description>Show commands to run and use verbose output</description>
+  </keyword>
+  
+<!-- OPENCL options -->  
+  <keyword id="8">
+    <name>Local size 1D</name>
+    <option>--local_size=X</option>
+    <arguments>
+      <arg>Integer</arg>
+    </arguments>
+    <type>OPENCL</type>
+    <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="9">
+    <name>Local size 2D</name>
+    <option>--local_size=(X,Y)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>OPENCL</type>
+    <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="10">
+    <name>Local size 3D</name>
+    <option>--local_size=(X,Y,Z)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>OPENCL</type>
+    <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="11">
+    <name>Num Groups 1D</name>
+    <option>--num_groups=X</option>
+    <arguments>
+      <arg>Integer</arg>
+    </arguments>
+    <type>OPENCL</type>
+    <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="12">
+    <name>Num Groups 2D</name>
+    <option>--num_groups=(X,Y)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>OPENCL</type>
+    <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="13">
+    <name>Num Groups 3D</name>
+    <option>--num_groups=(X,Y,Z)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>OPENCL</type>
+    <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+
+<!-- CUDA options -->
+  <keyword id="14">
+    <name>Block Dimension 1D</name>
+    <option>--blockDim=X</option>
+    <arguments>
+      <arg>Integer</arg>
+    </arguments>
+    <type>CUDA</type>
+    <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="15">
+    <name>Block Dimension 2D</name>
+    <option>--blockDim=(X,Y)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>CUDA</type>
+    <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="16">
+    <name>Block Dimension 3D</name>
+    <option>--blockDim=(X,Y,Z)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>CUDA</type>
+    <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="17">
+    <name>Grid Dimension 1D</name>
+    <option>--blockDim=X</option>
+    <arguments>
+      <arg>Integer</arg>
+    </arguments>
+    <type>CUDA</type>
+    <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="18">
+    <name>Grid Dimension 2D</name>
+    <option>--blockDim=(X,Y)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>CUDA</type>
+    <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword id="19">
+    <name>Grid Dimension 3D</name>
+    <option>--blockDim=(X,Y,Z)</option>
+    <arguments>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+      <arg>Integer</arg>
+    </arguments>
+    <type>CUDA</type>
+    <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   
 </keywords>
-
-
-USAGE: GPUVerify.py [options] <inputs>
-
-GENERAL OPTIONS:
-  -h, --help              Display this message
-  -I <value>              Add directory to include search path
-  -D <value>              Define symbol
-  --findbugs              Run tool in bug-finding mode
-  --noinfer               Turn off invariant inference
-  --verify                Run tool in verification mode
-  --verbose               Show commands to run and use verbose output
-
-OPENCL OPTIONS:
-  --local_size=X          Specify whether work-group is 1D, 2D
-              =(X,Y)      or 3D and specify size for each
-              =(X,Y,Z)    dimension
-  --num_groups=X          Specify whether grid of work-groups is
-              =(X,Y)      1D, 2D or 3D and specify size for each
-              =(X,Y,Z)    dimension
-
-CUDA OPTIONS
-  --blockDim=X            Specify whether thread block is 1D, 2D
-              =(X,Y)      or 3D and specify size for each
-              =(X,Y,Z)    dimension
-  --gridDim=X             Specify whether grid of thread blocks is
-              =(X,Y)      1D, 2D or 3D and specify size for each
-              =(X,Y,Z)    dimension
