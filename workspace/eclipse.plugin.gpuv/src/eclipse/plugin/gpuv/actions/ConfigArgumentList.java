@@ -1,41 +1,59 @@
 package eclipse.plugin.gpuv.actions;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 public class ConfigArgumentList {
-	private Set <String> argList;
+	private Set<String> argList;
 
-	public ConfigArgumentList() throws IOException{
+	public ConfigArgumentList(String filename) throws IOException {
 
-		
-		try{
-			argList = new HashSet<String>();
-			InputStream is = this.getClass().getClassLoader().getResourceAsStream("argList.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String strLine;
-			
-			while ((strLine = br.readLine()) != null)   {
-				//check that we do not read empty line as arg
-				if(!strLine.equals("")){
-					argList.add(strLine);
+		argList = new HashSet<String>();
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(this.getClass().getClassLoader()
+					.getResourceAsStream(filename));
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("keyword");
+
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node nNode = nList.item(temp);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+					if (getTagValue("type", eElement).equals("GENERAL")) {
+						String option = getTagValue("option", eElement);
+						if (!argList.contains(option)) {
+							argList.add(option);
+						}
+					}
 				}
 			}
-			is.close();
-		}catch (Exception e){
-			System.err.println(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
-	public Set<String> getArgList(){
+	public Set<String> getArgList() {
 		return argList;
 	}
-	
+
+	private static String getTagValue(String sTag, Element eElement) {
+		NodeList nlList = eElement.getElementsByTagName(sTag).item(0)
+				.getChildNodes();
+
+		Node nValue = (Node) nlList.item(0);
+
+		return nValue.getNodeValue();
+	}
+
 }

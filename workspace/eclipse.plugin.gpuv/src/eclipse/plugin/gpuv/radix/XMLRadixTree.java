@@ -50,9 +50,10 @@ public class XMLRadixTree {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					String keyword = getTagValue("name", eElement);
-					if (isOptionSearch) {
+					if (isOptionSearch) { // for option search
 						String option = getTagValue("option", eElement);
 						
+						// attach all searchKeys to options 
 						NodeList searchKeys = eElement.getElementsByTagName("searchKey");
 						for(int i=0; i< searchKeys.getLength(); i++){
 							String searchKey = searchKeys.item(i).getTextContent().toLowerCase();
@@ -60,10 +61,11 @@ public class XMLRadixTree {
 								rt.insert(searchKey, option);
 							}
 						}
+						// add the option itself
 						if (!rt.contains(option)) {
 							rt.insert(option, option);
 						}
-					} else {
+					} else { //for editor keyword suggestion
 						if (!rt.contains(keyword)) {
 							rt.insert(keyword, keyword);
 						}

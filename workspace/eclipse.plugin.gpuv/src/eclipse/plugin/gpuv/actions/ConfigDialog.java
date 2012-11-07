@@ -53,7 +53,7 @@ public class ConfigDialog extends Dialog {
 		super(parentShell);
 
 		// Read in list of arguments
-		ConfigArgumentList configArgList = new ConfigArgumentList();
+		ConfigArgumentList configArgList = new ConfigArgumentList("options.xml");
 		ConfigRecentlyUsedArgs configRecentArgList = new ConfigRecentlyUsedArgs();
 		argList = configArgList.getArgList();
 		argList.addAll(configRecentArgList.getRecentArgs());
@@ -182,8 +182,6 @@ public class ConfigDialog extends Dialog {
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
-		
-		
 		final Button removeButton = new Button(container_advanced, SWT.PUSH);
 		GridData removeGrid = new GridData();
 		removeGrid.verticalAlignment = GridData.END;
