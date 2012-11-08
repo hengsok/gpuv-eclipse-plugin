@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Text;
 import eclipse.plugin.gpuv.CustomProjectSupport;
 import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
+
 public class ConfigDialog extends Dialog {
 
 	private Set<String> selectedArgs;
