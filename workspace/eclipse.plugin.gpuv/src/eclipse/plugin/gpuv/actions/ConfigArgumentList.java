@@ -2,7 +2,8 @@ package eclipse.plugin.gpuv.actions;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -11,11 +12,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 public class ConfigArgumentList {
-	private Set<String> argList;
+	private HashSet<String> argList;
 
 	public ConfigArgumentList(String filename) throws IOException {
 
-		argList = new HashSet<String>();
+		argList = new LinkedHashSet<String>();
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
@@ -43,7 +44,7 @@ public class ConfigArgumentList {
 		}
 	}
 
-	public Set<String> getArgList() {
+	public HashSet<String> getArgList() {
 		return argList;
 	}
 

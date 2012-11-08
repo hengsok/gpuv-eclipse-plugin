@@ -10,8 +10,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+//TODO use xml. also make a better class for interaction (reading and writing )
+//TODO can be merged with ArgumentList? 
 public class ConfigRecentlyUsedArgs {
 	private final String recentArgsFilename = "recentArgs.txt";
 
@@ -47,8 +50,8 @@ public class ConfigRecentlyUsedArgs {
 		}
 	}
 	
-	public Set<String> getRecentArgs(){
-		Set<String> recentArgs = new HashSet<String>();
+	public HashSet<String> getRecentArgs(){
+		HashSet<String> recentArgs = new LinkedHashSet<String>();
 		BufferedReader br = null;
 
 		try {
