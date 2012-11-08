@@ -1,18 +1,12 @@
 package eclipse.plugin.gpuv.actions;
 
 
-//TODO cleanup packages (including in build.xml)
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -21,7 +15,6 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -36,7 +29,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
@@ -45,8 +37,8 @@ import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
 public class ConfigDialog extends Dialog {
 
-	private Set<String> selectedArgs;
-	private Set<String> argList;
+	private HashSet<String> selectedArgs; //TODO use of set? list? what elements are being added? checked correctly on update?
+	private HashSet<String> argList; //TODO does this need to be global?
 	private Map<String, Button> argCheckboxButtons;
 
 	public ConfigDialog(Shell parentShell) throws IOException {
@@ -63,6 +55,7 @@ public class ConfigDialog extends Dialog {
 	}
 
 	protected void okPressed() {
+		//TODO need fix
 		// store the arguments that're been selected for recently used list
 		// later
 		ConfigRecentlyUsedArgs configRecentUsed = new ConfigRecentlyUsedArgs();
@@ -152,8 +145,8 @@ public class ConfigDialog extends Dialog {
 		/*
 		 * Set Text Area for auto suggestion 
 		 * TODO: better display for the options
-		 * TODO 2: select all
 		 * (actual option + keyword)
+		 * TODO 2: select all
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH);
 		autoSuggest.setMessage("Type in to search");
@@ -380,9 +373,8 @@ public class ConfigDialog extends Dialog {
 		argCheckboxButtons = new HashMap<String, Button>();
 		for (String arg : argList) {
 			final String eachArg = arg;
-
 			final Button button = new Button(parent, SWT.CHECK);
-			button.setText(eachArg);
+			button.setText(arg);
 			argCheckboxButtons.put(eachArg, button);
 			button.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {

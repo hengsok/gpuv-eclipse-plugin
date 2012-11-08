@@ -1,12 +1,9 @@
 package eclipse.plugin.gpuv.actions;
 
-import java.io.IOException;
-
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.jface.dialogs.InputDialog;
 
 /**
  * Our sample action implements workbench action delegate.
@@ -41,8 +38,6 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 		}
 	
 		dialog.open();
-		
-
 	}
 
 	/**
