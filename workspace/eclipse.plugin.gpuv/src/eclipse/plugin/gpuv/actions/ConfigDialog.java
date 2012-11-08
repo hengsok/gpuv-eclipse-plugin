@@ -262,9 +262,10 @@ public class ConfigDialog extends Dialog {
 				if (string.length() == 0) {
 					popupShell.setVisible(false);
 				} else {
-					ArrayList<String> keywords = rt.searchPrefix(
-							string, restriction);
-					int numOfItems = keywords.size(); //TODO remove?
+					Set<String> resultSet = new HashSet<String>(rt.searchPrefix(
+							string, restriction));
+
+					int numOfItems = resultSet.size(); //TODO remove?
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
 
@@ -273,8 +274,6 @@ public class ConfigDialog extends Dialog {
 						popupShell.setVisible(false);
 					} else {
 						table.removeAll();
-						Set<String> resultSet = new HashSet<String>();
-						resultSet.addAll(keywords);
 						// add items to the table
 						
 						//TODO cleanup
@@ -287,14 +286,6 @@ public class ConfigDialog extends Dialog {
 							ti.setChecked(selectedArgs.contains(keyword));
 						}
 						
-						
-//						for (int i = 0; i < numOfItems; i++) {
-//							TableItem ti = new TableItem(table, SWT.NONE);
-//							ti.setText(keywords.get(i));
-//							// if in the selections, make it checked.
-//							ti.setChecked(selectedArgs.contains(keywords.get(i)));
-//						}
-
 						// can press enter to select the first match
 						table.setSelection(0);
 
@@ -302,8 +293,8 @@ public class ConfigDialog extends Dialog {
 						Rectangle textBounds = autoSuggest.getBounds();
 						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
 								textBounds.y + textBounds.height * 3
-										+ shellBounds.y, textBounds.width,
-								table.getItemHeight() * numToShow + 30);
+										+ shellBounds.y, textBounds.width + 10,
+								table.getItemHeight() * numToShow + 5);
 						popupShell.setVisible(true);
 					}
 				}
