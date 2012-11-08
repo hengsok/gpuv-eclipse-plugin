@@ -268,7 +268,8 @@ public class ConfigDialog extends Dialog {
 					int numOfItems = resultSet.size(); //TODO remove?
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
-
+					int maxLength = 0;
+					
 					// displays only when there is an item
 					if (numOfItems <= 0) {
 						popupShell.setVisible(false);
@@ -280,6 +281,7 @@ public class ConfigDialog extends Dialog {
 						Iterator<String> it = resultSet.iterator();
 						while(it.hasNext()){
 							String keyword = it.next();
+							maxLength = Math.max(maxLength, keyword.length());
 							TableItem ti = new TableItem(table, SWT.NONE);
 							ti.setText(keyword);
 							// if in the selections, make it checked.
@@ -293,7 +295,7 @@ public class ConfigDialog extends Dialog {
 						Rectangle textBounds = autoSuggest.getBounds();
 						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
 								textBounds.y + textBounds.height * 3
-										+ shellBounds.y, textBounds.width + 10,
+										+ shellBounds.y, textBounds.width + maxLength,
 								table.getItemHeight() * numToShow + 5);
 						popupShell.setVisible(true);
 					}
