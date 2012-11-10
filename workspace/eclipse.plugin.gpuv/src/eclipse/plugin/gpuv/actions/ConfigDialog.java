@@ -114,7 +114,7 @@ public class ConfigDialog extends Dialog {
 		Composite container_advanced = new Composite(settings, SWT.NONE);
 		// Set general container layout
 		GridLayout gridlayoutContainer = new GridLayout();
-		gridlayoutContainer.numColumns = 2;
+		gridlayoutContainer.numColumns = 3;
 		container_general.setLayout(gridlayoutContainer);
 		container_advanced.setLayout(gridlayoutContainer);
 
@@ -134,14 +134,14 @@ public class ConfigDialog extends Dialog {
 		gridData.horizontalIndent = 20;
 		argCheckboxComposite.setLayoutData(gridData);
 		final GridLayout argCheckboxLayout = new GridLayout();
-		argCheckboxLayout.numColumns = 2;
+		argCheckboxLayout.numColumns = 3;
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
 		// Set labels for searchbox and selections
-		Label searchLabel = new Label(container_advanced, SWT.BORDER);
-		searchLabel.setText("Option search Box");
-		Label selectionLabel = new Label(container_advanced, SWT.BORDER);
-		selectionLabel.setText("Selected options: ");
+//		Label searchLabel = new Label(container_advanced, SWT.BORDER);
+//		searchLabel.setText("Option search Box");
+//		Label selectionLabel = new Label(container_advanced, SWT.BORDER);
+//		selectionLabel.setText("Selected options: ");
 
 		/*
 		 * Set Text Area for auto suggestion 
@@ -151,8 +151,9 @@ public class ConfigDialog extends Dialog {
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH);
 		autoSuggest.setMessage("Type in to search");
-		GridData autoGrid = new GridData(150, SWT.DEFAULT);
+		GridData autoGrid = new GridData(200, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
+		autoGrid.horizontalSpan = 2;
 		autoSuggest.setLayoutData(autoGrid);
 		
 
@@ -160,13 +161,18 @@ public class ConfigDialog extends Dialog {
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 4;
-		tableGrid.widthHint = 150;
-		tableGrid.heightHint = 150;
+		tableGrid.verticalSpan = 3;
+		tableGrid.widthHint = 200;
+		tableGrid.heightHint = 160;
 		selections.setLayoutData(tableGrid);
 		
 		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
-		descriptionLabel.setText("Use arrows to navigate \n and press enter to select");
+		descriptionLabel.setText("\n Use arrows to navigate \n and press enter to select\n");
+		GridData descGrid = new GridData(200, SWT.DEFAULT);
+		descGrid.horizontalAlignment = GridData.FILL;
+		descGrid.verticalAlignment = GridData.FILL;
+		descGrid.horizontalSpan = 2;
+		descriptionLabel.setLayoutData(descGrid);
 		
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
@@ -176,11 +182,24 @@ public class ConfigDialog extends Dialog {
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
+		
+		final Button clearButton = new Button(container_advanced, SWT.PUSH);
+		GridData buttonGrid = new GridData();
+		buttonGrid.verticalAlignment = GridData.END;
+		buttonGrid.horizontalAlignment = GridData.FILL;
+		clearButton.setLayoutData(buttonGrid);
+		clearButton.setText("Clear");
+		
+		clearButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// Clear checked items from selections
+				selectedArgs.clear();
+				refreshSelections(selections);
+			}
+		});
+		
 		final Button removeButton = new Button(container_advanced, SWT.PUSH);
-		GridData removeGrid = new GridData();
-		removeGrid.verticalAlignment = GridData.END;
-		removeGrid.horizontalAlignment = GridData.END;
-		removeButton.setLayoutData(removeGrid);
+		removeButton.setLayoutData(buttonGrid);
 		removeButton.setText("Remove");
 
 		removeButton.addSelectionListener(new SelectionAdapter() {
@@ -195,21 +214,6 @@ public class ConfigDialog extends Dialog {
 				refreshSelections(selections);
 			}
 		});
-		
-		final Button clearButton = new Button(container_advanced, SWT.PUSH);
-		GridData clearGrid = new GridData();
-		clearGrid.verticalAlignment = GridData.END;
-		clearButton.setLayoutData(clearGrid);
-		clearButton.setText("Clear");
-
-		clearButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				// Clear checked items from selections
-				selectedArgs.clear();
-				refreshSelections(selections);
-			}
-		});
-		
 
 		// closing popupShell on dispose of current shell
 		currShell.addDisposeListener(new DisposeListener() {
