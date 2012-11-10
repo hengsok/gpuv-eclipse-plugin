@@ -1,6 +1,9 @@
 package eclipse.plugin.gpuv.radix;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -12,24 +15,38 @@ import org.w3c.dom.Element;
  * XML reader layer on top of Radix Tree implementation.
  * TODO 1: need to contain information of each keyword in the tree as 'value' -> class?
  * TODO 2: need to clean up keywords (charn -> char8 ... and Abstract Data Types -> .... ) 
- * TODO 3: apply a design pattern for setting values ... including what tags to use as Key and Value pair
+ * TODO 3: static constants to specify which type of search to use (e.g. OPTION or PREFIX)
  * TODO 4: search description, or use searchkeys? which one is more practical? 
  */
 public class XMLRadixTree {
 	private RadixTree<String> rt;
+	private List<String> optionList;
 	private boolean isOptionSearch;
 
 	public XMLRadixTree(String filename, boolean isOptionSearch) {
 		this.rt = new RadixTreeImpl<String>();
+		this.optionList = new ArrayList<String>();
 		this.isOptionSearch = isOptionSearch;
 		createSearchTree(filename);
 	}
 
-	public ArrayList<String> searchPrefix(String prefix, int recordLimit) {
+	public ArrayList<String> searchPrefix(String prefix, int recordLimit) { //TODO change ArrayList to List? 
 		if(isOptionSearch){
-			prefix = prefix.toLowerCase();
+			return getMatchingOptions(prefix.toLowerCase());
 		}
 		return rt.searchPrefix(prefix, recordLimit);
+	}
+
+	private ArrayList<String> getMatchingOptions(String prefix) {
+		ArrayList<String> result = new ArrayList<String>();
+		Iterator<String> it = optionList.iterator();
+		while(it.hasNext()){
+			String full = it.next();
+			if(full.toLowerCase().contains(prefix)){ //matches some text
+				result.add(full.split(" ")[0]); //add option name
+			}
+		}
+		return result;
 	}
 
 	private void createSearchTree(String filename) {
@@ -53,19 +70,9 @@ public class XMLRadixTree {
 					String keyword = getTagValue("name", eElement);
 					if (isOptionSearch) { // for option search
 						String option = getTagValue("option", eElement);
-						
 						// attach all searchKeys to options 
-						NodeList searchKeys = eElement.getElementsByTagName("searchKey");
-						for(int i=0; i< searchKeys.getLength(); i++){
-							String searchKey = searchKeys.item(i).getTextContent().toLowerCase();
-							if (!rt.contains(searchKey)) {
-								rt.insert(searchKey, option);
-							}
-						}
-						// add the option itself
-						if (!rt.contains(option)) {
-							rt.insert(option, option);
-						}
+						String desc = getTagValue("description", eElement);
+						optionList.add(option + " " + desc);
 					} else { //for editor keyword suggestion
 						if (!rt.contains(keyword)) {
 							rt.insert(keyword, keyword);

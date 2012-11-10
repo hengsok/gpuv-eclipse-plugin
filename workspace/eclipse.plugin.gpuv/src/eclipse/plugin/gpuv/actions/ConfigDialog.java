@@ -38,7 +38,7 @@ import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
 public class ConfigDialog extends Dialog {
 
-	private Set<String> selectedArgs; //TODO use of set? list? what elements are being added? checked correctly on update?
+	private Set<String> selectedArgs;
 	private HashSet<String> argList; //TODO does this need to be global?
 	private Map<String, Button> argCheckboxButtons;
 
