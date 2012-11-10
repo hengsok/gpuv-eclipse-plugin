@@ -2,7 +2,6 @@ package eclipse.plugin.gpuv.actions;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,6 +15,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -103,15 +103,13 @@ public class ConfigDialog extends Dialog {
 		// Set Folder Size
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, false,
 				false);
-		// gridData.heightHint = 600;
-		// gridData.widthHint = 800;
 		settings.setLayoutData(gridData);
 		// Set Option title
 		generalSetting.setText("General");
 		advancedSetting.setText("Advanced");
 		// Container for settings
 		Composite container_general = new Composite(settings, SWT.NONE);
-		Composite container_advanced = new Composite(settings, SWT.NONE);
+		final Composite container_advanced = new Composite(settings, SWT.NONE);
 		// Set general container layout
 		GridLayout gridlayoutContainer = new GridLayout();
 		gridlayoutContainer.numColumns = 3;
@@ -137,17 +135,10 @@ public class ConfigDialog extends Dialog {
 		argCheckboxLayout.numColumns = 3;
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
-		// Set labels for searchbox and selections
-//		Label searchLabel = new Label(container_advanced, SWT.BORDER);
-//		searchLabel.setText("Option search Box");
-//		Label selectionLabel = new Label(container_advanced, SWT.BORDER);
-//		selectionLabel.setText("Selected options: ");
-
 		/*
 		 * Set Text Area for auto suggestion 
 		 * TODO: better display for the options
 		 * (actual option + keyword)
-		 * TODO 2: select all
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH);
 		autoSuggest.setMessage("Type in to search");
@@ -286,7 +277,7 @@ public class ConfigDialog extends Dialog {
 					int numOfItems = resultSet.size(); //TODO remove?
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
-					int maxLength = 0;
+					int maxLength = autoSuggest.getSize().x;
 					
 					// displays only when there is an item
 					if (numOfItems <= 0) {
@@ -295,11 +286,10 @@ public class ConfigDialog extends Dialog {
 						table.removeAll();
 						// add items to the table
 						
-						//TODO cleanup
 						Iterator<String> it = resultSet.iterator();
 						while(it.hasNext()){
 							String keyword = it.next();
-							maxLength = Math.max(maxLength, keyword.length());
+							maxLength = Math.max(maxLength, new GC(currShell).textExtent(keyword).x);
 							TableItem ti = new TableItem(table, SWT.NONE);
 							ti.setText(keyword);
 							// if in the selections, make it checked.
@@ -308,13 +298,13 @@ public class ConfigDialog extends Dialog {
 						
 						// can press enter to select the first match
 						table.setSelection(0);
-
-						//TODO location incorrect 
-						final Rectangle shellBounds = currShell.getBounds();
+						
+						Rectangle shellBounds = currShell.getBounds();
 						Rectangle textBounds = autoSuggest.getBounds();
-						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
-								textBounds.y + textBounds.height * 3
-										+ shellBounds.y, textBounds.width + maxLength, //TODO length wrong?
+						Rectangle containerBounds = container_advanced.getBounds();
+						popupShell.setBounds(shellBounds.x + textBounds.x + containerBounds.x,
+								shellBounds.y + textBounds.y + containerBounds.y
+								+ textBounds.height * 2, maxLength,
 								table.getItemHeight() * numToShow + 5);
 						popupShell.setVisible(true);
 					}
