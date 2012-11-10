@@ -10,9 +10,10 @@ import org.w3c.dom.Element;
 
 /*
  * XML reader layer on top of Radix Tree implementation.
- * TODO: need to contain information of each keyword in the tree as 'value' -> class?
- * TODO: need to clean up keywords (charn -> char8 ... and Abstract Data Types -> .... ) 
+ * TODO 1: need to contain information of each keyword in the tree as 'value' -> class?
+ * TODO 2: need to clean up keywords (charn -> char8 ... and Abstract Data Types -> .... ) 
  * TODO 3: apply a design pattern for setting values ... including what tags to use as Key and Value pair
+ * TODO 4: search description, or use searchkeys? which one is more practical? 
  */
 public class XMLRadixTree {
 	private RadixTree<String> rt;

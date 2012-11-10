@@ -160,7 +160,7 @@ public class ConfigDialog extends Dialog {
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 3;
+		tableGrid.verticalSpan = 4;
 		tableGrid.widthHint = 150;
 		tableGrid.heightHint = 150;
 		selections.setLayoutData(tableGrid);
@@ -195,6 +195,21 @@ public class ConfigDialog extends Dialog {
 				refreshSelections(selections);
 			}
 		});
+		
+		final Button clearButton = new Button(container_advanced, SWT.PUSH);
+		GridData clearGrid = new GridData();
+		clearGrid.verticalAlignment = GridData.END;
+		clearButton.setLayoutData(clearGrid);
+		clearButton.setText("Clear");
+
+		clearButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// Clear checked items from selections
+				selectedArgs.clear();
+				refreshSelections(selections);
+			}
+		});
+		
 
 		// closing popupShell on dispose of current shell
 		currShell.addDisposeListener(new DisposeListener() {
@@ -290,11 +305,12 @@ public class ConfigDialog extends Dialog {
 						// can press enter to select the first match
 						table.setSelection(0);
 
+						//TODO location incorrect 
 						final Rectangle shellBounds = currShell.getBounds();
 						Rectangle textBounds = autoSuggest.getBounds();
 						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
 								textBounds.y + textBounds.height * 3
-										+ shellBounds.y, textBounds.width + maxLength,
+										+ shellBounds.y, textBounds.width + maxLength, //TODO length wrong?
 								table.getItemHeight() * numToShow + 5);
 						popupShell.setVisible(true);
 					}
