@@ -2,7 +2,6 @@ package eclipse.plugin.gpuv.actions;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,6 +15,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -38,7 +38,7 @@ import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
 public class ConfigDialog extends Dialog {
 
-	private Set<String> selectedArgs; //TODO use of set? list? what elements are being added? checked correctly on update?
+	private Set<String> selectedArgs;
 	private HashSet<String> argList; //TODO does this need to be global?
 	private Map<String, Button> argCheckboxButtons;
 
@@ -103,18 +103,16 @@ public class ConfigDialog extends Dialog {
 		// Set Folder Size
 		GridData gridData = new GridData(GridData.FILL, GridData.FILL, false,
 				false);
-		// gridData.heightHint = 600;
-		// gridData.widthHint = 800;
 		settings.setLayoutData(gridData);
 		// Set Option title
 		generalSetting.setText("General");
 		advancedSetting.setText("Advanced");
 		// Container for settings
 		Composite container_general = new Composite(settings, SWT.NONE);
-		Composite container_advanced = new Composite(settings, SWT.NONE);
+		final Composite container_advanced = new Composite(settings, SWT.NONE);
 		// Set general container layout
 		GridLayout gridlayoutContainer = new GridLayout();
-		gridlayoutContainer.numColumns = 2;
+		gridlayoutContainer.numColumns = 3;
 		container_general.setLayout(gridlayoutContainer);
 		container_advanced.setLayout(gridlayoutContainer);
 
@@ -134,25 +132,19 @@ public class ConfigDialog extends Dialog {
 		gridData.horizontalIndent = 20;
 		argCheckboxComposite.setLayoutData(gridData);
 		final GridLayout argCheckboxLayout = new GridLayout();
-		argCheckboxLayout.numColumns = 2;
+		argCheckboxLayout.numColumns = 3;
 		argCheckboxComposite.setLayout(argCheckboxLayout);
-
-		// Set labels for searchbox and selections
-		Label searchLabel = new Label(container_advanced, SWT.BORDER);
-		searchLabel.setText("Option search Box");
-		Label selectionLabel = new Label(container_advanced, SWT.BORDER);
-		selectionLabel.setText("Selected options: ");
 
 		/*
 		 * Set Text Area for auto suggestion 
 		 * TODO: better display for the options
 		 * (actual option + keyword)
-		 * TODO 2: select all
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER | SWT.SEARCH | SWT.ICON_SEARCH);
 		autoSuggest.setMessage("Type in to search");
-		GridData autoGrid = new GridData(150, SWT.DEFAULT);
+		GridData autoGrid = new GridData(200, SWT.DEFAULT);
 		autoGrid.verticalAlignment = GridData.BEGINNING;
+		autoGrid.horizontalSpan = 2;
 		autoSuggest.setLayoutData(autoGrid);
 		
 
@@ -160,13 +152,18 @@ public class ConfigDialog extends Dialog {
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 4;
-		tableGrid.widthHint = 150;
-		tableGrid.heightHint = 150;
+		tableGrid.verticalSpan = 3;
+		tableGrid.widthHint = 200;
+		tableGrid.heightHint = 160;
 		selections.setLayoutData(tableGrid);
 		
 		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
-		descriptionLabel.setText("Use arrows to navigate \n and press enter to select");
+		descriptionLabel.setText("\n Use arrows to navigate \n and press enter to select\n");
+		GridData descGrid = new GridData(200, SWT.DEFAULT);
+		descGrid.horizontalAlignment = GridData.FILL;
+		descGrid.verticalAlignment = GridData.FILL;
+		descGrid.horizontalSpan = 2;
+		descriptionLabel.setLayoutData(descGrid);
 		
 		// number of items appearing on the suggestion list
 		final int restriction = 100;
@@ -176,11 +173,24 @@ public class ConfigDialog extends Dialog {
 		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
 				| SWT.V_SCROLL | SWT.H_SCROLL);
 
+		
+		final Button clearButton = new Button(container_advanced, SWT.PUSH);
+		GridData buttonGrid = new GridData();
+		buttonGrid.verticalAlignment = GridData.END;
+		buttonGrid.horizontalAlignment = GridData.FILL;
+		clearButton.setLayoutData(buttonGrid);
+		clearButton.setText("Clear");
+		
+		clearButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// Clear checked items from selections
+				selectedArgs.clear();
+				refreshSelections(selections);
+			}
+		});
+		
 		final Button removeButton = new Button(container_advanced, SWT.PUSH);
-		GridData removeGrid = new GridData();
-		removeGrid.verticalAlignment = GridData.END;
-		removeGrid.horizontalAlignment = GridData.END;
-		removeButton.setLayoutData(removeGrid);
+		removeButton.setLayoutData(buttonGrid);
 		removeButton.setText("Remove");
 
 		removeButton.addSelectionListener(new SelectionAdapter() {
@@ -195,21 +205,6 @@ public class ConfigDialog extends Dialog {
 				refreshSelections(selections);
 			}
 		});
-		
-		final Button clearButton = new Button(container_advanced, SWT.PUSH);
-		GridData clearGrid = new GridData();
-		clearGrid.verticalAlignment = GridData.END;
-		clearButton.setLayoutData(clearGrid);
-		clearButton.setText("Clear");
-
-		clearButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				// Clear checked items from selections
-				selectedArgs.clear();
-				refreshSelections(selections);
-			}
-		});
-		
 
 		// closing popupShell on dispose of current shell
 		currShell.addDisposeListener(new DisposeListener() {
@@ -282,7 +277,7 @@ public class ConfigDialog extends Dialog {
 					int numOfItems = resultSet.size(); //TODO remove?
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;
 					// max. 8 items displayed, rest scrollable
-					int maxLength = 0;
+					int maxLength = autoSuggest.getSize().x;
 					
 					// displays only when there is an item
 					if (numOfItems <= 0) {
@@ -291,11 +286,10 @@ public class ConfigDialog extends Dialog {
 						table.removeAll();
 						// add items to the table
 						
-						//TODO cleanup
 						Iterator<String> it = resultSet.iterator();
 						while(it.hasNext()){
 							String keyword = it.next();
-							maxLength = Math.max(maxLength, keyword.length());
+							maxLength = Math.max(maxLength, new GC(currShell).textExtent(keyword).x);
 							TableItem ti = new TableItem(table, SWT.NONE);
 							ti.setText(keyword);
 							// if in the selections, make it checked.
@@ -304,13 +298,13 @@ public class ConfigDialog extends Dialog {
 						
 						// can press enter to select the first match
 						table.setSelection(0);
-
-						//TODO location incorrect 
-						final Rectangle shellBounds = currShell.getBounds();
+						
+						Rectangle shellBounds = currShell.getBounds();
 						Rectangle textBounds = autoSuggest.getBounds();
-						popupShell.setBounds(2 + textBounds.x + shellBounds.x,
-								textBounds.y + textBounds.height * 3
-										+ shellBounds.y, textBounds.width + maxLength, //TODO length wrong?
+						Rectangle containerBounds = container_advanced.getBounds();
+						popupShell.setBounds(shellBounds.x + textBounds.x + containerBounds.x,
+								shellBounds.y + textBounds.y + containerBounds.y
+								+ textBounds.height * 2, maxLength,
 								table.getItemHeight() * numToShow + 5);
 						popupShell.setVisible(true);
 					}
