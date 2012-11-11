@@ -1,6 +1,7 @@
 package eclipse.plugin.gpuv.contentassist;
 
 import java.util.ArrayList;
+
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
@@ -11,7 +12,9 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
-import eclipse.plugin.gpuv.radix.*;
+import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
+
+import eclipse.plugin.gpuv.radix.XMLRadixTree;
 
 public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
@@ -98,13 +101,13 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		//TODO: make the tree global, so you don't have to create every time. 
 		XMLRadixTree rt = new XMLRadixTree("keywords.xml", false);
 		ArrayList<String> prefixes = rt.searchPrefix(qualifier, 100);
+
 		for(String arg:prefixes) {
 			// Construct proposal
 			CompletionProposal proposal = new CompletionProposal(arg,
 					documentOffset - qlen, qlen, arg.length());
 			// and add to result list
 			propList.add(proposal);
-
 		}
 	}
 

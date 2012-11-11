@@ -9,8 +9,17 @@ public class OpenCLEditor extends TextEditor {
 	public OpenCLEditor() {
 		super();
 		colorManager = new ColorManager();
-		setSourceViewerConfiguration(new XMLConfiguration(colorManager));
-		setDocumentProvider(new XMLDocumentProvider());
+		/**/
+        setDocumentProvider(new XMLDocumentProvider());
+        setSourceViewerConfiguration(new XMLConfiguration(colorManager));
+        /**/
+		/*
+		setSourceViewerConfiguration(new CSourceViewerConfiguration(CUIPlugin.getDefault().getTextTools().getColorManager(),
+				CUIPlugin.getDefault().getCombinedPreferenceStore(),
+                null, ICPartitions.C_PARTITIONING));
+		setDocumentProvider(CUIPlugin.getDefault().getDocumentProvider());
+		*/
+		
 	}
 	public void dispose() {
 		colorManager.dispose();
