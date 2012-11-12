@@ -18,6 +18,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -242,6 +245,65 @@ public class ConfigDialog extends Dialog {
 							&& table.getSelectionIndex() != -1) {
 						TableItem item = table.getSelection()[0];
 						String str = item.getText();
+						
+						if(str.equalsIgnoreCase("-I")){
+							final Shell dialog = new Shell (currShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+							dialog.setText("Argument input");
+							FormLayout formLayout = new FormLayout ();
+							formLayout.marginWidth = 10;
+							formLayout.marginHeight = 10;
+							formLayout.spacing = 10;
+							dialog.setLayout (formLayout);
+
+							Label label = new Label (dialog, SWT.NONE);
+							label.setText ("Type in argument:");
+							FormData data = new FormData ();
+							label.setLayoutData (data);
+
+							Button cancel = new Button (dialog, SWT.PUSH);
+							cancel.setText ("Cancel");
+							data = new FormData ();
+							data.width = 60;
+							data.right = new FormAttachment (100, 0);
+							data.bottom = new FormAttachment (100, 0);
+							cancel.setLayoutData (data);
+							cancel.addSelectionListener (new SelectionAdapter () {
+								public void widgetSelected (SelectionEvent e) {
+									System.out.println("User cancelled dialog");
+									dialog.close ();
+								}
+							});
+
+							final Text text = new Text (dialog, SWT.BORDER);
+							data = new FormData ();
+							data.width = 200;
+							data.left = new FormAttachment (label, 0, SWT.DEFAULT);
+							data.right = new FormAttachment (100, 0);
+							data.top = new FormAttachment (label, 0, SWT.CENTER);
+							data.bottom = new FormAttachment (cancel, 0, SWT.DEFAULT);
+							text.setFocus();
+							text.setLayoutData (data);
+
+							Button ok = new Button (dialog, SWT.PUSH);
+							ok.setText ("OK");
+							data = new FormData ();
+							data.width = 60;
+							data.right = new FormAttachment (cancel, 0, SWT.DEFAULT);
+							data.bottom = new FormAttachment (100, 0);
+							ok.setLayoutData (data);
+							ok.addSelectionListener (new SelectionAdapter () {
+								public void widgetSelected (SelectionEvent e) {
+									System.out.println ("User typed: " + text.getText ());
+									dialog.close ();
+									autoSuggest.setText(autoSuggest.getText());
+								}
+							});
+
+							dialog.setDefaultButton (ok);
+							dialog.pack ();
+							dialog.open ();
+						}
+						
 						if (item.getChecked()) {
 							item.setChecked(false);
 							selectedArgs.remove(str);
