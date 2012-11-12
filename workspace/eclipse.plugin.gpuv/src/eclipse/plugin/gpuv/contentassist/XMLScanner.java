@@ -1,6 +1,6 @@
 package eclipse.plugin.gpuv.contentassist;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jface.text.TextAttribute;
 import org.eclipse.jface.text.rules.IRule;
@@ -11,6 +11,8 @@ import org.eclipse.jface.text.rules.SingleLineRule;
 import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.rules.WhitespaceRule;
 import org.eclipse.jface.text.rules.WordRule;
+
+import eclipse.plugin.gpuv.radix.XMLKeywordsManager;
 
 public class XMLScanner extends RuleBasedScanner {
 
@@ -32,7 +34,7 @@ public class XMLScanner extends RuleBasedScanner {
 		IToken keyword = new Token(new TextAttribute(manager.getColor(
 				IXMLColorConstants.TAG), null, 1));
 
-		ArrayList<String> keywords = KeywordsManager.getKeywords();
+		List<String> keywords = XMLKeywordsManager.getKeywords();
 		for (String str : keywords) {
 			rule.addWord(str, keyword);
 		}

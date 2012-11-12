@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import eclipse.plugin.gpuv.CustomProjectSupport;
-import eclipse.plugin.gpuv.radix.XMLRadixTree;
+import eclipse.plugin.gpuv.radix.XMLKeywordsManager;
 
 public class ConfigDialog extends Dialog {
 
@@ -221,11 +221,6 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
-		// case insensitive for option keyword search
-		// (for convenience)
-		final XMLRadixTree rt = new XMLRadixTree("options.xml", true);
-		
-		
 		// Keyboard actions
 		autoSuggest.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
@@ -271,8 +266,8 @@ public class ConfigDialog extends Dialog {
 				if (string.length() == 0) {
 					popupShell.setVisible(false);
 				} else {
-					Set<String> resultSet = new HashSet<String>(rt.searchPrefix(
-							string, restriction));
+					Set<String> resultSet = new HashSet<String>(XMLKeywordsManager.searchPrefix(
+							string, restriction, XMLKeywordsManager.OPTION_SEARCH));
 
 					int numOfItems = resultSet.size(); //TODO remove?
 					int numToShow = (8 < numOfItems) ? 8 : numOfItems;

@@ -3,6 +3,8 @@ package eclipse.plugin.gpuv;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import eclipse.plugin.gpuv.radix.XMLKeywordsManager;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -26,6 +28,7 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		new XMLKeywordsManager(); // read necessary xml files
 		plugin = this;
 	}
 
