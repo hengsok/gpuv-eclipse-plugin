@@ -15,7 +15,6 @@ public class OpenCLDocumentProvider extends FileDocumentProvider {
 				new FastPartitioner(
 					new OpenCLPartitionScanner(),
 					new String[] {
-						OpenCLPartitionScanner.OpenCL_TAG,
 						OpenCLPartitionScanner.OpenCL_COMMENT });
 			partitioner.connect(document);
 			document.setDocumentPartitioner(partitioner);
