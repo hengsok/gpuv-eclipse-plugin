@@ -3,7 +3,6 @@ package eclipse.plugin.gpuv;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import eclipse.plugin.gpuv.radix.XMLKeywordsManager;
 
 /**
  * The activator class controls the plug-in life cycle

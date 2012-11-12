@@ -34,7 +34,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import eclipse.plugin.gpuv.CustomProjectSupport;
-import eclipse.plugin.gpuv.radix.XMLKeywordsManager;
+import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class ConfigDialog extends Dialog {
 
@@ -166,7 +166,7 @@ public class ConfigDialog extends Dialog {
 		descriptionLabel.setLayoutData(descGrid);
 		
 		// number of items appearing on the suggestion list
-		final int restriction = 100;
+		final int restriction = 1000;
 
 		final Shell popupShell = new Shell(SWT.ON_TOP);
 		popupShell.setLayout(new FillLayout());

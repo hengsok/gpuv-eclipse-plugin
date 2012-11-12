@@ -14,7 +14,7 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
 
-import eclipse.plugin.gpuv.radix.XMLKeywordsManager;
+import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
