@@ -13,8 +13,9 @@ public class OpenCLPartitionScanner extends RuleBasedPartitionScanner {
 
 		IPredicateRule[] rules = new IPredicateRule[2];
 
-		rules[0] = new MultiLineRule("<!--", "-->", openCLComment); //TODO is this OpenCL? or xml? 
-		rules[1] = new TagRule(tag);
+		rules[0] = new MultiLineRule("/*", "*/", openCLComment);
+		// Add C comment
+		rules[1] = new SingleLineRule("//", null, openCLComment);
 
 		setPredicateRules(rules);
 	}

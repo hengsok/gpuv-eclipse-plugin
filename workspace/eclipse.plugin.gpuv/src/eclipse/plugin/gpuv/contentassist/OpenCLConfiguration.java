@@ -87,7 +87,7 @@ public class OpenCLConfiguration extends SourceViewerConfiguration {
 
 		NonRuleBasedDamagerRepairer ndr = new NonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColor(IOpenCLColorConstants.OpenCL_COMMENT)));
+						colorManager.getColor(IOpenCLColorConstants.STRING)));
 		reconciler.setDamager(ndr, OpenCLPartitionScanner.OpenCL_COMMENT);
 		reconciler.setRepairer(ndr, OpenCLPartitionScanner.OpenCL_COMMENT);
 
