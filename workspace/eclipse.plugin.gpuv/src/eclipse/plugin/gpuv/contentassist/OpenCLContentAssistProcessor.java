@@ -1,6 +1,8 @@
 package eclipse.plugin.gpuv.contentassist;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
@@ -11,7 +13,8 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Point;
-import eclipse.plugin.gpuv.radix.*;
+
+import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
@@ -26,11 +29,10 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		// Retrieve current document
 		IDocument doc = viewer.getDocument();
 
-		
 		// Retrieve current selection range
 		Point selectedRange = viewer.getSelectedRange();
 
-		ArrayList<CompletionProposal> propList = new ArrayList<CompletionProposal>();
+		List<CompletionProposal> propList = new ArrayList<CompletionProposal>();
 
 		if (selectedRange.y > 0) {
 			try {
@@ -61,7 +63,7 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 	}
 
 	private void computeStyleProposals(String selectedText,
-			Point selectedRange, ArrayList<CompletionProposal> propList) {
+			Point selectedRange, List<CompletionProposal> propList) {
 		// Loop through all styles
 		for (int i = 0; i < STYLETAGS.length; i++) {
 			String tag = STYLETAGS[i];
@@ -92,35 +94,35 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 	 * Read in keywords and find suggestions
 	 */
 	private void computeStructureProposals(String qualifier,
-			int documentOffset, ArrayList<CompletionProposal> propList) {
+			int documentOffset, List<CompletionProposal> propList) {
 		int qlen = qualifier.length();
+		List<String> prefixes = XMLKeywordsManager.searchPrefix(qualifier,
+				1000, XMLKeywordsManager.KEYWORD_SEARCH);
+
 		// Loop through all proposals
-		//TODO: make the tree global, so you don't have to create every time. 
-		XMLRadixTree rt = new XMLRadixTree("keywords.xml", false);
-		ArrayList<String> prefixes = rt.searchPrefix(qualifier, 100);
-		for(String arg:prefixes) {
+		for (String arg : prefixes) {
 			// Construct proposal
 			CompletionProposal proposal = new CompletionProposal(arg,
 					documentOffset - qlen, qlen, arg.length());
 			// and add to result list
 			propList.add(proposal);
-
 		}
 	}
 
 	/*
 	 * Obtain the prefix string from the location of the cursor
 	 */
-	private String getQualifier(IDocument doc, int documentOffset) { 
+	private String getQualifier(IDocument doc, int documentOffset) {
 		StringBuffer buf = new StringBuffer();
 		int startOffset;
 		try {
 			// don't go over a line
-			startOffset = doc.getLineOffset(doc.getLineOfOffset(documentOffset));
-			while(startOffset < documentOffset){
-				// read in a complete word, and return. 
+			startOffset = doc
+					.getLineOffset(doc.getLineOfOffset(documentOffset));
+			while (startOffset < documentOffset) {
+				// read in a complete word, and return.
 				char c = doc.getChar(--documentOffset);
-				if(Character.isWhitespace(c)){
+				if (Character.isWhitespace(c)) {
 					break;
 				}
 				// Collect each character
@@ -130,7 +132,7 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 			e1.printStackTrace();
 		}
 		return buf.reverse().toString();
-		
+
 	}
 
 	@Override

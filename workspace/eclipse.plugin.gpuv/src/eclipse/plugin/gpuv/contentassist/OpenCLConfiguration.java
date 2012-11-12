@@ -13,33 +13,33 @@ import org.eclipse.jface.text.rules.Token;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
-public class XMLConfiguration extends SourceViewerConfiguration {
-	private XMLDoubleClickStrategy doubleClickStrategy;
-	private XMLTagScanner tagScanner;
-	private XMLScanner scanner;
+public class OpenCLConfiguration extends SourceViewerConfiguration {
+	private OpenCLDoubleClickStrategy doubleClickStrategy;
+	private OpenCLTagScanner tagScanner;
+	private OpenCLScanner scanner;
 	private ColorManager colorManager;
 
-	public XMLConfiguration(ColorManager colorManager) {
+	public OpenCLConfiguration(ColorManager colorManager) {
 		this.colorManager = colorManager;
 	}
 
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] { IDocument.DEFAULT_CONTENT_TYPE,
-				XMLPartitionScanner.XML_COMMENT, XMLPartitionScanner.XML_TAG };
+				OpenCLPartitionScanner.OpenCL_COMMENT, OpenCLPartitionScanner.OpenCL_TAG };
 	}
 
 	public ITextDoubleClickStrategy getDoubleClickStrategy(
 			ISourceViewer sourceViewer, String contentType) {
 		if (doubleClickStrategy == null)
-			doubleClickStrategy = new XMLDoubleClickStrategy();
+			doubleClickStrategy = new OpenCLDoubleClickStrategy();
 		return doubleClickStrategy;
 	}
 
-	protected XMLScanner getXMLScanner() {
+	protected OpenCLScanner getOpenCLScanner() {
 		if (scanner == null) {
-			scanner = new XMLScanner(colorManager);
+			scanner = new OpenCLScanner(colorManager);
 			scanner.setDefaultReturnToken(new Token(new TextAttribute(
-					colorManager.getColor(IXMLColorConstants.DEFAULT))));
+					colorManager.getColor(IOpenCLColorConstants.DEFAULT))));
 		}
 		return scanner;
 	}
@@ -54,8 +54,8 @@ public class XMLConfiguration extends SourceViewerConfiguration {
 		   IContentAssistProcessor processor = new OpenCLContentAssistProcessor();
 		   
 		   // Set this processor for each supported content type
-		   assistant.setContentAssistProcessor(processor, XMLPartitionScanner.XML_TAG);
-		   assistant.setContentAssistProcessor(processor, XMLPartitionScanner.XML_COMMENT);
+		   assistant.setContentAssistProcessor(processor, OpenCLPartitionScanner.OpenCL_TAG);
+		   assistant.setContentAssistProcessor(processor, OpenCLPartitionScanner.OpenCL_COMMENT);
 		   assistant.setContentAssistProcessor(processor, IDocument.DEFAULT_CONTENT_TYPE);
 		   assistant.enableAutoActivation(true);
 		   assistant.setAutoActivationDelay(0);
@@ -63,11 +63,11 @@ public class XMLConfiguration extends SourceViewerConfiguration {
 		   return assistant;
 	}
 
-	protected XMLTagScanner getXMLTagScanner() {
+	protected OpenCLTagScanner getOpenCLTagScanner() {
 		if (tagScanner == null) {
-			tagScanner = new XMLTagScanner(colorManager);
+			tagScanner = new OpenCLTagScanner(colorManager);
 			tagScanner.setDefaultReturnToken(new Token(new TextAttribute(
-					colorManager.getColor(IXMLColorConstants.TAG))));
+					colorManager.getColor(IOpenCLColorConstants.TAG))));
 		}
 		return tagScanner;
 	}
@@ -77,19 +77,19 @@ public class XMLConfiguration extends SourceViewerConfiguration {
 		PresentationReconciler reconciler = new PresentationReconciler();
 
 		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(
-				getXMLTagScanner());
-		reconciler.setDamager(dr, XMLPartitionScanner.XML_TAG);
-		reconciler.setRepairer(dr, XMLPartitionScanner.XML_TAG);
+				getOpenCLTagScanner());
+		reconciler.setDamager(dr, OpenCLPartitionScanner.OpenCL_TAG);
+		reconciler.setRepairer(dr, OpenCLPartitionScanner.OpenCL_TAG);
 
-		dr = new DefaultDamagerRepairer(getXMLScanner());
+		dr = new DefaultDamagerRepairer(getOpenCLScanner());
 		reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
 		reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 
 		NonRuleBasedDamagerRepairer ndr = new NonRuleBasedDamagerRepairer(
 				new TextAttribute(
-						colorManager.getColor(IXMLColorConstants.XML_COMMENT)));
-		reconciler.setDamager(ndr, XMLPartitionScanner.XML_COMMENT);
-		reconciler.setRepairer(ndr, XMLPartitionScanner.XML_COMMENT);
+						colorManager.getColor(IOpenCLColorConstants.STRING)));
+		reconciler.setDamager(ndr, OpenCLPartitionScanner.OpenCL_COMMENT);
+		reconciler.setRepairer(ndr, OpenCLPartitionScanner.OpenCL_COMMENT);
 
 		return reconciler;
 	}

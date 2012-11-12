@@ -2,7 +2,7 @@ package eclipse.plugin.gpuv.contentassist;
 
 import org.eclipse.jface.text.*;
 
-public class XMLDoubleClickStrategy implements ITextDoubleClickStrategy {
+public class OpenCLDoubleClickStrategy implements ITextDoubleClickStrategy {
 	protected ITextViewer fText;
 
 	public void doubleClicked(ITextViewer part) {

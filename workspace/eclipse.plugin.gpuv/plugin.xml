@@ -50,7 +50,7 @@
          point="org.eclipse.ui.newWizards">
       <category
             id="eclipse.plugin.gpuv.category.wizards"
-            name="GPUVerify Custom Project">
+            name="GPUVerify Project">
       </category>
       <wizard
             category="eclipse.plugin.gpuv.category.wizards"
@@ -58,7 +58,8 @@
             finalPerspective="eclipse.plugin.gpuv.perspective"
             icon="icons/sample.gif"
             id="eclipse.plugin.gpuv.wizard.newProjectWizard"
-            name="GPUVerify Project">
+            name="GPUVerify Project"
+            project="true">
       </wizard>
       <wizard
             category="eclipse.plugin.gpuv.category.wizards"
@@ -117,7 +118,26 @@
             icon="icons/sample.gif"
             id="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
             name="OpenCL Editor">
+         <contentTypeBinding
+               contentTypeId="eclipse.plugin.gpuv.openclcontent">
+         </contentTypeBinding>
       </editor>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.core.runtime.text"
+            id="eclipse.plugin.gpuv.openclcontent"
+            name="OpenCL Source File"
+            priority="high">
+      </content-type>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <file-association
+            content-type="eclipse.plugin.gpuv.openclcontent"
+            file-extensions="cl">
+      </file-association>
    </extension>
 
 </plugin>
