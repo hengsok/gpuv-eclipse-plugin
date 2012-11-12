@@ -26,28 +26,20 @@ public class OpenCLScanner extends RuleBasedScanner {
 				return Character.isJavaIdentifierPart(c);
 			}
 		});
-		IToken procInstr = new Token(new TextAttribute(
-				manager.getColor(IOpenCLColorConstants.PROC_INSTR)));
-		IToken comment = new Token(new TextAttribute(
-				manager.getColor(IOpenCLColorConstants.STRING)));
 
-		IToken keyword = new Token(new TextAttribute(manager.getColor(
-				IOpenCLColorConstants.TAG), null, 1));
+		IToken keyword = new Token(new TextAttribute(
+				manager.getColor(IOpenCLColorConstants.TAG), null, 1));
 
 		List<String> keywords = XMLKeywordsManager.getKeywords();
 		for (String str : keywords) {
 			rule.addWord(str, keyword);
 		}
 
-		IRule[] rules = new IRule[4];
-		// Add rule for processing instructions
-		rules[0] = new SingleLineRule("<?", "?>", procInstr);
+		IRule[] rules = new IRule[2];
 		// Add generic whitespace rule.
-		rules[1] = new WhitespaceRule(new OpenCLWhitespaceDetector());
-		// Add C comment
-		rules[2] = new SingleLineRule("//", null, comment);
+		rules[0] = new WhitespaceRule(new OpenCLWhitespaceDetector());
 		// Add keywords
-		rules[3] = rule;
+		rules[1] = rule;
 
 		setRules(rules);
 	}
