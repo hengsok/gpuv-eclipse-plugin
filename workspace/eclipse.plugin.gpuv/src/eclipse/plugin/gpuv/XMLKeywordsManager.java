@@ -1,9 +1,11 @@
 package eclipse.plugin.gpuv;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -34,47 +36,60 @@ public class XMLKeywordsManager {
 	public static final int OPTION_SEARCH = 1;
 	private static RadixTree<String> keywordTree;
 	private static List<String> keywordList;
-	private static List<String> optionList;
+	private static Map<String, dataNode> optionMap;
 
 	public XMLKeywordsManager() {
 		keywordTree = new RadixTreeImpl<String>();
 		keywordList = new ArrayList<String>();
-		optionList = new ArrayList<String>();
+		optionMap = new HashMap<String, dataNode>();
 		createSearchTree("keywords.xml", KEYWORD_SEARCH);
 		createSearchTree("options.xml", OPTION_SEARCH);
 	}
 
-	public static List<String> getKeywords(){
+	public static List<String> getKeywords() {
 		return keywordList;
 	}
-	
-	public static List<String> searchPrefix(String prefix, int recordLimit, int searchType) {
-		if(searchType == OPTION_SEARCH){
+
+	public static List<String> searchPrefix(String prefix, int recordLimit,
+			int searchType) {
+		if (searchType == OPTION_SEARCH) {
 			return getMatchingOptions(prefix.toLowerCase());
 		}
 		return keywordTree.searchPrefix(prefix, recordLimit);
 	}
-	
-	public static Set<String> getGeneralOptions(){
-		Set<String> result = new HashSet<String>();
-		Iterator<String> it = optionList.iterator();
-		while(it.hasNext()){
-			String full = it.next();
-			String[] tokens = full.split(" ");
-			if(tokens[1].equals("GENERAL")){
-				result.add(tokens[0]);
+
+	// TODO maybe don't put options that take arguments?
+	public static Set<String> getGeneralOptions() {
+		Set<String> result = new LinkedHashSet<String>();
+		Iterator<Map.Entry<String, dataNode>> entries = optionMap.entrySet()
+				.iterator();
+		while (entries.hasNext()) {
+			Map.Entry<String, dataNode> entry = entries.next();
+			dataNode value = entry.getValue();
+			if (value.getType().equals("GENERAL")
+					&& !value.getMultiple()) {
+				result.add(entry.getKey());
 			}
 		}
 		return result;
 	}
 
+	public static boolean isMultiple(String optionName) {
+		return optionMap.get(optionName).getMultiple();
+	}
+
 	private static List<String> getMatchingOptions(String prefix) {
 		List<String> result = new ArrayList<String>();
-		Iterator<String> it = optionList.iterator();
-		while(it.hasNext()){
-			String full = it.next();
-			if(full.toLowerCase().contains(prefix)){ //matches some text
-				result.add(full.split(" ")[0]); //add option name
+
+		Iterator<Map.Entry<String, dataNode>> entries = optionMap.entrySet()
+				.iterator();
+		while (entries.hasNext()) {
+			Map.Entry<String, dataNode> entry = entries.next();
+			dataNode value = entry.getValue();
+			if (value.getDescription().toLowerCase().contains(prefix)
+					|| value.getOption().toLowerCase().contains(prefix)
+					|| value.getType().toLowerCase().contains(prefix)){
+				result.add(entry.getKey()); // add option name
 			}
 		}
 		return result;
@@ -102,9 +117,14 @@ public class XMLKeywordsManager {
 					if (searchType == OPTION_SEARCH) { // for option search
 						String option = getTagValue("option", eElement);
 						String type = getTagValue("type", eElement);
+						String multiple = getTagValue("multiple", eElement);
 						String desc = getTagValue("description", eElement);
-						optionList.add(option + " " + type + " " + desc);
-					} else { //for editor keyword suggestion
+
+						// TODO arguments
+						dataNode data = new dataNode(keyword, option, null,
+								type, multiple.equals("true"), desc);
+						optionMap.put(option, data);
+					} else { // for editor keyword suggestion
 						if (!keywordTree.contains(keyword)) {
 							keywordTree.insert(keyword, keyword);
 							keywordList.add(keyword);
@@ -115,11 +135,11 @@ public class XMLKeywordsManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		for (String str : GCCLanguage.getDefault().getKeywords()) {
-			keywordList.add(str);  // add C keywords
+			keywordList.add(str); // add C keywords
 		}
-		
+
 	}
 
 	private static String getTagValue(String sTag, Element eElement) {
@@ -130,5 +150,4 @@ public class XMLKeywordsManager {
 
 		return nValue.getNodeValue();
 	}
-
 }

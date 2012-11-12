@@ -9,6 +9,7 @@
     <name>Help</name>
     <option>-h</option>
     <type>GENERAL</type>
+    <multiple>false</multiple>
     <description>Display help message</description>
   </keyword>
   <keyword id="2">
@@ -18,6 +19,7 @@
       <arg>String</arg>
     </arguments>
     <type>GENERAL</type>
+    <multiple>true</multiple>
     <description>Add directory to include search path</description>
   </keyword>
   <keyword id="3">
@@ -27,30 +29,35 @@
       <arg>String</arg>
     </arguments>
     <type>GENERAL</type>
+    <multiple>true</multiple>
      <description>Define symbol</description>
   </keyword>
   <keyword id="4">
     <name>findbugs</name>
     <option>--findbugs</option>
     <type>GENERAL</type>
+    <multiple>false</multiple>
     <description>Run tool in bug-finding mode</description>
   </keyword>
   <keyword id="5">
     <name>Inference</name>
     <option>--noinfer</option>
     <type>GENERAL</type>
+    <multiple>false</multiple>
     <description>Turn off invariant inference</description>
   </keyword>
   <keyword id="6">
     <name>Verify</name>
     <option>--verify</option>
     <type>GENERAL</type>
+    <multiple>false</multiple>
     <description>Run tool in verification mode</description>
   </keyword>
   <keyword id="7">
     <name>Verbose</name>
     <option>--verbose</option>
     <type>GENERAL</type>
+    <multiple>false</multiple>
     <description>Show commands to run and use verbose output</description>
   </keyword>
   
@@ -62,6 +69,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <multiple>false</multiple>
     <description>Specify that work-group is 1D and specify size for the dimension</description>
   </keyword>
   <keyword id="9">
@@ -72,6 +80,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <multiple>false</multiple>
     <description>Specify that work-group is 2D and specify size for each dimension</description>
   </keyword>
   <keyword id="10">
@@ -83,6 +92,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <multiple>false</multiple>
     <description>Specify that work-group is 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="11">
@@ -92,6 +102,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <multiple>false</multiple>
     <description>Specify that grid of work-groups is 1D and specify size for the dimension</description>
   </keyword>
   <keyword id="12">
@@ -102,6 +113,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <multiple>false</multiple>
     <description>Specify that grid of work-groups is 2D and specify size for each dimension</description>
   </keyword>
   <keyword id="13">
@@ -113,6 +125,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>OPENCL</type>
+    <multiple>false</multiple>
     <description>Specify that grid of work-groups is 3D and specify size for each dimension</description>
   </keyword>
 
@@ -124,6 +137,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <multiple>false</multiple>
     <description>Specify that thread block is 1D and specify size for the dimension</description>
   </keyword>
   <keyword id="15">
@@ -134,6 +148,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <multiple>false</multiple>
     <description>Specify that thread block is 2D and specify size for each dimension</description>
   </keyword>
   <keyword id="16">
@@ -145,6 +160,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <multiple>false</multiple>
     <description>Specify that thread block is 3D and specify size for each dimension</description>
   </keyword>
   <keyword id="17">
@@ -154,6 +170,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <multiple>false</multiple>
     <description>Specify that grid of thread blocks is 1D and specify size for the dimension</description>
   </keyword>
   <keyword id="18">
@@ -164,6 +181,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <multiple>false</multiple>
     <description>Specify that grid of thread blocks is 2D and specify size for each dimension</description>
   </keyword>
   <keyword id="19">
@@ -175,6 +193,7 @@
       <arg>Integer</arg>
     </arguments>
     <type>CUDA</type>
+    <multiple>false</multiple>
     <description>Specify that grid of thread blocks is 3D and specify size for each dimension</description>
   </keyword>
   
