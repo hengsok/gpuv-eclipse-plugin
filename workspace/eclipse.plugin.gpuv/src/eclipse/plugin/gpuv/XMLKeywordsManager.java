@@ -1,8 +1,10 @@
 package eclipse.plugin.gpuv;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -46,11 +48,24 @@ public class XMLKeywordsManager {
 		return keywordList;
 	}
 	
-	public static List<String> searchPrefix(String prefix, int recordLimit, int type) {
-		if(type == OPTION_SEARCH){
+	public static List<String> searchPrefix(String prefix, int recordLimit, int searchType) {
+		if(searchType == OPTION_SEARCH){
 			return getMatchingOptions(prefix.toLowerCase());
 		}
 		return keywordTree.searchPrefix(prefix, recordLimit);
+	}
+	
+	public static Set<String> getGeneralOptions(){
+		Set<String> result = new HashSet<String>();
+		Iterator<String> it = optionList.iterator();
+		while(it.hasNext()){
+			String full = it.next();
+			String[] tokens = full.split(" ");
+			if(tokens[1].equals("GENERAL")){
+				result.add(tokens[0]);
+			}
+		}
+		return result;
 	}
 
 	private static List<String> getMatchingOptions(String prefix) {
@@ -65,7 +80,7 @@ public class XMLKeywordsManager {
 		return result;
 	}
 
-	private void createSearchTree(String filename, int type) {
+	private void createSearchTree(String filename, int searchType) {
 		/*
 		 * Creating a search tree for the keywords
 		 */
@@ -84,11 +99,11 @@ public class XMLKeywordsManager {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					String keyword = getTagValue("name", eElement);
-					if (type == OPTION_SEARCH) { // for option search
+					if (searchType == OPTION_SEARCH) { // for option search
 						String option = getTagValue("option", eElement);
-						// attach all searchKeys to options 
+						String type = getTagValue("type", eElement);
 						String desc = getTagValue("description", eElement);
-						optionList.add(option + " " + desc);
+						optionList.add(option + " " + type + " " + desc);
 					} else { //for editor keyword suggestion
 						if (!keywordTree.contains(keyword)) {
 							keywordTree.insert(keyword, keyword);

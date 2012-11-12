@@ -39,17 +39,16 @@ import eclipse.plugin.gpuv.XMLKeywordsManager;
 public class ConfigDialog extends Dialog {
 
 	private Set<String> selectedArgs;
-	private HashSet<String> argList; //TODO does this need to be global?
+	private Set<String> argSet; //TODO does this need to be global?
 	private Map<String, Button> argCheckboxButtons;
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
 
 		// Read in list of arguments
-		ConfigArgumentList configArgList = new ConfigArgumentList("options.xml");
 		ConfigRecentlyUsedArgs configRecentArgList = new ConfigRecentlyUsedArgs();
-		argList = configArgList.getArgList();
-		argList.addAll(configRecentArgList.getRecentArgs());
+		argSet = XMLKeywordsManager.getGeneralOptions();
+		argSet.addAll(configRecentArgList.getRecentArgs());
 
 		this.selectedArgs = new HashSet<String>();
 
@@ -383,7 +382,7 @@ public class ConfigDialog extends Dialog {
 
 	private void createArgCheckboxes(Composite parent) {
 		argCheckboxButtons = new HashMap<String, Button>();
-		for (String arg : argList) {
+		for (String arg : argSet) {
 			final String eachArg = arg;
 			final Button button = new Button(parent, SWT.CHECK);
 			button.setText(arg);
@@ -404,7 +403,7 @@ public class ConfigDialog extends Dialog {
 		//TODO
 		// Might want to set selection only for certain often used checkboxes
 		// here
-		// for (String arg : argList){
+		// for (String arg : argSet){
 		// Button button = (Button) argCheckboxButtons.get(arg);
 		// button.setSelection(selectedArgs.contains(arg));
 		// }
