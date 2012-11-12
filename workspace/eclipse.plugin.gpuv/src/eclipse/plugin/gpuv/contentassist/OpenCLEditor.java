@@ -10,8 +10,8 @@ public class OpenCLEditor extends TextEditor {
 		super();
 		colorManager = new ColorManager();
 		/**/
-        setDocumentProvider(new XMLDocumentProvider());
-        setSourceViewerConfiguration(new XMLConfiguration(colorManager));
+        setDocumentProvider(new OpenCLDocumentProvider());
+        setSourceViewerConfiguration(new OpenCLConfiguration(colorManager));
         /**/
 		/*
 		setSourceViewerConfiguration(new CSourceViewerConfiguration(CUIPlugin.getDefault().getTextTools().getColorManager(),
