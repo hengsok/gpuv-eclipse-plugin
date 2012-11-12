@@ -15,7 +15,6 @@ import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
 public class OpenCLConfiguration extends SourceViewerConfiguration {
 	private OpenCLDoubleClickStrategy doubleClickStrategy;
-	private OpenCLTagScanner tagScanner;
 	private OpenCLScanner scanner;
 	private ColorManager colorManager;
 
@@ -25,7 +24,7 @@ public class OpenCLConfiguration extends SourceViewerConfiguration {
 
 	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
 		return new String[] { IDocument.DEFAULT_CONTENT_TYPE,
-				OpenCLPartitionScanner.OpenCL_COMMENT, OpenCLPartitionScanner.OpenCL_TAG };
+				OpenCLPartitionScanner.OpenCL_COMMENT};
 	}
 
 	public ITextDoubleClickStrategy getDoubleClickStrategy(
@@ -54,7 +53,6 @@ public class OpenCLConfiguration extends SourceViewerConfiguration {
 		   IContentAssistProcessor processor = new OpenCLContentAssistProcessor();
 		   
 		   // Set this processor for each supported content type
-		   assistant.setContentAssistProcessor(processor, OpenCLPartitionScanner.OpenCL_TAG);
 		   assistant.setContentAssistProcessor(processor, OpenCLPartitionScanner.OpenCL_COMMENT);
 		   assistant.setContentAssistProcessor(processor, IDocument.DEFAULT_CONTENT_TYPE);
 		   assistant.enableAutoActivation(true);
@@ -63,25 +61,11 @@ public class OpenCLConfiguration extends SourceViewerConfiguration {
 		   return assistant;
 	}
 
-	protected OpenCLTagScanner getOpenCLTagScanner() {
-		if (tagScanner == null) {
-			tagScanner = new OpenCLTagScanner(colorManager);
-			tagScanner.setDefaultReturnToken(new Token(new TextAttribute(
-					colorManager.getColor(IOpenCLColorConstants.TAG))));
-		}
-		return tagScanner;
-	}
-
 	public IPresentationReconciler getPresentationReconciler(
 			ISourceViewer sourceViewer) {
 		PresentationReconciler reconciler = new PresentationReconciler();
 
-		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(
-				getOpenCLTagScanner());
-		reconciler.setDamager(dr, OpenCLPartitionScanner.OpenCL_TAG);
-		reconciler.setRepairer(dr, OpenCLPartitionScanner.OpenCL_TAG);
-
-		dr = new DefaultDamagerRepairer(getOpenCLScanner());
+		DefaultDamagerRepairer dr = new DefaultDamagerRepairer(getOpenCLScanner());
 		reconciler.setDamager(dr, IDocument.DEFAULT_CONTENT_TYPE);
 		reconciler.setRepairer(dr, IDocument.DEFAULT_CONTENT_TYPE);
 
