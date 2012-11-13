@@ -297,7 +297,7 @@ public class ConfigDialog extends Dialog {
 							ok.addSelectionListener(new SelectionAdapter() {
 								public void widgetSelected(SelectionEvent e) {
 									selectedArgs.put(
-											str + " \"" + text.getText() + "\"",
+											str + "\"" + text.getText() + "\"",
 											str);
 									refreshSelections(selections);
 									dialog.close();

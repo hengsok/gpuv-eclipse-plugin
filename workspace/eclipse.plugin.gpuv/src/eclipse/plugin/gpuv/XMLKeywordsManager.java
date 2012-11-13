@@ -119,9 +119,11 @@ public class XMLKeywordsManager {
 						String type = getTagValue("type", eElement);
 						String multiple = getTagValue("multiple", eElement);
 						String desc = getTagValue("description", eElement);
+						String argType = getTagValue("argType", eElement);
+						int argNum = Integer.parseInt(getTagValue("argNum", eElement));
 
 						// TODO arguments
-						dataNode data = new dataNode(keyword, option, null,
+						dataNode data = new dataNode(keyword, option, argType, argNum,
 								type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
 					} else { // for editor keyword suggestion
