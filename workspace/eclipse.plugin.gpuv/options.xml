@@ -5,193 +5,307 @@
 <keywords>
 
 <!-- GENERAL options -->
-  <keyword id="1">
+  <keyword>
     <name>Help</name>
     <option>-h</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
     <type>GENERAL</type>
     <multiple>false</multiple>
     <description>Display help message</description>
   </keyword>
-  <keyword id="2">
+  <keyword>
     <name>Include path</name>
     <option>-I</option>
-    <arguments>
-      <arg>String</arg>
-    </arguments>
+    <argType>String</argType>
+    <argNum>1</argNum>
     <type>GENERAL</type>
     <multiple>true</multiple>
     <description>Add directory to include search path</description>
   </keyword>
-  <keyword id="3">
+  <keyword>
     <name>Define</name>
     <option>-D</option>
-    <arguments>
-      <arg>String</arg>
-    </arguments>
+    <argType>String</argType>
+    <argNum>1</argNum>
     <type>GENERAL</type>
     <multiple>true</multiple>
      <description>Define symbol</description>
   </keyword>
-  <keyword id="4">
+  <keyword>
     <name>findbugs</name>
     <option>--findbugs</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
     <type>GENERAL</type>
     <multiple>false</multiple>
     <description>Run tool in bug-finding mode</description>
   </keyword>
-  <keyword id="5">
-    <name>Inference</name>
-    <option>--noinfer</option>
+  <keyword>
+    <name>Loop unwind</name>
+    <option>--loop-unwind=X</option>
+    <argType>Integer</argType>
+    <argNum>1</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Explore traces that pass through at most X loop heads</description>
+  </keyword>
+  <keyword>
+    <name>No benign</name>
+    <option>--no-benign</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Do not tolerate benign data races</description>
+  </keyword>
+  <keyword>
+    <name>Only divergence</name>
+    <option>--only-divergence</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Only check for barrier divergence, not for races</description>
+  </keyword>
+  <keyword>
+    <name>Only intra-group</name>
+    <option>--only-intra-group</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Do not check for inter-group races</description>
+  </keyword>
+  <keyword>
+    <name>No Inference</name>
+    <option>--no-infer</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
     <type>GENERAL</type>
     <multiple>false</multiple>
     <description>Turn off invariant inference</description>
   </keyword>
-  <keyword id="6">
+  <keyword>
     <name>Verify</name>
     <option>--verify</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
     <type>GENERAL</type>
     <multiple>false</multiple>
     <description>Run tool in verification mode</description>
   </keyword>
-  <keyword id="7">
+  <keyword>
     <name>Verbose</name>
     <option>--verbose</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
     <type>GENERAL</type>
     <multiple>false</multiple>
     <description>Show commands to run and use verbose output</description>
   </keyword>
-  
+
+
+<!-- ADVANCED Options -->
+  <keyword>
+    <name>Adversarial abstraction</name>
+    <option>--adversarial-abstraction</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Completely abstract shared state, so that reads are nondeterministic</description>
+  </keyword>
+  <keyword>
+    <name>Array equalities</name>
+    <option>--array-equalities</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Generate equality candidate invariants for array variables</description>
+  </keyword>
+  <keyword>
+    <name>Equality abstraction</name>
+    <option>--equality-abstraction</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Make shared arrays nondeterministic, but consistent between threads, at barriers</description>
+  </keyword>
+  <keyword>
+    <name>No loop predicate invariants</name>
+    <option>--no-loop-predicate-invariants</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off automatic generation of loop invariants related to predicates, which can be incorrect</description>
+  </keyword>
+  <keyword>
+    <name>No smart prediction</name>
+    <option>--no-smart-predication</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off smart predication</description>
+  </keyword>
+  <keyword>
+    <name>No source location inference</name>
+    <option>--no-source-loc-infer</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off inference of source location information</description>
+  </keyword>
+  <keyword>
+    <name>No uniformity analysis</name>
+    <option>--no-uniformity-analysis</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off uniformity analysis</description>
+  </keyword>
+  <keyword>
+    <name>Boogie option</name>
+    <option>--boogie-opt=</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>ADVANCED</type>
+    <multiple>true</multiple>
+    <description>Specify option to be passed to Boogie</description>
+  </keyword>
+  <keyword>
+    <name>Clang option</name>
+    <option>--clang-opt=</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>ADVANCED</type>
+    <multiple>true</multiple>
+    <description>Specify option to be passed to CLANG</description>
+  </keyword>
+  <keyword>
+    <name>VC generation engine option</name>
+    <option>--vcgen-opt=</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>ADVANCED</type>
+    <multiple>true</multiple>
+    <description>Specify option to be passed to be passed to VC generation engine</description>
+  </keyword>
+
+
 <!-- OPENCL options -->  
-  <keyword id="8">
+  <keyword>
     <name>Local size 1D</name>
     <option>--local_size=X</option>
-    <arguments>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>1</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
     <description>Specify that work-group is 1D and specify size for the dimension</description>
   </keyword>
-  <keyword id="9">
+  <keyword>
     <name>Local size 2D</name>
     <option>--local_size=(X,Y)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>2</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
     <description>Specify that work-group is 2D and specify size for each dimension</description>
   </keyword>
-  <keyword id="10">
+  <keyword>
     <name>Local size 3D</name>
     <option>--local_size=(X,Y,Z)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
     <description>Specify that work-group is 3D and specify size for each dimension</description>
   </keyword>
-  <keyword id="11">
+  <keyword>
     <name>Num Groups 1D</name>
     <option>--num_groups=X</option>
-    <arguments>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>1</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
     <description>Specify that grid of work-groups is 1D and specify size for the dimension</description>
   </keyword>
-  <keyword id="12">
+  <keyword>
     <name>Num Groups 2D</name>
     <option>--num_groups=(X,Y)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>2</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
     <description>Specify that grid of work-groups is 2D and specify size for each dimension</description>
   </keyword>
-  <keyword id="13">
+  <keyword>
     <name>Num Groups 3D</name>
     <option>--num_groups=(X,Y,Z)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
     <description>Specify that grid of work-groups is 3D and specify size for each dimension</description>
   </keyword>
 
 <!-- CUDA options -->
-  <keyword id="14">
+  <keyword>
     <name>Block Dimension 1D</name>
     <option>--blockDim=X</option>
-    <arguments>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>1</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
     <description>Specify that thread block is 1D and specify size for the dimension</description>
   </keyword>
-  <keyword id="15">
+  <keyword>
     <name>Block Dimension 2D</name>
     <option>--blockDim=(X,Y)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>2</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
     <description>Specify that thread block is 2D and specify size for each dimension</description>
   </keyword>
-  <keyword id="16">
+  <keyword>
     <name>Block Dimension 3D</name>
     <option>--blockDim=(X,Y,Z)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
     <description>Specify that thread block is 3D and specify size for each dimension</description>
   </keyword>
-  <keyword id="17">
+  <keyword>
     <name>Grid Dimension 1D</name>
     <option>--gridDim=X</option>
-    <arguments>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>1</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
     <description>Specify that grid of thread blocks is 1D and specify size for the dimension</description>
   </keyword>
-  <keyword id="18">
+  <keyword>
     <name>Grid Dimension 2D</name>
     <option>--gridDim=(X,Y)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>2</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
     <description>Specify that grid of thread blocks is 2D and specify size for each dimension</description>
   </keyword>
-  <keyword id="19">
+  <keyword>
     <name>Grid Dimension 3D</name>
     <option>--gridDim=(X,Y,Z)</option>
-    <arguments>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-      <arg>Integer</arg>
-    </arguments>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
     <description>Specify that grid of thread blocks is 3D and specify size for each dimension</description>
