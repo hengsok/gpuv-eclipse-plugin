@@ -1,5 +1,10 @@
 package eclipse.plugin.gpuv;
 
+/*
+ * A node class for storing option information,
+ * provides getter and setter methods for all elements 
+ * and is used by XMLKeywordsManager.
+ */
 public class dataNode {
 	private String name;
 	private String option;
