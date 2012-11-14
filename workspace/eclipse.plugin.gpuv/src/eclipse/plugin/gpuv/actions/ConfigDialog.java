@@ -398,7 +398,12 @@ public class ConfigDialog extends Dialog {
 							String keyword = it.next();
 							maxLength = Math.max(maxLength, new GC(currShell)
 									.textExtent(keyword).x);
-							TableItem ti = new TableItem(table, SWT.NONE);
+							TableItem ti = null;
+							if(string.equalsIgnoreCase(keyword)){
+								ti = new TableItem(table, SWT.NONE, 0);
+							} else {
+								ti = new TableItem(table, SWT.NONE);
+							}
 							ti.setText(keyword);
 							// if in the selections, make it checked.
 							// Grayed if it can be selected multiple times
