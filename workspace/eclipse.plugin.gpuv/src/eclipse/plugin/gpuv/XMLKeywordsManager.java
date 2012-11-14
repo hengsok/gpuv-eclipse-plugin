@@ -77,6 +77,18 @@ public class XMLKeywordsManager {
 	public static boolean isMultiple(String optionName) {
 		return optionMap.get(optionName).getMultiple();
 	}
+	
+	public static boolean takesInput(String optionName) {
+		return optionMap.get(optionName).getArgNum() != 0;
+	}
+	
+	public static String getArgType(String optionName) {
+		return optionMap.get(optionName).getArgType();
+	}
+	
+	public static int getArgNum(String optionName) {
+		return optionMap.get(optionName).getArgNum();
+	}
 
 	private static List<String> getMatchingOptions(String prefix) {
 		List<String> result = new ArrayList<String>();
