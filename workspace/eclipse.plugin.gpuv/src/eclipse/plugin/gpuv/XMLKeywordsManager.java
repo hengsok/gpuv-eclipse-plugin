@@ -67,7 +67,7 @@ public class XMLKeywordsManager {
 			Map.Entry<String, dataNode> entry = entries.next();
 			dataNode value = entry.getValue();
 			if (value.getType().equals("GENERAL")
-					&& !value.getMultiple()) {
+					&& value.getArgNum() == 0) {
 				result.add(entry.getKey());
 			}
 		}

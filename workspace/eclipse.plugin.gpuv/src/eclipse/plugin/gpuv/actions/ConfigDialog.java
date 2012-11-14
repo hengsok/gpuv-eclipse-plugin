@@ -346,6 +346,7 @@ public class ConfigDialog extends Dialog {
 											dialog.close();
 											// keep the popupShell open
 											autoSuggest.setText(autoSuggest.getText());
+											autoSuggest.setSelection(autoSuggest.getCharCount());
 										}
 									}
 								});
