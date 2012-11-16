@@ -1,9 +1,8 @@
 package eclipse.plugin.gpuv;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.net.URI;
 
+import org.eclipse.cdt.core.CCorePlugin;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -18,9 +17,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.views.navigator.ResourceNavigator;
 
 public class CustomProjectSupport {
 	/**
@@ -32,13 +28,13 @@ public class CustomProjectSupport {
 	 * @param natureId
 	 * @return
 	 */
-	public static IProject createProject(String projectName, URI location) {
+	public static IProject createProject(String projectName, URI location, IProgressMonitor monitor) {
 		Assert.isNotNull(projectName);
 		Assert.isTrue(projectName.trim().length() > 0);
 
-		IProject project = createBaseProject(projectName, location);
+		IProject project = createBaseProject(projectName, location, monitor);
 		try {
-			addNature(project);
+			//addNature(project);
 
 			String[] paths = { "src", "bin" }; //$NON-NLS-1$ //$NON-NLS-2$
 			addToProjectStructure(project, paths);
@@ -72,6 +68,10 @@ public class CustomProjectSupport {
 
 	}
 
+	public static String getCurrentProjectName() throws CoreException {
+		return ResourcesPlugin.getWorkspace().getRoot().getProject().getName();
+	}
+
 	/**
 	 * 
 	 * @param message
@@ -84,22 +84,14 @@ public class CustomProjectSupport {
 	}
 
 	/**
-	 * 
-	 * @return
-	 */
-	private static InputStream openContentStream() {
-		String contents = "//main.cl";
-		return new ByteArrayInputStream(contents.getBytes());
-	}
-
-	/**
 	 * Just do the basics: create a basic project.
 	 * 
 	 * @param location
 	 * @param projectName
 	 */
-	private static IProject createBaseProject(String projectName, URI location) {
+	private static IProject createBaseProject(String projectName, URI location, IProgressMonitor monitor) {
 		// it is acceptable to use the ResourcesPlugin class
+		monitor.beginTask("Creating Project", IProgressMonitor.UNKNOWN);
 		IProject newProject = ResourcesPlugin.getWorkspace().getRoot()
 				.getProject(projectName);
 
@@ -115,7 +107,7 @@ public class CustomProjectSupport {
 
 			desc.setLocationURI(projectLocation);
 			try {
-				newProject.create(desc, null);
+				newProject = CCorePlugin.getDefault().createCDTProject(desc, newProject, monitor);
 				if (!newProject.isOpen()) {
 					newProject.open(null);
 				}
