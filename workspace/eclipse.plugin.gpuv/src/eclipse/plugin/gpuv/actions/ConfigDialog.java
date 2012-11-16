@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import org.eclipse.core.runtime.CoreException;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -34,8 +34,10 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.AbstractTextEditor;
 
-import eclipse.plugin.gpuv.CustomProjectSupport;
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class ConfigDialog extends Dialog {
@@ -63,16 +65,19 @@ public class ConfigDialog extends Dialog {
 		ConfigRecentlyUsedArgs configRecentUsed = new ConfigRecentlyUsedArgs();
 		configRecentUsed.storeRecentArgs(selectedArgs.keySet());
 
-		String containerName = "/Test/src";
-		String fileName = "main.cl";
-		try {
-			System.out.println(CustomProjectSupport.getCurrentProjectFile(
-					containerName, fileName).getName()
-					+ " used");
-		} catch (CoreException e1) {
-			e1.printStackTrace();
-		}
+		//Get Active Editor Content
+		IEditorPart activeEditor = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 
+		if (activeEditor == null)
+			return;
+		System.out.println(activeEditor.getTitle() + ": ");
+		AbstractTextEditor part = (AbstractTextEditor) activeEditor
+				.getAdapter(AbstractTextEditor.class);
+		System.out.println(part.getDocumentProvider()
+				.getDocument(part.getEditorInput()).get());
+		//------------------------------
+		
 		// run the arguments with shell
 		ShellCommand t = new ShellCommand();
 		try {
@@ -245,11 +250,13 @@ public class ConfigDialog extends Dialog {
 						final String str = item.getText();
 
 						if (XMLKeywordsManager.takesInput(str)) {
-							if(item.getChecked() && !item.getGrayed()){
+							if (item.getChecked() && !item.getGrayed()) {
 								// Already selected.
-								//TODO prevent multiple selection on non-multiple options
-								// including the ones with the same name 
-								System.out.println("cannot select multiple times");
+								// TODO prevent multiple selection on
+								// non-multiple options
+								// including the ones with the same name
+								System.out
+										.println("cannot select multiple times");
 							} else {
 								// invoke argument input dialog
 								// TODO move this to another function?
@@ -261,12 +268,12 @@ public class ConfigDialog extends Dialog {
 								formLayout.marginHeight = 10;
 								formLayout.spacing = 10;
 								dialog.setLayout(formLayout);
-	
+
 								final String argType = XMLKeywordsManager
 										.getArgType(str);
 								final int argNum = XMLKeywordsManager
 										.getArgNum(str);
-	
+
 								Label label = new Label(dialog, SWT.NONE);
 								if (argType.equals("String")) {
 									label.setText("Type in String:");
@@ -275,7 +282,7 @@ public class ConfigDialog extends Dialog {
 								}
 								FormData data = new FormData();
 								label.setLayoutData(data);
-	
+
 								Button cancel = new Button(dialog, SWT.PUSH);
 								cancel.setText("Cancel");
 								data = new FormData();
@@ -288,27 +295,29 @@ public class ConfigDialog extends Dialog {
 										dialog.close();
 									}
 								});
-	
+
 								// add appropriate number of input fields
 								// according to the number of arguments
 								final Text[] inputFields = new Text[argNum];
 								for (int i = 0; i < argNum; i++) {
-									inputFields[i] = new Text(dialog, SWT.BORDER);
+									inputFields[i] = new Text(dialog,
+											SWT.BORDER);
 									data = new FormData();
 									data.width = 120 / argNum;
 									if (i <= 0) {
-										data.left = new FormAttachment(label, 0,
-												SWT.DEFAULT);
+										data.left = new FormAttachment(label,
+												0, SWT.DEFAULT);
 									} else {
 										data.left = new FormAttachment(
-												inputFields[i - 1], 0, SWT.DEFAULT);
+												inputFields[i - 1], 0,
+												SWT.DEFAULT);
 									}
 									data.bottom = new FormAttachment(cancel, 0,
 											SWT.DEFAULT);
 									inputFields[i].setLayoutData(data);
 								}
 								inputFields[0].setFocus();
-	
+
 								Button ok = new Button(dialog, SWT.PUSH);
 								ok.setText("OK");
 								data = new FormData();
@@ -319,7 +328,8 @@ public class ConfigDialog extends Dialog {
 								ok.setLayoutData(data);
 								ok.addSelectionListener(new SelectionAdapter() {
 									public void widgetSelected(SelectionEvent e) {
-										// parse arguments and add to selectedArgs
+										// parse arguments and add to
+										// selectedArgs
 										String resultOption = null;
 										if (argType.equals("String")) {
 											resultOption = str + "\""
@@ -327,25 +337,34 @@ public class ConfigDialog extends Dialog {
 													+ "\"";
 										} else if (argType.equals("Integer")) {
 											resultOption = str;
-											try{
+											try {
 												for (int j = 0; j < argNum; j++) {
 													int inputInt = 0;
-														inputInt = Integer.parseInt(inputFields[j].getText());
-														resultOption = resultOption.replace((char)('X' + j)+"",
-																(inputInt + ""));
+													inputInt = Integer
+															.parseInt(inputFields[j]
+																	.getText());
+													resultOption = resultOption
+															.replace(
+																	(char) ('X' + j)
+																			+ "",
+																	(inputInt + ""));
 												}
 											} catch (NumberFormatException nfe) {
 												dialog.setText("Arguments must be integers!");
 												resultOption = null;
 											}
 										}
-										if (resultOption != null) { // okay to proceed
+										if (resultOption != null) { // okay to
+																	// proceed
 											selectedArgs.put(resultOption, str);
 											refreshSelections(selections);
 											dialog.close();
 											// keep the popupShell open
-											autoSuggest.setText(autoSuggest.getText());
-											autoSuggest.setSelection(autoSuggest.getCharCount());
+											autoSuggest.setText(autoSuggest
+													.getText());
+											autoSuggest
+													.setSelection(autoSuggest
+															.getCharCount());
 										}
 									}
 								});
@@ -353,7 +372,7 @@ public class ConfigDialog extends Dialog {
 								dialog.pack();
 								dialog.open();
 							}
-						//for options not taking arguments
+							// for options not taking arguments
 						} else if (item.getChecked()) {
 							item.setChecked(false);
 							selectedArgs.remove(str);
@@ -397,10 +416,10 @@ public class ConfigDialog extends Dialog {
 						Iterator<String> it = resultSet.iterator();
 						while (it.hasNext()) {
 							String keyword = it.next();
-							maxLength = Math.max(maxLength, new GC(currShell)
-									.textExtent(keyword).x);
+							maxLength = Math.max(maxLength,
+									new GC(currShell).textExtent(keyword).x);
 							TableItem ti = null;
-							if(string.equalsIgnoreCase(keyword)){
+							if (string.equalsIgnoreCase(keyword)) {
 								ti = new TableItem(table, SWT.NONE, 0);
 							} else {
 								ti = new TableItem(table, SWT.NONE);
@@ -421,8 +440,8 @@ public class ConfigDialog extends Dialog {
 						popupShell.setBounds(shellBounds.x + textBounds.x
 								+ containerBounds.x, shellBounds.y
 								+ textBounds.y + containerBounds.y
-								+ textBounds.height * 2, maxLength, 
-								table.getItemHeight() * (numToShow+1) );
+								+ textBounds.height * 2, maxLength,
+								table.getItemHeight() * (numToShow + 1));
 						popupShell.setVisible(true);
 					}
 				}
