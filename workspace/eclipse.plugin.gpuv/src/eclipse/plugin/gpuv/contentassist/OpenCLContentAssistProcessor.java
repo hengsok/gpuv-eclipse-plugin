@@ -122,7 +122,8 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 			while (startOffset < documentOffset) {
 				// read in a complete word, and return.
 				char c = doc.getChar(--documentOffset);
-				if (Character.isWhitespace(c)) {
+				if (Character.isWhitespace(c) ||
+						!Character.isLetterOrDigit(c) && c != '_' && c != '#') {
 					break;
 				}
 				// Collect each character
@@ -147,12 +148,12 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 	 */
 	@Override
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		return new char[] { '_' };
+		return new char[] { '_', '#' };
 	}
 
 	@Override
 	public char[] getContextInformationAutoActivationCharacters() {
-		return new char[] { '_' };
+		return new char[] { '_', '#' };
 	}
 
 	@Override
