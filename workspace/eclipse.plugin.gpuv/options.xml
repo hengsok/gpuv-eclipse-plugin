@@ -201,114 +201,42 @@
 
 <!-- OPENCL options -->  
   <keyword>
-    <name>Local size 1D</name>
-    <option>--local_size=X</option>
-    <argType>Integer</argType>
-    <argNum>1</argNum>
-    <type>OPENCL</type>
-    <multiple>false</multiple>
-    <description>Specify that work-group is 1D and specify size for the dimension</description>
-  </keyword>
-  <keyword>
-    <name>Local size 2D</name>
-    <option>--local_size=(X,Y)</option>
-    <argType>Integer</argType>
-    <argNum>2</argNum>
-    <type>OPENCL</type>
-    <multiple>false</multiple>
-    <description>Specify that work-group is 2D and specify size for each dimension</description>
-  </keyword>
-  <keyword>
-    <name>Local size 3D</name>
+    <name>Local size</name>
     <option>--local_size=(X,Y,Z)</option>
     <argType>Integer</argType>
     <argNum>3</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
-    <description>Specify that work-group is 3D and specify size for each dimension</description>
+    <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword>
-    <name>Num Groups 1D</name>
-    <option>--num_groups=X</option>
-    <argType>Integer</argType>
-    <argNum>1</argNum>
-    <type>OPENCL</type>
-    <multiple>false</multiple>
-    <description>Specify that grid of work-groups is 1D and specify size for the dimension</description>
-  </keyword>
-  <keyword>
-    <name>Num Groups 2D</name>
-    <option>--num_groups=(X,Y)</option>
-    <argType>Integer</argType>
-    <argNum>2</argNum>
-    <type>OPENCL</type>
-    <multiple>false</multiple>
-    <description>Specify that grid of work-groups is 2D and specify size for each dimension</description>
-  </keyword>
-  <keyword>
-    <name>Num Groups 3D</name>
+    <name>Num Groups</name>
     <option>--num_groups=(X,Y,Z)</option>
     <argType>Integer</argType>
     <argNum>3</argNum>
     <type>OPENCL</type>
     <multiple>false</multiple>
-    <description>Specify that grid of work-groups is 3D and specify size for each dimension</description>
+    <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
 
 <!-- CUDA options -->
   <keyword>
-    <name>Block Dimension 1D</name>
-    <option>--blockDim=X</option>
-    <argType>Integer</argType>
-    <argNum>1</argNum>
-    <type>CUDA</type>
-    <multiple>false</multiple>
-    <description>Specify that thread block is 1D and specify size for the dimension</description>
-  </keyword>
-  <keyword>
-    <name>Block Dimension 2D</name>
-    <option>--blockDim=(X,Y)</option>
-    <argType>Integer</argType>
-    <argNum>2</argNum>
-    <type>CUDA</type>
-    <multiple>false</multiple>
-    <description>Specify that thread block is 2D and specify size for each dimension</description>
-  </keyword>
-  <keyword>
-    <name>Block Dimension 3D</name>
+    <name>Block Dimension</name>
     <option>--blockDim=(X,Y,Z)</option>
     <argType>Integer</argType>
     <argNum>3</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
-    <description>Specify that thread block is 3D and specify size for each dimension</description>
+    <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   <keyword>
-    <name>Grid Dimension 1D</name>
-    <option>--gridDim=X</option>
-    <argType>Integer</argType>
-    <argNum>1</argNum>
-    <type>CUDA</type>
-    <multiple>false</multiple>
-    <description>Specify that grid of thread blocks is 1D and specify size for the dimension</description>
-  </keyword>
-  <keyword>
-    <name>Grid Dimension 2D</name>
-    <option>--gridDim=(X,Y)</option>
-    <argType>Integer</argType>
-    <argNum>2</argNum>
-    <type>CUDA</type>
-    <multiple>false</multiple>
-    <description>Specify that grid of thread blocks is 2D and specify size for each dimension</description>
-  </keyword>
-  <keyword>
-    <name>Grid Dimension 3D</name>
+    <name>Grid Dimension</name>
     <option>--gridDim=(X,Y,Z)</option>
     <argType>Integer</argType>
     <argNum>3</argNum>
     <type>CUDA</type>
     <multiple>false</multiple>
-    <description>Specify that grid of thread blocks is 3D and specify size for each dimension</description>
+    <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
   </keyword>
   
 </keywords>

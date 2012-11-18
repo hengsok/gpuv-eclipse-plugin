@@ -25,6 +25,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -44,7 +45,7 @@ import eclipse.plugin.gpuv.XMLKeywordsManager;
 public class ConfigDialog extends Dialog {
 
 	private Map<String, String> selectedArgs;
-	private Set<String> argSet; // TODO does this need to be global?
+	private Set<String> argSet;
 	private Map<String, Button> argCheckboxButtons;
 
 	public ConfigDialog(Shell parentShell) throws IOException {
@@ -59,8 +60,8 @@ public class ConfigDialog extends Dialog {
 
 	}
 
+	// TODO need fix
 	protected void okPressed() {
-		// TODO need fix
 		// store the arguments that're been selected for recently used list
 		// later
 		ConfigRecentlyUsedArgs configRecentUsed = new ConfigRecentlyUsedArgs();
@@ -90,7 +91,8 @@ public class ConfigDialog extends Dialog {
 	}
 
 	protected Control createDialogArea(Composite parent) {
-		final Shell currShell = this.getShell();
+		final Shell currShell = this.getShell(); 
+		final Display display = currShell.getDisplay();
 		// Disabling ESC and CR for config box.
 		// The keys are used only by auto-suggestion text field.
 		currShell.addListener(SWT.Traverse, new Listener() {
@@ -115,7 +117,7 @@ public class ConfigDialog extends Dialog {
 		generalSetting.setText("General");
 		advancedSetting.setText("Advanced");
 		// Container for settings
-		Composite container_general = new Composite(settings, SWT.NONE);
+		final Composite container_general = new Composite(settings, SWT.NONE);
 		final Composite container_advanced = new Composite(settings, SWT.NONE);
 		// Set general container layout
 		GridLayout gridlayoutContainer = new GridLayout();
@@ -163,6 +165,7 @@ public class ConfigDialog extends Dialog {
 		tableGrid.heightHint = 160;
 		selections.setLayoutData(tableGrid);
 
+		// Description label for autoSuggestion search box
 		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
 		descriptionLabel
 				.setText("\n Use arrows to navigate \n and press enter to select\n");
@@ -175,11 +178,12 @@ public class ConfigDialog extends Dialog {
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
 
-		final Shell popupShell = new Shell(SWT.ON_TOP);
+		// Shell for suggestion list
+		final Shell popupShell = new Shell(display, SWT.ON_TOP);
 		popupShell.setLayout(new FillLayout());
-		final Table table = new Table(popupShell, SWT.CHECK | SWT.BORDER
-				| SWT.V_SCROLL | SWT.H_SCROLL);
+		final Table table = new Table(popupShell, SWT.SINGLE | SWT.CHECK);
 
+		// Button for clearing selected option list
 		final Button clearButton = new Button(container_advanced, SWT.PUSH);
 		GridData buttonGrid = new GridData();
 		buttonGrid.verticalAlignment = GridData.END;
@@ -195,6 +199,7 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
+		// Button for removing checked options from selected option list
 		final Button removeButton = new Button(container_advanced, SWT.PUSH);
 		removeButton.setLayoutData(buttonGrid);
 		removeButton.setText("Remove");
@@ -253,11 +258,7 @@ public class ConfigDialog extends Dialog {
 						if (XMLKeywordsManager.takesInput(str)) {
 							if (item.getChecked() && !item.getGrayed()) {
 								// Already selected.
-								// TODO prevent multiple selection on
-								// non-multiple options
-								// including the ones with the same name
-								System.out
-										.println("cannot select multiple times");
+								System.out.println("cannot select multiple times");
 							} else {
 								// invoke argument input dialog
 								// TODO move this to another function?
@@ -341,9 +342,11 @@ public class ConfigDialog extends Dialog {
 											try {
 												for (int j = 0; j < argNum; j++) {
 													int inputInt = 0;
-													inputInt = Integer
-															.parseInt(inputFields[j]
-																	.getText());
+													String inputText = inputFields[j].getText();
+													if (!inputText.isEmpty()) {
+														inputInt = Integer
+																.parseInt(inputText);
+													}
 													resultOption = resultOption
 															.replace(
 																	(char) ('X' + j)
@@ -402,9 +405,9 @@ public class ConfigDialog extends Dialog {
 									restriction,
 									XMLKeywordsManager.OPTION_SEARCH));
 
-					int numOfItems = resultSet.size(); // TODO remove?
+					int numOfItems = resultSet.size();
+					// max. 8 items displayed, rest hidden
 					int numToShow = Math.min(8, numOfItems);
-					// max. 8 items displayed, rest scrollable
 					int maxLength = autoSuggest.getSize().x;
 
 					// displays only when there is an item
@@ -444,10 +447,40 @@ public class ConfigDialog extends Dialog {
 								+ textBounds.height * 2, maxLength,
 								table.getItemHeight() * (numToShow + 1));
 						popupShell.setVisible(true);
+						//TODO
+//						popupShell.setEnabled(true);  --> same effect as current problem.
+//						table.setEnabled(true);   --> greys out the table. ... not affected by this
 					}
 				}
 			}
 		});
+		
+		//TODO selection detection ... and invoke argument input
+		table.addListener(SWT.Selection, new Listener() {
+		      public void handleEvent(Event event) {
+		        String string = event.detail == SWT.CHECK ? "Checked"
+		            : "Selected";
+		        System.out.println(event.item + " " + string);
+		      }
+		    });
+		
+		Listener focusOutListener = new Listener() {
+			public void handleEvent(Event event) {
+				/* async is needed to wait until focus reaches its new Control */
+				display.asyncExec(new Runnable() {
+					public void run() {
+						if (display.isDisposed()) return;
+						Control control = display.getFocusControl();
+						if (control == null || (control != autoSuggest && control != table)) {
+							popupShell.setVisible(false);
+						}
+					}
+				});
+			}
+		};
+		table.addListener(SWT.FocusOut, focusOutListener);
+		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
+		
 
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
@@ -462,14 +495,6 @@ public class ConfigDialog extends Dialog {
 				}
 			}
 		});
-
-		Listener focusOutListener = new Listener() {
-			public void handleEvent(Event event) {
-				popupShell.setVisible(false);
-			}
-		};
-		table.addListener(SWT.FocusOut, focusOutListener);
-		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
 
 		currShell.addListener(SWT.Move, new Listener() {
 			public void handleEvent(Event event) {

@@ -52,10 +52,11 @@ public class XMLKeywordsManager {
 
 	public static List<String> searchPrefix(String prefix, int recordLimit,
 			int searchType) {
+		String caseInsensitive = prefix.toLowerCase();
 		if (searchType == OPTION_SEARCH) {
-			return getMatchingOptions(prefix.toLowerCase());
+			return getMatchingOptions(caseInsensitive);
 		}
-		return keywordTree.searchPrefix(prefix, recordLimit);
+		return keywordTree.searchPrefix(caseInsensitive, recordLimit);
 	}
 
 	// TODO maybe don't put options that take arguments?
@@ -139,8 +140,9 @@ public class XMLKeywordsManager {
 								type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
 					} else { // for editor keyword suggestion
-						if (!keywordTree.contains(keyword)) {
-							keywordTree.insert(keyword, keyword);
+						String lowerKeyword = keyword.toLowerCase();
+						if (!keywordTree.contains(lowerKeyword)) {
+							keywordTree.insert(lowerKeyword, keyword);
 							keywordList.add(keyword);
 						}
 					}
