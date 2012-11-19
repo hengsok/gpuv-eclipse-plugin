@@ -112,7 +112,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
-            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            contributorClass="org.eclipse.cdt.internal.ui.editor.CEditorActionContributor"
             default="true"
             extensions="cl"
             icon="icons/sample.gif"
