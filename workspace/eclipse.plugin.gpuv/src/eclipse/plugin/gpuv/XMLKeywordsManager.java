@@ -51,7 +51,7 @@ public class XMLKeywordsManager {
 	private static String foldername;
 	private static final String recentFilename = "recentArgs.xml";
 	
-	private static HashSet<String> recentArgSet; //TODO necessary?
+	private static Map<String,String> recentArgMap; //TODO necessary?
 
 	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
@@ -59,7 +59,7 @@ public class XMLKeywordsManager {
 		optionMap = new HashMap<String, dataNode>();
 		installLocation = location;
 		foldername = "."; // TODO gather all files
-		recentArgSet = new LinkedHashSet<String>();
+		recentArgMap = new HashMap<String,String>();
 		readXMLByType("keywords.xml", KEYWORD_SEARCH);
 		readXMLByType("options.xml", OPTION_SEARCH);
 	}
@@ -68,6 +68,7 @@ public class XMLKeywordsManager {
 		return keywordList;
 	}
 
+	// prefix search for auto suggestion (depends on search type)
 	public static List<String> searchPrefix(String prefix, int recordLimit,
 			int searchType) {
 		String caseInsensitive = prefix.toLowerCase();
@@ -77,16 +78,17 @@ public class XMLKeywordsManager {
 		return keywordTree.searchPrefix(caseInsensitive, recordLimit);
 	}
 
-	// TODO maybe don't put options that take arguments?
-	public static Set<String> getGeneralOptions() {
-		Set<String> result = new LinkedHashSet<String>();
+	// Only return general options that does not take arguments (for general tab)
+	public static Map<String,String> getGeneralOptions() {
+		Map<String,String> result = new HashMap<String,String>();
 		Iterator<Map.Entry<String, dataNode>> entries = optionMap.entrySet()
 				.iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, dataNode> entry = entries.next();
 			dataNode value = entry.getValue();
 			if (value.getType().equals("GENERAL") && value.getArgNum() == 0) {
-				result.add(entry.getKey());
+				String key = entry.getKey();
+				result.put(key, key);
 			}
 		}
 		return result;
@@ -125,6 +127,9 @@ public class XMLKeywordsManager {
 		return result;
 	}
 
+	/*
+	 * Write recently used options to an xml file using DOM method
+	 */
 	public static void storeRecentArgs(Map<String, String> recentArgsToStore) {
 		try {
 			File file = new File(installLocation + File.separator + foldername
@@ -139,45 +144,51 @@ public class XMLKeywordsManager {
 			Element rootElement = doc.createElement("keywords");
 			doc.appendChild(rootElement);
 
-			for (String arg : recentArgsToStore.keySet()) {
-
+			for (String key : recentArgsToStore.keySet()) {
+				String value = recentArgsToStore.get(key);
 				// keyword elements
 				Element keyword = doc.createElement("keyword");
 				rootElement.appendChild(keyword);
 
 				// name elements
 				Element name = doc.createElement("name");
-				name.appendChild(doc.createTextNode(optionMap.get(arg).getName()));
+				name.appendChild(doc.createTextNode(optionMap.get(value).getName()));
 				keyword.appendChild(name);
 
 				// option elements
 				Element option = doc.createElement("option");
-				option.appendChild(doc.createTextNode(optionMap.get(arg).getOption()));
+				option.appendChild(doc.createTextNode(optionMap.get(value).getOption()));
 				keyword.appendChild(option);
+				
+				// actual option elements (with arguments substituted)
+				// TODO make use of it
+				Element actualOption = doc.createElement("actualOption");
+				actualOption.appendChild(doc.createTextNode(key));
+				keyword.appendChild(actualOption);
 
 				// argType elements
 				Element argType = doc.createElement("argType");
-				argType.appendChild(doc.createTextNode(optionMap.get(arg).getArgType()));
+				argType.appendChild(doc.createTextNode(optionMap.get(value).getArgType()));
 				keyword.appendChild(argType);
 				
 				// argNum elements
 				Element argNum = doc.createElement("argNum");
-				argNum.appendChild(doc.createTextNode(""+optionMap.get(arg).getArgNum()));
+				argNum.appendChild(doc.createTextNode(""+optionMap.get(value).getArgNum()));
 				keyword.appendChild(argNum);
 				
 				// type elements
 				Element type = doc.createElement("type");
-				type.appendChild(doc.createTextNode(optionMap.get(arg).getType()));
+				type.appendChild(doc.createTextNode(optionMap.get(value).getType()));
 				keyword.appendChild(type);
 				
 				// multiple elements
 				Element multiple = doc.createElement("multiple");
-				multiple.appendChild(doc.createTextNode(""+ optionMap.get(arg).getMultiple()));
+				multiple.appendChild(doc.createTextNode(""+ optionMap.get(value).getMultiple()));
 				keyword.appendChild(multiple);
 				
 				// description elements
 				Element description = doc.createElement("description");
-				description.appendChild(doc.createTextNode(optionMap.get(arg).getDescription()));
+				description.appendChild(doc.createTextNode(optionMap.get(value).getDescription()));
 				keyword.appendChild(description);
 
 				// write the content into xml file
@@ -197,17 +208,18 @@ public class XMLKeywordsManager {
 	/* 
 	 * read in recentArgs.xml on each config box invocation.
 	 * In one session, all used options are kept in recentArgSet, 
-	 * and is only flushed when Eclipse is restarted. 
+	 * and is only flushed when Eclipse is restarted. TODO what if empty initially?
 	 */
-	public static HashSet<String> getRecentArgs() {
+	public static Map<String,String> getRecentArgs() {
 		readXMLByType(recentFilename, RECENT_OPTIONS);
-		return recentArgSet;
+		return recentArgMap;
 	}
 
+	/*
+	 * Read in specified xml files and create sets or lists depending on the
+	 * type of search required (OPTION_SEARCH, KEYWORD_SEARCH, RECENT_OPTIONS)
+	 */
 	private static void readXMLByType(String filename, int searchType) {
-		/*
-		 * Creating a search tree for the keywords
-		 */
 		try {
 			File xmlFile = new File(installLocation + File.separator
 					+ foldername + File.separator + filename);
@@ -233,14 +245,14 @@ public class XMLKeywordsManager {
 						int argNum = Integer.parseInt(getTagValue("argNum",
 								eElement));
 
-						// TODO arguments
 						dataNode data = new dataNode(keyword, option, argType,
 								argNum, type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
 					} else if(searchType == RECENT_OPTIONS) { //TODO merge with OPTION_SEARCH
 						// for recently used options
 						String option = getTagValue("option", eElement);
-						recentArgSet.add(option);
+						String actualOption = getTagValue("actualOption", eElement);
+						recentArgMap.put(actualOption, option);
 					} else { // for editor keyword suggestion
 						String lowerKeyword = keyword.toLowerCase();
 						if (!keywordTree.contains(lowerKeyword)) {

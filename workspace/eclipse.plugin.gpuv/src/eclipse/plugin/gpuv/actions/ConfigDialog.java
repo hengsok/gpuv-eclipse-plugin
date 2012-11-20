@@ -35,24 +35,21 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class ConfigDialog extends Dialog {
 
 	private Map<String, String> selectedArgs;
-	private Set<String> argSet;
+	private Map<String,String> generalTabArgs;
 	private Map<String, Button> argCheckboxButtons;
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
 
 		// Read in list of arguments
-		argSet = XMLKeywordsManager.getGeneralOptions();
-		argSet.addAll(XMLKeywordsManager.getRecentArgs());
+		generalTabArgs = XMLKeywordsManager.getGeneralOptions();
+		generalTabArgs.putAll(XMLKeywordsManager.getRecentArgs());
 
 		this.selectedArgs = new HashMap<String, String>();
 
@@ -258,7 +255,7 @@ public class ConfigDialog extends Dialog {
 						if (XMLKeywordsManager.takesInput(str)) {
 							if (item.getChecked() && !item.getGrayed()) {
 								// Already selected.
-								System.out.println("cannot select multiple times");
+								System.out.println("cannot select this option multiple times!");
 							} else {
 								// invoke argument input dialog
 								// TODO move this to another function?
@@ -515,14 +512,25 @@ public class ConfigDialog extends Dialog {
 
 	// refresh selection table and checkboxes
 	private void refreshSelections(Table selections) {
-		selections.removeAll();
+		selections.removeAll(); // reset
 		for (String arg : selectedArgs.keySet()) {
 			new TableItem(selections, SWT.NONE).setText(arg);
 		}
 		// only check the buttons that are in selectedArgs
 		for (String arg : argCheckboxButtons.keySet()) {
-			argCheckboxButtons.get(arg).setSelection(
-					selectedArgs.containsValue(arg));
+			Button button = argCheckboxButtons.get(arg);
+			button.setSelection(selectedArgs.containsKey(arg));
+			
+			String baseOption = generalTabArgs.get(arg);
+			if (baseOption != null){
+				// set grayed only if the same option with different 
+				// arguments is already selected.
+				if(isSelectedNotMultiple(baseOption) 
+						&& !selectedArgs.containsKey(arg)) {
+					button.setGrayed(true);
+					button.setSelection(true);
+				}
+			}
 		}
 	}
 
@@ -551,21 +559,41 @@ public class ConfigDialog extends Dialog {
 
 	private void createArgCheckboxes(Composite parent) {
 		argCheckboxButtons = new HashMap<String, Button>();
-		for (String arg : argSet) {
-			final String eachArg = arg;
+		for (String option : generalTabArgs.keySet()) {
+			final String finOption = option;
+			// baseOption is the option without arguments specified
+			final String baseOption = generalTabArgs.get(finOption);
 			final Button button = new Button(parent, SWT.CHECK);
-			button.setText(arg);
-			argCheckboxButtons.put(eachArg, button);
+			button.setText(finOption);
+			argCheckboxButtons.put(finOption, button);
 			button.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
 					if (button.getSelection()) {
-						selectedArgs.put(eachArg, eachArg);
+						/* 
+						 * check if the selected button is already in
+						 * selectedArgs, and if it is, prevent.  
+						 */
+						if (isSelectedNotMultiple(baseOption)) {
+							// conflict! TODO popup dialog?
+							System.out.println("Cannot select this option multiple times!");
+							button.setGrayed(true);
+						} else {
+							selectedArgs.put(finOption, baseOption);
+							button.setGrayed(false);
+						}
 					} else {
-						selectedArgs.remove(eachArg);
+						button.setSelection(button.getGrayed());
+						selectedArgs.remove(finOption);
 					}
 				}
+
 			});
 		}
+	}
+
+	private boolean isSelectedNotMultiple(String baseOption) {
+		return !XMLKeywordsManager.isMultiple(baseOption) 
+				&& selectedArgs.containsValue(baseOption);
 	}
 
 	private void initContent() {
