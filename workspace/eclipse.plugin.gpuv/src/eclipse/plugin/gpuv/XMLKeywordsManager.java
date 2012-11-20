@@ -1,7 +1,15 @@
 package eclipse.plugin.gpuv;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -37,11 +45,16 @@ public class XMLKeywordsManager {
 	private static RadixTree<String> keywordTree;
 	private static List<String> keywordList;
 	private static Map<String, dataNode> optionMap;
+	private static String installLocation;
+	private static String foldername;
+	private static final String recentFilename = "recentArgs.txt";
 
-	public XMLKeywordsManager() {
+	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
 		keywordList = new ArrayList<String>();
 		optionMap = new HashMap<String, dataNode>();
+		installLocation = location;
+		foldername = "."; //TODO gather all files 
 		createSearchTree("keywords.xml", KEYWORD_SEARCH);
 		createSearchTree("options.xml", OPTION_SEARCH);
 	}
@@ -108,16 +121,75 @@ public class XMLKeywordsManager {
 		return result;
 	}
 
+	public static void storeRecentArgs(Set<String> recentArgsToStore){
+		BufferedWriter br = null; 
+		try{
+			File file = new File(installLocation+File.separator+foldername+File.separator+recentFilename);
+			br = new BufferedWriter(new FileWriter(file));
+
+			for(String arg : recentArgsToStore){
+				br.write(arg);
+				br.newLine();
+			}
+			
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.flush();
+					br.close();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+
+	public static HashSet<String> getRecentArgs() {
+		HashSet<String> recentArgs = new LinkedHashSet<String>();
+		BufferedReader br = null;
+
+		try {
+			File file = new File(installLocation+File.separator+foldername+File.separator+recentFilename);
+			br = new BufferedReader(new FileReader(file));
+
+			String strLine = null;
+			while ((strLine = br.readLine()) != null) {
+				// check that we do not read empty line as arg
+				if (!strLine.equals(""))
+					recentArgs.add(strLine);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return recentArgs;
+	}
+
+	
+	
+	
+	
 	private void createSearchTree(String filename, int searchType) {
 		/*
 		 * Creating a search tree for the keywords
 		 */
 		try {
+			File xmlFile = new File(installLocation+File.separator+foldername+File.separator+filename);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(this.getClass().getClassLoader()
-					.getResourceAsStream(filename));
+			Document doc = dBuilder.parse(xmlFile);
 			doc.getDocumentElement().normalize();
 
 			NodeList nList = doc.getElementsByTagName("keyword");

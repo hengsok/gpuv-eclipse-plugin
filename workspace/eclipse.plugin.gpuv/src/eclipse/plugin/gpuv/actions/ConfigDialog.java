@@ -51,9 +51,8 @@ public class ConfigDialog extends Dialog {
 		super(parentShell);
 
 		// Read in list of arguments
-		ConfigRecentlyUsedArgs configRecentArgList = new ConfigRecentlyUsedArgs();
 		argSet = XMLKeywordsManager.getGeneralOptions();
-		argSet.addAll(configRecentArgList.getRecentArgs());
+		argSet.addAll(XMLKeywordsManager.getRecentArgs());
 
 		this.selectedArgs = new HashMap<String, String>();
 
@@ -63,8 +62,9 @@ public class ConfigDialog extends Dialog {
 	protected void okPressed() {
 		// store the arguments that're been selected for recently used list
 		// later
-		ConfigRecentlyUsedArgs configRecentUsed = new ConfigRecentlyUsedArgs();
-		configRecentUsed.storeRecentArgs(selectedArgs.keySet());
+		XMLKeywordsManager.storeRecentArgs(selectedArgs.keySet());
+
+		/* TODO uncomment to implement run
 
 		//Get Active Editor Content
 		IEditorPart activeEditor = PlatformUI.getWorkbench()
@@ -86,7 +86,8 @@ public class ConfigDialog extends Dialog {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		*/
 	}
 
 	protected Control createDialogArea(Composite parent) {

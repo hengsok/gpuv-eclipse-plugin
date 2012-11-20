@@ -1,5 +1,6 @@
 package eclipse.plugin.gpuv;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -27,7 +28,8 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		new XMLKeywordsManager(); // read necessary xml files
+		String location = FileLocator.getBundleFile(context.getBundle()).getAbsolutePath();
+		new XMLKeywordsManager(location); // read necessary xml files
 		plugin = this;
 	}
 
