@@ -1,11 +1,8 @@
 package eclipse.plugin.gpuv;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +15,10 @@ import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
 import org.w3c.dom.Document;
@@ -42,21 +43,25 @@ import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 public class XMLKeywordsManager {
 	public static final int KEYWORD_SEARCH = 0;
 	public static final int OPTION_SEARCH = 1;
+	public static final int RECENT_OPTIONS = 2;
 	private static RadixTree<String> keywordTree;
 	private static List<String> keywordList;
 	private static Map<String, dataNode> optionMap;
 	private static String installLocation;
 	private static String foldername;
-	private static final String recentFilename = "recentArgs.txt";
+	private static final String recentFilename = "recentArgs.xml";
+	
+	private static HashSet<String> recentArgSet; //TODO necessary?
 
 	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
 		keywordList = new ArrayList<String>();
 		optionMap = new HashMap<String, dataNode>();
 		installLocation = location;
-		foldername = "."; //TODO gather all files 
-		createSearchTree("keywords.xml", KEYWORD_SEARCH);
-		createSearchTree("options.xml", OPTION_SEARCH);
+		foldername = "."; // TODO gather all files
+		recentArgSet = new LinkedHashSet<String>();
+		readXMLByType("keywords.xml", KEYWORD_SEARCH);
+		readXMLByType("options.xml", OPTION_SEARCH);
 	}
 
 	public static List<String> getKeywords() {
@@ -80,8 +85,7 @@ public class XMLKeywordsManager {
 		while (entries.hasNext()) {
 			Map.Entry<String, dataNode> entry = entries.next();
 			dataNode value = entry.getValue();
-			if (value.getType().equals("GENERAL")
-					&& value.getArgNum() == 0) {
+			if (value.getType().equals("GENERAL") && value.getArgNum() == 0) {
 				result.add(entry.getKey());
 			}
 		}
@@ -91,15 +95,15 @@ public class XMLKeywordsManager {
 	public static boolean isMultiple(String optionName) {
 		return optionMap.get(optionName).getMultiple();
 	}
-	
+
 	public static boolean takesInput(String optionName) {
 		return optionMap.get(optionName).getArgNum() != 0;
 	}
-	
+
 	public static String getArgType(String optionName) {
 		return optionMap.get(optionName).getArgType();
 	}
-	
+
 	public static int getArgNum(String optionName) {
 		return optionMap.get(optionName).getArgNum();
 	}
@@ -114,78 +118,99 @@ public class XMLKeywordsManager {
 			dataNode value = entry.getValue();
 			if (value.getDescription().toLowerCase().contains(prefix)
 					|| value.getOption().toLowerCase().contains(prefix)
-					|| value.getType().toLowerCase().contains(prefix)){
+					|| value.getType().toLowerCase().contains(prefix)) {
 				result.add(entry.getKey()); // add option name
 			}
 		}
 		return result;
 	}
 
-	public static void storeRecentArgs(Set<String> recentArgsToStore){
-		BufferedWriter br = null; 
-		try{
-			File file = new File(installLocation+File.separator+foldername+File.separator+recentFilename);
-			br = new BufferedWriter(new FileWriter(file));
-
-			for(String arg : recentArgsToStore){
-				br.write(arg);
-				br.newLine();
-			}
-			
-		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			try {
-				if (br != null) {
-					br.flush();
-					br.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-
-	public static HashSet<String> getRecentArgs() {
-		HashSet<String> recentArgs = new LinkedHashSet<String>();
-		BufferedReader br = null;
-
+	public static void storeRecentArgs(Map<String, String> recentArgsToStore) {
 		try {
-			File file = new File(installLocation+File.separator+foldername+File.separator+recentFilename);
-			br = new BufferedReader(new FileReader(file));
+			File file = new File(installLocation + File.separator + foldername
+					+ File.separator + recentFilename);
 
-			String strLine = null;
-			while ((strLine = br.readLine()) != null) {
-				// check that we do not read empty line as arg
-				if (!strLine.equals(""))
-					recentArgs.add(strLine);
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+			// root elements
+			Document doc = docBuilder.newDocument();
+			Element rootElement = doc.createElement("keywords");
+			doc.appendChild(rootElement);
+
+			for (String arg : recentArgsToStore.keySet()) {
+
+				// keyword elements
+				Element keyword = doc.createElement("keyword");
+				rootElement.appendChild(keyword);
+
+				// name elements
+				Element name = doc.createElement("name");
+				name.appendChild(doc.createTextNode(optionMap.get(arg).getName()));
+				keyword.appendChild(name);
+
+				// option elements
+				Element option = doc.createElement("option");
+				option.appendChild(doc.createTextNode(optionMap.get(arg).getOption()));
+				keyword.appendChild(option);
+
+				// argType elements
+				Element argType = doc.createElement("argType");
+				argType.appendChild(doc.createTextNode(optionMap.get(arg).getArgType()));
+				keyword.appendChild(argType);
+				
+				// argNum elements
+				Element argNum = doc.createElement("argNum");
+				argNum.appendChild(doc.createTextNode(""+optionMap.get(arg).getArgNum()));
+				keyword.appendChild(argNum);
+				
+				// type elements
+				Element type = doc.createElement("type");
+				type.appendChild(doc.createTextNode(optionMap.get(arg).getType()));
+				keyword.appendChild(type);
+				
+				// multiple elements
+				Element multiple = doc.createElement("multiple");
+				multiple.appendChild(doc.createTextNode(""+ optionMap.get(arg).getMultiple()));
+				keyword.appendChild(multiple);
+				
+				// description elements
+				Element description = doc.createElement("description");
+				description.appendChild(doc.createTextNode(optionMap.get(arg).getDescription()));
+				keyword.appendChild(description);
+
+				// write the content into xml file
+				TransformerFactory transformerFactory = TransformerFactory
+						.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(file);
+
+				transformer.transform(source, result);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
-		return recentArgs;
 	}
 
-	
-	
-	
-	
-	private void createSearchTree(String filename, int searchType) {
+	/* 
+	 * read in recentArgs.xml on each config box invocation.
+	 * In one session, all used options are kept in recentArgSet, 
+	 * and is only flushed when Eclipse is restarted. 
+	 */
+	public static HashSet<String> getRecentArgs() {
+		readXMLByType(recentFilename, RECENT_OPTIONS);
+		return recentArgSet;
+	}
+
+	private static void readXMLByType(String filename, int searchType) {
 		/*
 		 * Creating a search tree for the keywords
 		 */
 		try {
-			File xmlFile = new File(installLocation+File.separator+foldername+File.separator+filename);
+			File xmlFile = new File(installLocation + File.separator
+					+ foldername + File.separator + filename);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -205,12 +230,17 @@ public class XMLKeywordsManager {
 						String multiple = getTagValue("multiple", eElement);
 						String desc = getTagValue("description", eElement);
 						String argType = getTagValue("argType", eElement);
-						int argNum = Integer.parseInt(getTagValue("argNum", eElement));
+						int argNum = Integer.parseInt(getTagValue("argNum",
+								eElement));
 
 						// TODO arguments
-						dataNode data = new dataNode(keyword, option, argType, argNum,
-								type, multiple.equals("true"), desc);
+						dataNode data = new dataNode(keyword, option, argType,
+								argNum, type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
+					} else if(searchType == RECENT_OPTIONS) { //TODO merge with OPTION_SEARCH
+						// for recently used options
+						String option = getTagValue("option", eElement);
+						recentArgSet.add(option);
 					} else { // for editor keyword suggestion
 						String lowerKeyword = keyword.toLowerCase();
 						if (!keywordTree.contains(lowerKeyword)) {

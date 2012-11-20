@@ -62,7 +62,7 @@ public class ConfigDialog extends Dialog {
 	protected void okPressed() {
 		// store the arguments that're been selected for recently used list
 		// later
-		XMLKeywordsManager.storeRecentArgs(selectedArgs.keySet());
+		XMLKeywordsManager.storeRecentArgs(selectedArgs);
 
 		/* TODO uncomment to implement run
 
