@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
@@ -142,8 +143,7 @@ public class ConfigDialog extends Dialog {
 		argCheckboxComposite.setLayout(argCheckboxLayout);
 
 		/*
-		 * Set Text Area for auto suggestion TODO: better display for the
-		 * options (actual option + keyword)
+		 * Set Text Area for auto suggestion
 		 */
 		final Text autoSuggest = new Text(container_advanced, SWT.BORDER
 				| SWT.SEARCH | SWT.ICON_SEARCH);
@@ -156,30 +156,44 @@ public class ConfigDialog extends Dialog {
 		// selected option list
 		final Table selections = new Table(container_advanced, SWT.CHECK
 				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		GridData tableGrid = new GridData();
-		tableGrid.verticalSpan = 3;
-		tableGrid.widthHint = 200;
-		tableGrid.heightHint = 160;
-		selections.setLayoutData(tableGrid);
+		GridData selectionGrid = new GridData();
+		selectionGrid.verticalSpan = 3;
+		selectionGrid.widthHint = 200;
+		selectionGrid.heightHint = 160;
+		selections.setLayoutData(selectionGrid);
+		selections.setHeaderVisible(true);
+		new TableColumn (selections, SWT.NONE).setText ("Selected options");
+		selections.getColumns()[0].pack();
+		selections.pack();
+		
 
 		// Description label for autoSuggestion search box
-		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
-		descriptionLabel
-				.setText("\n Use arrows to navigate \n and press enter to select\n");
-		GridData descGrid = new GridData(200, SWT.DEFAULT);
-		descGrid.horizontalAlignment = GridData.FILL;
-		descGrid.verticalAlignment = GridData.FILL;
-		descGrid.horizontalSpan = 2;
-		descriptionLabel.setLayoutData(descGrid);
+//		Label descriptionLabel = new Label(container_advanced, SWT.BORDER);
+//		descriptionLabel
+//				.setText("\n Use arrows to navigate \n and press enter to select\n");
+//		GridData descGrid = new GridData(200, SWT.DEFAULT);
+//		descGrid.horizontalAlignment = GridData.FILL;
+//		descGrid.verticalAlignment = GridData.FILL;
+//		descGrid.horizontalSpan = 2;
+//		descriptionLabel.setLayoutData(descGrid);
 
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
 
 		// Shell for suggestion list
-		final Shell popupShell = new Shell(display, SWT.ON_TOP);
-		popupShell.setLayout(new FillLayout());
-		final Table table = new Table(popupShell, SWT.SINGLE | SWT.CHECK);
-
+//		final Shell popupShell = new Shell(display, SWT.ON_TOP);
+//		popupShell.setLayout(new FillLayout());
+		
+		
+		final Table table = new Table(container_advanced, SWT.SINGLE | SWT.BORDER | SWT.CHECK | SWT.V_SCROLL);
+		GridData tableGrid = new GridData(200, SWT.DEFAULT);
+		tableGrid.widthHint = 200;
+		tableGrid.heightHint = 90;
+		tableGrid.horizontalSpan = 2;
+		table.setLayoutData(tableGrid);
+//		new TableItem(table, SWT.NONE).setText("\n Use arrows to navigate \n and press enter to select\n");
+		
+		
 		// Button for clearing selected option list
 		final Button clearButton = new Button(container_advanced, SWT.PUSH);
 		GridData buttonGrid = new GridData();
@@ -188,6 +202,7 @@ public class ConfigDialog extends Dialog {
 		clearButton.setLayoutData(buttonGrid);
 		clearButton.setText("Clear");
 
+		// remove all options when clicked
 		clearButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				// Clear checked items from selections
@@ -196,11 +211,12 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
-		// Button for removing checked options from selected option list
+		// Button for removing selected options from selected option list
 		final Button removeButton = new Button(container_advanced, SWT.PUSH);
 		removeButton.setLayoutData(buttonGrid);
 		removeButton.setText("Remove");
 
+		// remove selected options when button clicked 
 		removeButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				// Clear checked items from selections
@@ -215,12 +231,12 @@ public class ConfigDialog extends Dialog {
 		});
 
 		// closing popupShell on dispose of current shell
-		currShell.addDisposeListener(new DisposeListener() {
-			@Override
-			public void widgetDisposed(DisposeEvent arg0) {
-				popupShell.dispose();
-			}
-		});
+//		currShell.addDisposeListener(new DisposeListener() {
+//			@Override
+//			public void widgetDisposed(DisposeEvent arg0) {
+//				popupShell.dispose();
+//			}
+//		});
 
 		// refreshing when switching between tabs
 		settings.addSelectionListener(new SelectionAdapter() {
@@ -232,6 +248,9 @@ public class ConfigDialog extends Dialog {
 		// Keyboard actions
 		autoSuggest.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
+//				if(!popupShell.getVisible()){
+//					return;
+//				}
 				switch (event.keyCode) {
 				case SWT.ARROW_DOWN:
 					int index = (table.getSelectionIndex() + 1)
@@ -247,8 +266,8 @@ public class ConfigDialog extends Dialog {
 					event.doit = false;
 					break;
 				case SWT.CR: // Carriage Return
-					if (popupShell.isVisible()
-							&& table.getSelectionIndex() != -1) {
+					if (/*popupShell.isVisible()
+							&& */table.getSelectionIndex() != -1) {
 						final TableItem item = table.getSelection()[0];
 						final String str = item.getText();
 
@@ -386,7 +405,8 @@ public class ConfigDialog extends Dialog {
 					}
 					break;
 				case SWT.ESC:
-					popupShell.setVisible(false);
+//					popupShell.setVisible(false);
+					table.removeAll();
 					break;
 				}
 			}
@@ -395,7 +415,8 @@ public class ConfigDialog extends Dialog {
 			public void handleEvent(Event event) {
 				String string = autoSuggest.getText();
 				if (string.length() == 0) {
-					popupShell.setVisible(false);
+//					popupShell.setVisible(false);
+					table.removeAll();
 				} else {
 					Set<String> resultSet = new HashSet<String>(
 							XMLKeywordsManager.searchPrefix(string,
@@ -409,7 +430,9 @@ public class ConfigDialog extends Dialog {
 
 					// displays only when there is an item
 					if (numOfItems <= 0) {
-						popupShell.setVisible(false);
+//						popupShell.setVisible(false);
+						table.removeAll();
+
 					} else {
 						table.removeAll();
 						// add items to the table
@@ -438,12 +461,13 @@ public class ConfigDialog extends Dialog {
 						Rectangle textBounds = autoSuggest.getBounds();
 						Rectangle containerBounds = container_advanced
 								.getBounds();
-						popupShell.setBounds(shellBounds.x + textBounds.x
-								+ containerBounds.x, shellBounds.y
-								+ textBounds.y + containerBounds.y
-								+ textBounds.height * 2, maxLength,
-								table.getItemHeight() * (numToShow + 1));
-						popupShell.setVisible(true);
+//						popupShell.setBounds(shellBounds.x + textBounds.x
+//								+ containerBounds.x, shellBounds.y
+//								+ textBounds.y + containerBounds.y
+//								+ textBounds.height * 2, maxLength,
+//								table.getItemHeight() * (numToShow + 1));
+//						popupShell.setVisible(true);
+						
 						//TODO
 //						popupShell.setEnabled(true);  --> same effect as current problem.
 //						table.setEnabled(true);   --> greys out the table. ... not affected by this
@@ -469,7 +493,9 @@ public class ConfigDialog extends Dialog {
 						if (display.isDisposed()) return;
 						Control control = display.getFocusControl();
 						if (control == null || (control != autoSuggest && control != table)) {
-							popupShell.setVisible(false);
+//							popupShell.setVisible(false);
+							table.removeAll();
+
 						}
 					}
 				});
@@ -478,24 +504,32 @@ public class ConfigDialog extends Dialog {
 		table.addListener(SWT.FocusOut, focusOutListener);
 		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
 		
-
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
 				autoSuggest.setText(table.getSelection()[0].getText());
-				popupShell.setVisible(false);
+//				popupShell.setVisible(false);
+				table.removeAll();
+
 			}
 		});
+		
+		// when ESC pressed, popupShell does not show
 		table.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
 				if (event.keyCode == SWT.ESC) {
-					popupShell.setVisible(false);
+//					popupShell.setVisible(false);
+					table.removeAll();
+
 				}
 			}
 		});
 
+		// when config box is moved, popupShell does not show.
 		currShell.addListener(SWT.Move, new Listener() {
 			public void handleEvent(Event event) {
-				popupShell.setVisible(false);
+//				popupShell.setVisible(false);
+				table.removeAll();
+
 			}
 		});
 
@@ -507,7 +541,7 @@ public class ConfigDialog extends Dialog {
 
 		initContent();
 
-		return settings;
+		return parent;
 	}
 
 	// refresh selection table and checkboxes
