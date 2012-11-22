@@ -139,5 +139,29 @@
             file-extensions="cl">
       </file-association>
    </extension>
+   <extension
+		id="eclipse.plugin.gpuv.builder.GPUVBuilder"
+		name="GPUV Builder"
+		point="org.eclipse.core.resources.builders">
+		<builder hasNature="true">
+			<run class="eclipse.plugin.gpuv.builder.GPUVBuilder" />
+		</builder>
+	</extension>
+	<extension
+		id="eclipse.plugin.gpuv.builder.GPUVNature"
+		name="GPUV Nature"
+		point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="eclipse.plugin.gpuv.builder.GPUVNature" />
+		</runtime>
+		<builder id="eclipse.plugin.gpuv.builder.GPUVBuilder"/> 
+	</extension>
+	<extension
+		id="eclipse.plugin.gpuv.builder.nature.problem"
+		name="Error"
+		point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.core.resources.problemmarker" />
+		<persistent value="true" />
+	</extension>
 
 </plugin>
