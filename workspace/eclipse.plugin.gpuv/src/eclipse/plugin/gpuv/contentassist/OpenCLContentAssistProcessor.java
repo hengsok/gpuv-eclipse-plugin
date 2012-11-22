@@ -8,6 +8,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ContextInformation;
+import org.eclipse.jface.text.contentassist.ContextInformationValidator;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
@@ -98,12 +99,12 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 		int qlen = qualifier.length();
 		List<String> prefixes = XMLKeywordsManager.searchPrefix(qualifier,
 				1000, XMLKeywordsManager.KEYWORD_SEARCH);
-
+	
 		// Loop through all proposals
 		for (String arg : prefixes) {
 			// Construct proposal
 			CompletionProposal proposal = new CompletionProposal(arg,
-					documentOffset - qlen, qlen, arg.length());
+					documentOffset - qlen, qlen, arg.length(),null,arg, null, "explanation"); // more arguments need to be added here in order for additional information box to work.
 			// and add to result list
 			propList.add(proposal);
 		}
@@ -138,9 +139,20 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
 	@Override
 	public IContextInformation[] computeContextInformation(ITextViewer viewer,
-			int offset) {
-		// TODO Auto-generated method stub
-		return null;
+			int documentOffset) {
+		// Retrieve selected range
+		   Point selectedRange = viewer.getSelectedRange();
+		   if (selectedRange.y > 0) {
+
+		      // Text is selected. Create a context information array.
+		      ContextInformation[] contextInfos = new ContextInformation[STYLELABELS.length];
+
+		      // Create one context information item for each style
+		      for (int i = 0; i < STYLELABELS.length; i++)
+		         contextInfos[i] = new ContextInformation(null, STYLELABELS[i]+" Style");
+		      return contextInfos;
+		   }
+		   return new ContextInformation[0];
 	}
 
 	/*
@@ -164,8 +176,7 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
 	@Override
 	public IContextInformationValidator getContextInformationValidator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ContextInformationValidator(this);
 	}
 
 }
