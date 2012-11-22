@@ -253,7 +253,7 @@ public class ConfigDialog extends Dialog {
 						 * popupShell.isVisible() TODO remove all popupShell
 						 * related things &&
 						 */table.getSelectionIndex() != -1) {
-						optionSelectAction(table, autoSuggest, selections);
+						optionSelectAction(table.getSelection()[0], autoSuggest, selections);
 					}
 					break;
 				case SWT.ESC:
@@ -334,7 +334,7 @@ public class ConfigDialog extends Dialog {
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				if(event.detail == SWT.CHECK) {
-					optionSelectAction(table, autoSuggest, selections);
+					optionSelectAction((TableItem) event.item, autoSuggest, selections);
 				}
 //
 //				String string = event.detail == SWT.CHECK ? "Checked"
@@ -405,13 +405,13 @@ public class ConfigDialog extends Dialog {
 	}
 
 	// provides an action when an option is selected
-	private void optionSelectAction(final Table table, final Text autoSuggest, final Table selections) {
-		final TableItem item = table.getSelection()[0]; //TODO only applicable for keyboard selection 
-		final String str = item.getText();
+	private void optionSelectAction(final TableItem item, final Text autoSuggest, final Table selections) {
+		final String baseOption = item.getText();
 
-		if (XMLKeywordsManager.takesInput(str)) {
-			if (item.getChecked() && !item.getGrayed()) {
+		if (XMLKeywordsManager.takesInput(baseOption)) {
+			if (isSelectedNotMultiple(baseOption)) {
 				// Already selected.
+				item.setChecked(true);
 				System.out.println("cannot select this option multiple times!");
 			} else {
 				// invoke argument input dialog
@@ -425,8 +425,8 @@ public class ConfigDialog extends Dialog {
 				formLayout.spacing = 10;
 				dialog.setLayout(formLayout);
 
-				final String argType = XMLKeywordsManager.getArgType(str);
-				final int argNum = XMLKeywordsManager.getArgNum(str);
+				final String argType = XMLKeywordsManager.getArgType(baseOption);
+				final int argNum = XMLKeywordsManager.getArgNum(baseOption);
 
 				Label label = new Label(dialog, SWT.NONE);
 				if (argType.equals("String")) {
@@ -481,10 +481,10 @@ public class ConfigDialog extends Dialog {
 						// selectedArgs
 						String resultOption = null;
 						if (argType.equals("String")) {
-							resultOption = str + "\""
+							resultOption = baseOption + "\""
 									+ inputFields[0].getText() + "\"";
 						} else if (argType.equals("Integer")) {
-							resultOption = str;
+							resultOption = baseOption;
 							try {
 								for (int j = 0; j < argNum; j++) {
 									int inputInt = 0;
@@ -503,7 +503,7 @@ public class ConfigDialog extends Dialog {
 						}
 						if (resultOption != null) { // okay to
 													// proceed
-							selectedArgs.put(resultOption, str);
+							selectedArgs.put(resultOption, baseOption);
 							refreshSelections(selections);
 							dialog.close();
 							// keep the popupShell open
@@ -517,13 +517,13 @@ public class ConfigDialog extends Dialog {
 				dialog.open();
 			}
 			// for options not taking arguments
-		} else if (item.getChecked()) {
+		} else if (selectedArgs.containsValue(baseOption)) { //TODO make a methdo to check isSelected?
 			item.setChecked(false);
-			selectedArgs.remove(str);
+			selectedArgs.remove(baseOption);
 			refreshSelections(selections);
 		} else {
 			item.setChecked(true);
-			selectedArgs.put(str, str);
+			selectedArgs.put(baseOption, baseOption);
 			refreshSelections(selections);
 		}
 	}
