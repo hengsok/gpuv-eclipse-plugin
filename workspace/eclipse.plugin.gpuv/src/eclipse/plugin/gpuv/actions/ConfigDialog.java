@@ -107,6 +107,7 @@ public class ConfigDialog extends Dialog {
 					"Please open one OpenCL file first before attempting to run analysis.");
 			dialog.open();
 		}
+		close();
 	}
 
 	private MessageBox createMessageBox (String title, String message) {
