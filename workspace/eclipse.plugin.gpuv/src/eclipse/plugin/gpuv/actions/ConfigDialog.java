@@ -159,6 +159,7 @@ public class ConfigDialog extends Dialog {
 		selections.setHeaderVisible(true);
 		new TableColumn(selections, SWT.NONE).setText("Selected options");
 		selections.getColumns()[0].pack();
+		selections.pack();
 
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
@@ -404,6 +405,8 @@ public class ConfigDialog extends Dialog {
 		return parent;
 	}
 
+	
+	//TODO when cancelled, suggestion list is gone
 	// provides an action when an option is selected
 	private void optionSelectAction(final TableItem item, final Text autoSuggest, final Table selections) {
 		final String baseOption = item.getText();
