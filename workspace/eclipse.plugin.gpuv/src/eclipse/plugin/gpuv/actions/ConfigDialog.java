@@ -55,17 +55,19 @@ public class ConfigDialog extends Dialog {
 
 		// Read in list of arguments
 		generalTabArgs = XMLKeywordsManager.getGeneralOptions();
-		generalTabArgs.putAll(XMLKeywordsManager.getRecentArgs());
+		Map<String, String> appliedOptions = XMLKeywordsManager.getAppliedOptions(); 
+		generalTabArgs.putAll(appliedOptions);
 
+		// Select previously used options by default.
 		this.selectedArgs = new HashMap<String, String>();
-
+//		selectedArgs.putAll(appliedOptions);
 	}
 
 	// TODO need fix
 	protected void okPressed() {
 		// store the arguments that're been selected for recently used list
 		// later
-		XMLKeywordsManager.storeRecentArgs(selectedArgs);
+		XMLKeywordsManager.applyOptions(selectedArgs);
 
 		//Get Active Editor Content
 		IEditorPart activeEditor = PlatformUI.getWorkbench()
@@ -102,13 +104,20 @@ public class ConfigDialog extends Dialog {
 		}
 		else{
 			//Alert the user if no OpenCL file is currently opened
-			MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
-			dialog.setText("Warning");
-			dialog.setMessage("Please open one OpenCL file first before attempting to run analysis.");
+			MessageBox dialog = createMessageBox("Warning", 
+					"Please open one OpenCL file first before attempting to run analysis.");
 			dialog.open();
 		}
 	}
 
+	private MessageBox createMessageBox (String title, String message) {
+		MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
+		dialog.setText(title);
+		dialog.setMessage(message);
+		return dialog;
+	}
+	
+	
 	protected Control createDialogArea(Composite parent) {
 		final Shell currShell = this.getShell();
 		final Display display = currShell.getDisplay();
@@ -326,32 +335,10 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
-		Listener focusOutListener = new Listener() {
-			public void handleEvent(Event event) {
-				/* async is needed to wait until focus reaches its new Control */
-				display.asyncExec(new Runnable() {
-					public void run() {
-						if (display.isDisposed())
-							return;
-						Control control = display.getFocusControl();
-						if (control == null
-								|| (control != autoSuggest && control != table)) {
-							table.removeAll();
-
-						}
-					}
-				});
-			}
-		};
-		table.addListener(SWT.FocusOut, focusOutListener);
-		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
-		
-
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
 				autoSuggest.setText(table.getSelection()[0].getText());
 				table.removeAll();
-
 			}
 		});
 
@@ -370,6 +357,8 @@ public class ConfigDialog extends Dialog {
 		generalSetting.setControl(container_general);
 		advancedSetting.setControl(container_advanced);
 
+//		refreshSelections(selections);
+		
 		initContent();
 
 		return parent;
@@ -383,7 +372,9 @@ public class ConfigDialog extends Dialog {
 			if (isSelectedNotMultiple(baseOption)) {
 				// Already selected.
 				item.setChecked(true);
-				System.out.println("cannot select this option multiple times!");
+				MessageBox dialog = createMessageBox("Warning", 
+						"Cannot select this option multiple times!");
+				dialog.open();
 			} else {
 				// invoke argument input dialog
 				final Shell dialog = new Shell(this.getShell(), SWT.DIALOG_TRIM
@@ -477,7 +468,9 @@ public class ConfigDialog extends Dialog {
 											(inputInt + ""));
 								}
 							} catch (NumberFormatException nfe) {
-								dialog.setText("Arguments must be integers!");
+								MessageBox dialog = createMessageBox("Warning", 
+										"Arguments must be integers!");
+								dialog.open();								
 								resultOption = null;
 							}
 						}
@@ -532,24 +525,41 @@ public class ConfigDialog extends Dialog {
 	protected Control createButtonBar(final Composite parent) {
 		final Composite btnBar = new Composite(parent, SWT.NONE);
 		final GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
+		layout.numColumns = 3;
 		btnBar.setLayout(layout);
-
-		// Initialise default buttons
-		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
-				false);
-		defaultBtn.grabExcessVerticalSpace = false;
-		defaultBtn.grabExcessHorizontalSpace = true;
-		btnBar.setLayoutData(defaultBtn);
-
+		btnBar.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));
 		btnBar.setFont(parent.getFont());
-
-		// add the dialog's button bar to the right
-		final Control buttonCtrl = super.createButtonBar(btnBar);
-		buttonCtrl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
-				false));
+		
+		// Initialise default buttons
+		createButton(btnBar, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
+		createButton(btnBar, IDialogConstants.CLIENT_ID, "Apply", true);
+		createButton(btnBar, IDialogConstants.OK_ID, " Apply and analyse ", false);
+		
+//		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
+//				false);
+//		defaultBtn.grabExcessVerticalSpace = false;
+//		defaultBtn.grabExcessHorizontalSpace = true;
+//		btnBar.setLayoutData(defaultBtn);
+//		
+//		btnBar.setFont(parent.getFont());
+//
+//		Button applyButton = new Button(btnBar, SWT.NONE);
+//		applyButton.setText("Apply");
+//		// add the dialog's button bar to the right
+//		final Control buttonCtrl = super.createButtonBar(btnBar);
+//		buttonCtrl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
+//				false));
 
 		return btnBar;
+	}
+	
+	protected void buttonPressed(int buttonId) {
+		super.buttonPressed(buttonId);
+		if (IDialogConstants.CLIENT_ID == buttonId) {
+			//"Apply" button
+			XMLKeywordsManager.applyOptions(selectedArgs);
+			close();
+		}
 	}
 
 	private void createArgCheckboxes(Composite parent) {
@@ -568,8 +578,10 @@ public class ConfigDialog extends Dialog {
 						 * selectedArgs, and if it is, prevent.
 						 */
 						if (isSelectedNotMultiple(baseOption)) {
-							// conflict! TODO popup dialog?
-							System.out.println("Cannot select this option multiple times!");
+							// conflict!
+							MessageBox dialog = createMessageBox("Warning", 
+									"Cannot select this option multiple times!");
+							dialog.open();
 							button.setGrayed(true);
 						} else {
 							selectedArgs.put(option, baseOption);
@@ -606,10 +618,10 @@ public class ConfigDialog extends Dialog {
 
 	}
 
-	protected void initializeBounds() {
-		super.initializeBounds();
-		this.getButton(IDialogConstants.OK_ID).setText("Apply and analyse");
-	}
+//	protected void initializeBounds() {
+//		super.initializeBounds();
+//		this.getButton(IDialogConstants.OK_ID).setText("Apply and analyse");
+//	}
 
 	public Set<String> getSelectedArgs() {
 		return selectedArgs.keySet();

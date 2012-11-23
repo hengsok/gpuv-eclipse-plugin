@@ -1,17 +1,11 @@
 package eclipse.plugin.gpuv;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -31,9 +25,7 @@ import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 
 /*
  * XML reader layer on top of Radix Tree implementation.
- * TODO 1: need to contain information of each keyword in the tree as 'value' -> class?
  * TODO 2: need to clean up keywords (charn -> char8 ... and Abstract Data Types -> .... ) 
- * TODO 3: need to merge ConfigArgumentlist, ConfigRecently...
  */
 
 /*
@@ -43,15 +35,15 @@ import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 public class XMLKeywordsManager {
 	public static final int KEYWORD_SEARCH = 0;
 	public static final int OPTION_SEARCH = 1;
-	public static final int RECENT_OPTIONS = 2;
+	public static final int APPLIED_OPTIONS = 2;
 	private static RadixTree<String> keywordTree;
 	private static List<String> keywordList;
 	private static Map<String, dataNode> optionMap;
 	private static String installLocation;
 	private static String foldername;
-	private static final String recentFilename = "recentArgs.xml";
+	private static final String appliedFilename = "appliedOptions.xml";
 	
-	private static Map<String,String> recentArgMap; //TODO necessary?
+	private static Map<String,String> appliedOptionMap; //TODO necessary?
 
 	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
@@ -59,7 +51,7 @@ public class XMLKeywordsManager {
 		optionMap = new HashMap<String, dataNode>();
 		installLocation = location;
 		foldername = "."; // TODO gather all files
-		recentArgMap = new HashMap<String,String>();
+		appliedOptionMap = new HashMap<String,String>();
 		readXMLByType("keywords.xml", KEYWORD_SEARCH);
 		readXMLByType("options.xml", OPTION_SEARCH);
 	}
@@ -128,13 +120,17 @@ public class XMLKeywordsManager {
 	}
 
 	/*
-	 * Write recently used options to an xml file using DOM method
+	 * Write applied options to an xml file using DOM method
 	 */
-	public static void storeRecentArgs(Map<String, String> recentArgsToStore) {
+	public static void applyOptions(Map<String, String> optionsToStore) {
 		try {
-			File file = new File(installLocation + File.separator + foldername
-					+ File.separator + recentFilename);
+			File xmlFile = new File(installLocation + File.separator + foldername
+					+ File.separator + appliedFilename);
 
+			if(!xmlFile.exists()){
+				xmlFile.createNewFile();
+			}
+			
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -144,8 +140,8 @@ public class XMLKeywordsManager {
 			Element rootElement = doc.createElement("keywords");
 			doc.appendChild(rootElement);
 
-			for (String key : recentArgsToStore.keySet()) {
-				String value = recentArgsToStore.get(key);
+			for (String key : optionsToStore.keySet()) {
+				String value = optionsToStore.get(key);
 				// keyword elements
 				Element keyword = doc.createElement("keyword");
 				rootElement.appendChild(keyword);
@@ -196,7 +192,7 @@ public class XMLKeywordsManager {
 						.newInstance();
 				Transformer transformer = transformerFactory.newTransformer();
 				DOMSource source = new DOMSource(doc);
-				StreamResult result = new StreamResult(file);
+				StreamResult result = new StreamResult(xmlFile);
 
 				transformer.transform(source, result);
 			}
@@ -206,23 +202,26 @@ public class XMLKeywordsManager {
 	}
 
 	/* 
-	 * read in recentArgs.xml on each config box invocation.
-	 * In one session, all used options are kept in recentArgSet, 
+	 * read in appliedOptions.xml on each config box invocation.
+	 * In one session, all used options are kept in appliedOptionSet, 
 	 * and is only flushed when Eclipse is restarted. TODO what if empty initially?
 	 */
-	public static Map<String,String> getRecentArgs() {
-		readXMLByType(recentFilename, RECENT_OPTIONS);
-		return recentArgMap;
+	public static Map<String,String> getAppliedOptions() {
+		readXMLByType(appliedFilename, APPLIED_OPTIONS);
+		return appliedOptionMap;
 	}
 
 	/*
 	 * Read in specified xml files and create sets or lists depending on the
-	 * type of search required (OPTION_SEARCH, KEYWORD_SEARCH, RECENT_OPTIONS)
+	 * type of search required (OPTION_SEARCH, KEYWORD_SEARCH, APPLIED_OPTIONS)
 	 */
 	private static void readXMLByType(String filename, int searchType) {
 		try {
 			File xmlFile = new File(installLocation + File.separator
 					+ foldername + File.separator + filename);
+			if(!xmlFile.exists()){
+				return; // don't read if file does not exist 
+			}
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -248,11 +247,11 @@ public class XMLKeywordsManager {
 						dataNode data = new dataNode(keyword, option, argType,
 								argNum, type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
-					} else if(searchType == RECENT_OPTIONS) { //TODO merge with OPTION_SEARCH
-						// for recently used options
+					} else if(searchType == APPLIED_OPTIONS) { //TODO merge with OPTION_SEARCH
+						// for applied options
 						String option = getTagValue("option", eElement);
 						String actualOption = getTagValue("actualOption", eElement);
-						recentArgMap.put(actualOption, option);
+						appliedOptionMap.put(actualOption, option);
 					} else { // for editor keyword suggestion
 						String lowerKeyword = keyword.toLowerCase();
 						if (!keywordTree.contains(lowerKeyword)) {
