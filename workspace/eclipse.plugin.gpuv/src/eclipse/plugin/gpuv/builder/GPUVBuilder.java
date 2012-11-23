@@ -2,6 +2,7 @@ package eclipse.plugin.gpuv.builder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,8 +126,7 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		List<Issue> issues = new ArrayList<Issue>();
 		String line;
 		Process p;
-		String command = fullPath.makeAbsolute().toOSString()
-				.replaceAll("^(.*)$", getConfig().getCommand());
+		String command = getConfig().getCommand() + " --local_size=1024 --num_groups=2 --verbose " + fullPath.makeAbsolute().toOSString();
 		try {
 			LOGGER.log(Level.INFO, "Execute: " + command);
 			p = Runtime.getRuntime().exec(command);
@@ -135,40 +135,61 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 					"Couldn't execute: " + command + "\n" + e1.getMessage()));
 			return issues;
 		}
-
-		try {
-			p.waitFor();
-		} catch (InterruptedException e) {
-			issues.add(new Issue(IMarker.SEVERITY_ERROR, 1,
-					"Command interrupted: " + e.getMessage()));
-			return issues;
-		}
-
-		int gpuVerifyExitValue = p.exitValue();
 		
+	
+		//Get input stream
 		BufferedReader bri = new BufferedReader(new InputStreamReader(
 				p.getInputStream()));
+		
+		//analysing error stream
 		BufferedReader bre = new BufferedReader(new InputStreamReader(
 				p.getErrorStream()));
 		try {
+			//analysing input stream
 			while ((line = bri.readLine()) != null) {
 				Issue issue = readIssue(line);
+				//Add to list of issues to create markers later
 				if (issue != null)
 					issues.add(issue);
+				
+				//print to console
+				//TODO Might need to change to System.out
+				GPUVDefaultConsole.printToConsole(line);
+				//System.out.println(line);
 			}
 			bri.close();
+			
+			//analysing error stream
 			while ((line = bre.readLine()) != null) {
 				issues.add(new Issue(IMarker.SEVERITY_ERROR, 1, "stderr: "
 						+ line));
+				
+				//print to console
+				//TODO Might need to change to System.out
+				GPUVDefaultConsole.printToConsole(line);
+				//System.out.println(line);
 			}
 			bre.close();
+			
 		} catch (IOException e) {
 			issues.add(new Issue(IMarker.SEVERITY_ERROR, 1, "I/O error: "
 					+ e.getMessage()));
 			return issues;
 		}
-
-
+		
+		//TODO handle different exit point
+		int gpuVerifyExitValue;
+		try {
+			gpuVerifyExitValue = p.waitFor();
+		} catch (InterruptedException e) {
+			issues.add(new Issue(IMarker.SEVERITY_ERROR, 1,
+					"Command interrupted: " + e.getMessage()));
+			return issues;
+		}
+		
+		GPUVDefaultConsole.printToConsole(Integer.toString(gpuVerifyExitValue));
+		
+		
 		return issues;
 	}
 
@@ -187,6 +208,10 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 				//Define the types of marker to use here
 				int markerSeverity = IMarker.SEVERITY_ERROR;
 				
+				//TODO: line detection
+				// if (line.startsWith("LaTeX Warning: ") || line.indexOf("pdfTeX warning") != -1) {
+	            //        error = m.group(1);
+	                    
 				LOGGER.log(Level.INFO, "Line matched: " + severityStr + "@"
 						+ lineNumber + " " + message);
 				Issue issue = new Issue(markerSeverity, lineNumber, message);
@@ -209,6 +234,7 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 	protected void fullBuild(final IProgressMonitor monitor)
 			throws CoreException {
 		try {
+			//TODO: if we want to run only certain file, have to change ResourceVisitor here
 			getProject().accept(new ResourceVisitor());
 		} catch (CoreException e) {
 		}
