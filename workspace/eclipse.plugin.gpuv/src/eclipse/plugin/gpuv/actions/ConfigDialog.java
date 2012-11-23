@@ -60,7 +60,7 @@ public class ConfigDialog extends Dialog {
 
 		// Select previously used options by default.
 		this.selectedArgs = new HashMap<String, String>();
-//		selectedArgs.putAll(appliedOptions);
+		selectedArgs.putAll(appliedOptions);
 	}
 
 	// TODO need fix
@@ -120,7 +120,6 @@ public class ConfigDialog extends Dialog {
 	
 	protected Control createDialogArea(Composite parent) {
 		final Shell currShell = this.getShell();
-		final Display display = currShell.getDisplay();
 		// Disabling ESC and CR for config box.
 		// The keys are used only by auto-suggestion text field.
 		currShell.addListener(SWT.Traverse, new Listener() {
@@ -357,7 +356,7 @@ public class ConfigDialog extends Dialog {
 		generalSetting.setControl(container_general);
 		advancedSetting.setControl(container_advanced);
 
-//		refreshSelections(selections);
+		refreshSelections(selections);
 		
 		initContent();
 
