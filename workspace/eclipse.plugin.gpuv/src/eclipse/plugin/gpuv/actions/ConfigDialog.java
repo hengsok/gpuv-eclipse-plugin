@@ -52,7 +52,6 @@ public class ConfigDialog extends Dialog {
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
-
 		// Read in list of arguments
 		generalTabArgs = XMLKeywordsManager.getGeneralOptions();
 		Map<String, String> appliedOptions = XMLKeywordsManager.getAppliedOptions(); 

@@ -127,10 +127,9 @@ public class XMLKeywordsManager {
 			File xmlFile = new File(installLocation + File.separator + foldername
 					+ File.separator + appliedFilename);
 
-			if(!xmlFile.exists()){
-				xmlFile.createNewFile();
+			if(xmlFile.exists()){
+				xmlFile.delete();
 			}
-			
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -222,6 +221,8 @@ public class XMLKeywordsManager {
 			if(!xmlFile.exists()){
 				return; // don't read if file does not exist 
 			}
+			appliedOptionMap.clear();
+			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
