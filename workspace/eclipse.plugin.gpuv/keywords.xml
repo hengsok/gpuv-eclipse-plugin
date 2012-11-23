@@ -2,6 +2,1006 @@
 
 <keywords>  
   <keyword>
+    <link>as_typen.html</link>
+    <name>as_typen()</name>
+  </keyword>
+
+
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>ulong long</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>ulong long2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>ulong long3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>ulong long4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>ulong long8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>ulong long16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex double</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex double2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex double3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex double4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex double8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex double16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex float</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex float2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex float3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex float4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex float8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex float16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex half</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex half2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex half3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex half4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex half8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex half16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex quad</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex quad2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex quad3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex quad4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex quad8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>complex quad16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>double2x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>double3x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>double4x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>double8x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>double16x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>float</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>float2x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>float3x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>float4x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>float8x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>float16x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>half</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>half2x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>half3x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>half4x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>half8x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>half16x</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary double</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary double2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary double3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary double4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary double8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary double16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary float</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary float2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary float3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary float4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary float8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary float16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary half</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary half2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary half3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary half4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary half8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary half16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary quad</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary quad2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary quad3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary quad4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary quad8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>imaginary quad16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long double</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long double2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long double3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long double4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long double8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long double16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long long</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long long2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long long3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long long4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long long8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>long long16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>bool</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>bool2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>bool3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>bool4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>bool8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>bool16</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>quad</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>quad2</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>quad3</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>quad4</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>quad8</name>
+  </keyword>
+  <keyword>
+    <link>reservedDataTypes.html</link>
+    <name>quad16</name>
+  </keyword>
+
+
+
+
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>short</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>short2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>short3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>short4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>short8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>short16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>long</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>long2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>long3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>long4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>long8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>long16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uchar</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uchar2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uchar3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uchar4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uchar8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uchar16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uint</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uint2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uint3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uint4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uint8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>uint16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ulong</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ulong2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ulong3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ulong4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ulong8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ulong16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ushort</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ushort2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ushort3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ushort4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ushort8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>ushort16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>char</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>char2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>char3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>char4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>char8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>char16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_char</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_char2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_char3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_char4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_char8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_char16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_float</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_float2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_float3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_float4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_float8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_float16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_int</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_int2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_int3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_int4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_int8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_int16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_long</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_long2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_long3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_long4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_long8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_long16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_short</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_short2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_short3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_short4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_short8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_short16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uchar</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uchar2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uchar3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uchar4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uchar8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uchar16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uint</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uint2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uint3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uint4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uint8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_uint16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ulong</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ulong2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ulong3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ulong4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ulong8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ulong16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ushort</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ushort2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ushort3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ushort4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ushort8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>cl_ushort16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>double</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>double2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>double3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>double4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>double8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>double16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>float</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>float2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>float3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>float4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>float8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>float16</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>half</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>half2</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>half3</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>half4</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>half8</name>
+  </keyword>
+  <keyword>
+    <link>vectorDataTypes.html</link>
+    <name>half16</name>
+  </keyword>
+
+
+
+  <keyword>
+    <link>vload_halfn.html</link>
+    <name>vload_half</name>
+  </keyword>
+  <keyword>
+    <link>vload_halfn.html</link>
+    <name>vload_half2</name>
+  </keyword>
+  <keyword>
+    <link>vload_halfn.html</link>
+    <name>vload_half3</name>
+  </keyword>
+  <keyword>
+    <link>vload_halfn.html</link>
+    <name>vload_half4</name>
+  </keyword>
+  <keyword>
+    <link>vload_halfn.html</link>
+    <name>vload_half8</name>
+  </keyword>
+  <keyword>
+    <link>vload_halfn.html</link>
+    <name>vload_half16</name>
+  </keyword>
+
+  <keyword>
+    <link>vloada_halfn.html</link>
+    <name>vloada_half</name>
+  </keyword>
+  <keyword>
+    <link>vloada_halfn.html</link>
+    <name>vloada_half2</name>
+  </keyword>
+  <keyword>
+    <link>vloada_halfn.html</link>
+    <name>vloada_half3</name>
+  </keyword>
+  <keyword>
+    <link>vloada_halfn.html</link>
+    <name>vloada_half4</name>
+  </keyword>
+  <keyword>
+    <link>vloada_halfn.html</link>
+    <name>vloada_half8</name>
+  </keyword>
+  <keyword>
+    <link>vloada_halfn.html</link>
+    <name>vloada_half16</name>
+  </keyword>
+
+  <keyword>
+    <link>vloadn.html</link>
+    <name>vload</name>
+  </keyword>
+  <keyword>
+    <link>vloadn.html</link>
+    <name>vload2</name>
+  </keyword>
+  <keyword>
+    <link>vloadn.html</link>
+    <name>vload3</name>
+  </keyword>
+  <keyword>
+    <link>vloadn.html</link>
+    <name>vload4</name>
+  </keyword>
+  <keyword>
+    <link>vloadn.html</link>
+    <name>vload8</name>
+  </keyword>
+  <keyword>
+    <link>vloadn.html</link>
+    <name>vload16</name>
+  </keyword>
+
+  <keyword>
+    <link>vstore_halfn.html</link>
+    <name>vstore_half</name>
+  </keyword>
+  <keyword>
+    <link>vstore_halfn.html</link>
+    <name>vstore_half2</name>
+  </keyword>
+  <keyword>
+    <link>vstore_halfn.html</link>
+    <name>vstore_half3</name>
+  </keyword>
+  <keyword>
+    <link>vstore_halfn.html</link>
+    <name>vstore_half4</name>
+  </keyword>
+  <keyword>
+    <link>vstore_halfn.html</link>
+    <name>vstore_half8</name>
+  </keyword>
+  <keyword>
+    <link>vstore_halfn.html</link>
+    <name>vstore_half16</name>
+  </keyword>
+
+  <keyword>
+    <link>vstorea_halfn.html</link>
+    <name>vstorea_half</name>
+  </keyword>
+  <keyword>
+    <link>vstorea_halfn.html</link>
+    <name>vstorea_half2</name>
+  </keyword>
+  <keyword>
+    <link>vstorea_halfn.html</link>
+    <name>vstorea_half3</name>
+  </keyword>
+  <keyword>
+    <link>vstorea_halfn.html</link>
+    <name>vstorea_half4</name>
+  </keyword>
+  <keyword>
+    <link>vstorea_halfn.html</link>
+    <name>vstorea_half8</name>
+  </keyword>
+  <keyword>
+    <link>vstorea_halfn.html</link>
+    <name>vstorea_half16</name>
+  </keyword>
+
+  <keyword>
+    <link>vstoren.html</link>
+    <name>vstore</name>
+  </keyword>
+  <keyword>
+    <link>vstoren.html</link>
+    <name>vstore2</name>
+  </keyword>
+  <keyword>
+    <link>vstoren.html</link>
+    <name>vstore3</name>
+  </keyword>
+  <keyword>
+    <link>vstoren.html</link>
+    <name>vstore4</name>
+  </keyword>
+  <keyword>
+    <link>vstoren.html</link>
+    <name>vstore8</name>
+  </keyword>
+  <keyword>
+    <link>vstoren.html</link>
+    <name>vstore16</name>
+  </keyword>
+
+
+  <keyword>
     <link>abs.html</link>
     <name>abs</name>
   </keyword>
@@ -56,7 +1056,19 @@
   </keyword>
   <keyword>
     <link>accessQualifiers.html</link>
-    <name>Access Qualifiers</name>
+    <name>__read_only</name>
+  </keyword>
+  <keyword>
+    <link>accessQualifiers.html</link>
+    <name>__write_only</name>
+  </keyword>
+  <keyword>
+    <link>accessQualifiers.html</link>
+    <name>read_only</name>
+  </keyword>
+  <keyword>
+    <link>accessQualifiers.html</link>
+    <name>write_only</name>
   </keyword>
   <keyword>
     <link>acos.html</link>
@@ -75,24 +1087,12 @@
     <name>add_sat</name>
   </keyword>
   <keyword>
-    <link>sampler_t.html</link>
-    <name>Addressing Mode and Filtering</name>
-  </keyword>
-  <keyword>
-    <link>qualifiers.html</link>
-    <name>Address Space Qualifiers</name>
-  </keyword>
-  <keyword>
     <link>any.html</link>
     <name>all</name>
   </keyword>
   <keyword>
     <link>any.html</link>
     <name>any</name>
-  </keyword>
-  <keyword>
-    <link>as_typen.html</link>
-    <name>as_typen()</name>
   </keyword>
   <keyword>
     <link>asin.html</link>
@@ -108,7 +1108,19 @@
   </keyword>
   <keyword>
     <link>asyncCopyFunctions.html</link>
-    <name>Async Copies/Prefetch Built-In Functions</name>
+    <name>async_work_group_copy</name>
+  </keyword>
+  <keyword>
+    <link>asyncCopyFunctions.html</link>
+    <name>async_work_group_strided_copy</name>
+  </keyword>
+  <keyword>
+    <link>asyncCopyFunctions.html</link>
+    <name>wait_group_events</name>
+  </keyword>
+  <keyword>
+    <link>asyncCopyFunctions.html</link>
+    <name>prefetch</name>
   </keyword>
   <keyword>
     <link>async_work_group_copy.html</link>
@@ -137,10 +1149,6 @@
   <keyword>
     <link>atan.html</link>
     <name>atanpi</name>
-  </keyword>
-  <keyword>
-    <link>atomicFunctions.html</link>
-    <name>Atomic Fuctions</name>
   </keyword>
   <keyword>
     <link>atomic_add.html</link>
@@ -185,8 +1193,7 @@
   <keyword>
     <link>atomic_xor.html</link>
     <name>atomic_xor</name>
-  </keyword>
-  
+  </keyword>  
   <keyword>
     <link>attribute.html</link>
     <name>__attribute__</name>
@@ -223,26 +1230,7 @@
     <link>scalarDataTypes.html</link>
     <name>bool</name>
   </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>booln</name>
-  </keyword>
-  <keyword>
-    <link>clBuildProgram.html</link>
-    <name>Build Options</name>
-  </keyword>
-  <keyword>
-    <link>scalarDataTypes.html</link>
-    <name>Built-In Scalar Data Types</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>Built-In Vector Data Types</name>
-  </keyword>
-   <keyword>
-    <link>classDiagram.html</link>
-    <name>Cardinality diagram</name>
-  </keyword>
+
   <keyword>
     <link>cbrt.html</link>
     <name>cbrt</name>
@@ -268,10 +1256,6 @@
     <name>CHAR_MIN</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>charn</name>
-  </keyword>
-  <keyword>
     <link>clamp.html</link>
     <name>clamp (Common Function)</name>
   </keyword>
@@ -284,20 +1268,12 @@
     <name>CL_APPLE_gl_sharing</name>
   </keyword>
   <keyword>
-    <link>classDiagram.html</link>
-    <name>Class diagram</name>
-  </keyword>
-  <keyword>
     <link>clBuildProgram.html</link>
     <name>clBuildProgram </name>
   </keyword>
   <keyword>
     <link>scalarDataTypes.html</link>
     <name>cl_char</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_charn</name>
   </keyword>
   <keyword>
     <link>clCreateBuffer.html</link>
@@ -377,11 +1353,11 @@
   </keyword>
   <keyword>
     <link>clCreateSubBuffer.html</link>
-    <name>clCreateSubBuffer </name>
+    <name>clCreateSubBuffer</name>
   </keyword>
   <keyword>
     <link>clCreateUserEvent.html</link>
-    <name>clCreateUserEvent </name>
+    <name>clCreateUserEvent</name>
   </keyword>
   <keyword>
     <link>vectorDataTypes.html</link>
@@ -401,7 +1377,7 @@
   </keyword>
   <keyword>
     <link>clEnqueueCopyBuffer.html</link>
-    <name>clEnqueueCopyBuffer </name>
+    <name>clEnqueueCopyBuffer</name>
   </keyword>
   <keyword>
     <link>clEnqueueCopyBufferRect.html</link>
@@ -492,10 +1468,6 @@
     <name>cl_float</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_floatn</name>
-  </keyword>
-  <keyword>
     <link>clFlush.html</link>
     <name>clFlush</name>
   </keyword>
@@ -553,7 +1525,7 @@
   </keyword>
   <keyword>
     <link>clGetKernelInfo.html</link>
-    <name>clGetKernelInfo </name>
+    <name>clGetKernelInfo</name>
   </keyword>
   <keyword>
     <link>clGetKernelWorkGroupInfo.html</link>
@@ -600,10 +1572,6 @@
     <name>cl_int</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_intn</name>
-  </keyword>
-  <keyword>
     <link>EXTENSION.html</link>
     <name>cl_khr</name>
   </keyword>
@@ -646,16 +1614,12 @@
     <name>cl_long</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_longn</name>
-  </keyword>
-  <keyword>
     <link>clReleaseCommandQueue.html</link>
     <name>clReleaseCommandQueue</name>
   </keyword>
   <keyword>
     <link>clReleaseContext.html</link>
-    <name>clReleaseContext </name>
+    <name>clReleaseContext</name>
   </keyword>
   <keyword>
     <link>clReleaseEvent.html</link>
@@ -667,7 +1631,7 @@
   </keyword>
   <keyword>
     <link>clReleaseMemObject.html</link>
-    <name>clReleaseMemObject </name>
+    <name>clReleaseMemObject</name>
   </keyword>
   <keyword>
     <link>clReleaseProgram.html</link>
@@ -679,7 +1643,7 @@
   </keyword>
   <keyword>
     <link>clRetainCommandQueue.html</link>
-    <name>clRetainCommandQueue </name>
+    <name>clRetainCommandQueue</name>
   </keyword>
   <keyword>
     <link>clRetainContext.html</link>
@@ -730,32 +1694,16 @@
     <name>cl_short</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_shortn</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>cl_uchar</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_ucharn</name>
   </keyword>
   <keyword>
     <link>scalarDataTypes.html</link>
     <name>cl_uint</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_uintn</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>cl_ulong</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_ulongn</name>
   </keyword>
   <keyword>
     <link>clUnloadCompiler.html</link>
@@ -766,10 +1714,6 @@
     <name>cl_ushort</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>cl_ushortn</name>
-  </keyword>
-  <keyword>
     <link>clWaitForEvents.html</link>
     <name>clWaitForEvents</name>
   </keyword>
@@ -778,16 +1722,8 @@
     <name>clz</name>
   </keyword>
   <keyword>
-    <link>commonFunctions.html</link>
-    <name>Common Built-In Functions</name>
-  </keyword>
-  <keyword>
     <link>reservedDataTypes.html</link>
     <name>complex double</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>complex doublen</name>
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
@@ -795,35 +1731,15 @@
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
-    <name>complex floatn</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
     <name>complex half</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>complex halfn</name>
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
     <name>complex quad</name>
   </keyword>
   <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>complex quadn</name>
-  </keyword>
-  <keyword>
     <link>constant.html</link>
     <name>__constant</name>
-  </keyword>
-  <keyword>
-    <link>attributes-blocksAndControlFlow.html</link>
-    <name>control flow stmnt attributes</name>
-  </keyword>
-  <keyword>
-    <link>convert_T.html</link>
-    <name>Conversions</name>
   </keyword>
   <keyword>
     <link>convert_T.html</link>
@@ -854,28 +1770,8 @@
     <name>d3d10_sharing</name>
   </keyword>
   <keyword>
-    <link>clBuildProgram.html</link>
-    <name>-D name</name>
-  </keyword>
-  <keyword>
-    <link>clBuildProgram.html</link>
-    <name>-D name=definition</name>
-  </keyword>
-  <keyword>
-    <link>dataTypes.html</link>
-    <name>Data Types</name>
-  </keyword>
-  <keyword>
     <link>degrees.html</link>
     <name>degrees</name>
-  </keyword>
-  <keyword>
-    <link>classDiagram.html</link>
-    <name>Diagram</name>
-  </keyword>
-  <keyword>
-    <link>d3d10_sharing.html</link>
-    <name>Direct3d 10</name>
   </keyword>
   <keyword>
     <link>EXTENSION.html</link>
@@ -890,32 +1786,12 @@
     <name>dot</name>
   </keyword>
   <keyword>
-    <link>cl_khr_fp64.html</link>
-    <name>Double Precision Floating-Point</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>double</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>doublen</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>doublenxm</name>
-  </keyword>
-  <keyword>
     <link>preprocessorDirectives.html</link>
     <name> __ENDIAN_LITTLE__</name>
-  </keyword>
-  <keyword>
-    <link>enums.html</link>
-    <name>enumerators</name>
-  </keyword>
-  <keyword>
-    <link>enums.html</link>
-    <name>enums</name>
   </keyword>
   <keyword>
     <link>erf.html</link>
@@ -942,16 +1818,8 @@
     <name>exp2</name>
   </keyword>
   <keyword>
-    <link>explicitMemoryFenceFunctions.html</link>
-    <name>Explicit Memory Fence Built-In Functions</name>
-  </keyword>
-  <keyword>
     <link>exp.html</link>
     <name>expm1</name>
-  </keyword>
-  <keyword>
-    <link>EXTENSION.html</link>
-    <name>Extensions</name>
   </keyword>
   <keyword>
     <link>fabs.html</link>
@@ -988,14 +1856,6 @@
   <keyword>
     <link>scalarDataTypes.html</link>
     <name>float</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>floatn</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>floatnxm</name>
   </keyword>
   <keyword>
     <link>floor.html</link>
@@ -1036,14 +1896,6 @@
   <keyword>
     <link>frexp.html</link>
     <name>frexp</name>
-  </keyword>
-  <keyword>
-    <link>functionQualifiers.html</link>
-    <name>Function Qualifiers</name>
-  </keyword>
-  <keyword>
-    <link>geometricFunctions.html</link>
-    <name>Geometric Built-in Functions</name>
   </keyword>
   <keyword>
     <link>get_global_id.html</link>
@@ -1118,24 +1970,8 @@
     <name>hadd</name>
   </keyword>
   <keyword>
-    <link>cl_khr_fp16.html</link>
-    <name>Half Data Type</name>
-  </keyword>
-  <keyword>
-    <link>cl_khr_fp16.html</link>
-    <name>Half Floating-Point</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>half</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>halfn</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>halfnxm</name>
   </keyword>
   <keyword>
     <link>cos.html</link>
@@ -1206,20 +2042,8 @@
     <name>hypot</name>
   </keyword>
   <keyword>
-    <link>clBuildProgram.html</link>
-    <name>-I dir</name>
-  </keyword>
-  <keyword>
     <link>ilogb.html</link>
     <name>ilogb</name>
-  </keyword>
-  <keyword>
-    <link>imageFunctions.html</link>
-    <name>Image Built-In Functions</name>
-  </keyword>
-  <keyword>
-    <link>clGetSupportedImageFormats.html</link>
-    <name>Image formats</name>
   </keyword>
   <keyword>
     <link>preprocessorDirectives.html</link>
@@ -1239,15 +2063,7 @@
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
-    <name>imaginary doublen</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
     <name>imaginary float</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>imaginary floatn</name>
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
@@ -1255,15 +2071,7 @@
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
-    <name>imaginary halfn</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
     <name>imaginary quad</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>imaginary quadn</name>
   </keyword>
   <keyword>
     <link>mathConstants.html</link>
@@ -1274,20 +2082,8 @@
     <name>int</name>
   </keyword>
   <keyword>
-    <link>integerFunctions.html</link>
-    <name>Integer Built-In Functions</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>intn</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>intptr_t</name>
-  </keyword>
-  <keyword>
-    <link>oclRefPages-Title.html</link>
-    <name>Introduction</name>
   </keyword>
   <keyword>
     <link>isequal.html</link>
@@ -1346,10 +2142,6 @@
     <name>__kernel</name>
   </keyword>
   <keyword>
-    <link>clCreateKernel.html</link>
-    <name>Kernel object</name>
-  </keyword>
-  <keyword>
     <link>ldexp.html</link>
     <name>ldexp</name>
   </keyword>
@@ -1364,10 +2156,6 @@
   <keyword>
     <link>lgamma.html</link>
     <name>lgamma_r</name>
-  </keyword>
-  <keyword>
-    <link>macroLimits.html</link>
-    <name>Limits</name>
   </keyword>
   <keyword>
     <link>preprocessorDirectives.html</link>
@@ -1407,19 +2195,7 @@
   </keyword>
   <keyword>
     <link>reservedDataTypes.html</link>
-    <name>long doublen</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
     <name>long long</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>long longn</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>longn</name>
   </keyword>
   <keyword>
     <link>preprocessorDirectives.html</link>
@@ -1427,7 +2203,91 @@
   </keyword>
   <keyword>
     <link>macroLimits.html</link>
-    <name>Macros and Limits</name>
+    <name>FLT_DIG</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MANT_DIG</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MAX_10_EXP</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MAX_EXP</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MIN_10_EXP</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MIN_EXP</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_RADIX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_MIN</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>FLT_EPSILON</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>INT_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>INT_MIN</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>LONG_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>LONG_MIN</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>SCHAR_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>SCHAR_MIN</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>SHRT_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>SHRT_MIN</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>UCHAR_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>USHRT_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>UINT_MAX</name>
+  </keyword>
+  <keyword>
+    <link>macroLimits.html</link>
+    <name>ULONG_MAX</name>
   </keyword>
   <keyword>
     <link>mad.html</link>
@@ -1446,24 +2306,12 @@
     <name>mad24</name>
   </keyword>
   <keyword>
-    <link>mathFunctions.html</link>
-    <name>Math Built-In Functions</name>
-  </keyword>
-  <keyword>
-    <link>mathConstants.html</link>
-    <name>math constants</name>
-  </keyword>
-  <keyword>
-    <link>clBuildProgram.html</link>
-    <name>math intrinsics options</name>
-  </keyword>
-  <keyword>
     <link>commonMax.html</link>
-    <name>max (Common function)</name>
+    <name>max</name>
   </keyword>
   <keyword>
     <link>integerMax.html</link>
-    <name>max (Integer function)</name>
+    <name>max</name>
   </keyword>
   <keyword>
     <link>mathConstants.html</link>
@@ -1483,19 +2331,15 @@
   </keyword>
   <keyword>
     <link>commonMin.html</link>
-    <name>min (Common funciton)</name>
+    <name>min</name>
   </keyword>
   <keyword>
     <link>integerMax.html</link>
-    <name>min (Integer function)</name>
+    <name>min</name>
   </keyword>
   <keyword>
     <link>mix.html</link>
     <name>mix</name>
-  </keyword>
-  <keyword>
-    <link>miscVectorFunctions.html</link>
-    <name>Misc. Vector Functions</name>
   </keyword>
   <keyword>
     <link>modf.html</link>
@@ -1582,30 +2426,6 @@
     <name>normalize</name>
   </keyword>
   <keyword>
-    <link>sampler_t.html</link>
-    <name>normalized coords</name>
-  </keyword>
-  <keyword>
-    <link>gl_sharing.html</link>
-    <name>OpenCL/OpenGL Sharing Functions</name>
-  </keyword>
-  <keyword>
-    <link>operators.html</link>
-    <name>Operators</name>
-  </keyword>
-  <keyword>
-    <link>clBuildProgram.html</link>
-    <name>optimization options</name>
-  </keyword>
-  <keyword>
-    <link>EXTENSION.html</link>
-    <name>Optional Extensions</name>
-  </keyword>
-  <keyword>
-    <link>otherDataTypes.html</link>
-    <name>Other Data Types</name>
-  </keyword>
-  <keyword>
     <link>pow.html</link>
     <name>pow</name>
   </keyword>
@@ -1622,16 +2442,8 @@
     <name>#pragma</name>
   </keyword>
   <keyword>
-    <link>mathConstants.html</link>
-    <name>Symbolic Math Constants</name>
-  </keyword>
-  <keyword>
     <link>prefetch.html</link>
     <name>prefetch</name>
-  </keyword>
-  <keyword>
-    <link>preprocessorDirectives.html</link>
-    <name>Preprocessor macros</name>
   </keyword>
   <keyword>
     <link>private.html</link>
@@ -1646,12 +2458,16 @@
     <name>quad</name>
   </keyword>
   <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>quadn</name>
+    <link>qualifiers.html</link>
+    <name>const</name>
   </keyword>
   <keyword>
     <link>qualifiers.html</link>
-    <name>Qualifiers</name>
+    <name>restrict</name>
+  </keyword>
+  <keyword>
+    <link>qualifiers.html</link>
+    <name>volatile</name>
   </keyword>
   <keyword>
     <link>radians.html</link>
@@ -1674,10 +2490,6 @@
     <name>__read_write</name>
   </keyword>
   <keyword>
-    <link>relationalFunctions.html</link>
-    <name>Relational Built-In Functions</name>
-  </keyword>
-  <keyword>
     <link>remainder.html</link>
     <name>remainder</name>
   </keyword>
@@ -1688,14 +2500,6 @@
   <keyword>
     <link>functionQualifiers.html</link>
     <name>reqd_work_group_size</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>Reserved Data Types</name>
-  </keyword>
-  <keyword>
-    <link>restrictions.html</link>
-    <name>Restrictions</name>
   </keyword>
   <keyword>
     <link>hadd.html</link>
@@ -1738,16 +2542,8 @@
     <name>_rtz</name>
   </keyword>
   <keyword>
-    <link>clCreateSampler.html</link>
-    <name>Sampler Object</name>
-  </keyword>
-  <keyword>
     <link>sampler_t.html</link>
     <name>sampler_t</name>
-  </keyword>
-  <keyword>
-    <link>scalarDataTypes.html</link>
-    <name>Scalar Data Types</name>
   </keyword>
   <keyword>
     <link>select.html</link>
@@ -1756,10 +2552,6 @@
   <keyword>
     <link>scalarDataTypes.html</link>
     <name>short</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>shortn</name>
   </keyword>
   <keyword>
     <link>shuffle.html</link>
@@ -1818,18 +2610,6 @@
     <name>sub_sat</name>
   </keyword>
   <keyword>
-    <link>supportedImageFormats.html</link>
-    <name>supported image formats</name>
-  </keyword>
-  <keyword>
-    <link>barrier.html</link>
-    <name>Synchronization Function</name>
-  </keyword>
-  <keyword>
-    <link>mathConstants.html</link>
-    <name>Symbolic Constants</name>
-  </keyword>
-  <keyword>
     <link>tan.html</link>
     <name>tan</name>
   </keyword>
@@ -1850,28 +2630,12 @@
     <name>trunc</name>
   </keyword>
   <keyword>
-    <link>dataTypes.html</link>
-    <name>Types</name>
-  </keyword>
-  <keyword>
-    <link>attributes-types.html</link>
-    <name>type attributes</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>uchar</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>ucharn</name>
-  </keyword>
-  <keyword>
     <link>scalarDataTypes.html</link>
     <name>uint</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>uintn</name>
   </keyword>
   <keyword>
     <link>scalarDataTypes.html</link>
@@ -1884,14 +2648,6 @@
   <keyword>
     <link>reservedDataTypes.html</link>
     <name>ulong long</name>
-  </keyword>
-  <keyword>
-    <link>reservedDataTypes.html</link>
-    <name>ulong longn</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>ulongn</name>
   </keyword>
   <keyword>
     <link>scalarDataTypes.html</link>
@@ -1922,14 +2678,6 @@
     <name>ushort</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>ushortn</name>
-  </keyword>
-  <keyword>
-    <link>attributes-variables.html</link>
-    <name>variable attributes</name>
-  </keyword>
-  <keyword>
     <link>vec_step.html</link>
     <name>vec_step</name>
   </keyword>
@@ -1938,32 +2686,8 @@
     <name>vec_type_hint</name>
   </keyword>
   <keyword>
-    <link>vectorDataTypes.html</link>
-    <name>Vector Data Types</name>
-  </keyword>
-  <keyword>
-    <link>vectorDataLoadandStoreFunctions.html</link>
-    <name>Vector Data Load and Store Functions</name>
-  </keyword>
-  <keyword>
-    <link>miscVectorFunctions.html</link>
-    <name>Vector Functions (Misc.)</name>
-  </keyword>
-  <keyword>
     <link>vload_half.html</link>
     <name>vload_half</name>
-  </keyword>
-  <keyword>
-    <link>vload_halfn.html</link>
-    <name>vload_halfn</name>
-  </keyword>
-  <keyword>
-    <link>vloada_halfn.html</link>
-    <name>vloada_halfn</name>
-  </keyword>
-  <keyword>
-    <link>vloadn.html</link>
-    <name>vloadn</name>
   </keyword>
   <keyword>
     <link>scalarDataTypes.html</link>
@@ -1974,36 +2698,24 @@
     <name>vstore_half</name>
   </keyword>
   <keyword>
-    <link>vstore_halfn.html</link>
-    <name>vstore_halfn</name>
-  </keyword>
-  <keyword>
-    <link>vstorea_halfn.html</link>
-    <name>vstorea_halfn</name>
-  </keyword>
-  <keyword>
-    <link>vstoren.html</link>
-    <name>vstoren</name>
-  </keyword>
-  <keyword>
     <link>wait_group_events.html</link>
     <name>wait_group_events</name>
-  </keyword>
-  <keyword>
-    <link>clBuildProgram.html</link>
-    <name>warnings options</name>
   </keyword>
   <keyword>
     <link>functionQualifiers.html</link>
     <name>work_group_size_hint</name>
   </keyword>
   <keyword>
-    <link>workItemFunctions.html</link>
-    <name>Work-Item Built-in Functions</name>
+    <link>imageFunctions.html</link>
+    <name>write_imagef</name>
   </keyword>
   <keyword>
     <link>imageFunctions.html</link>
-    <name>write_image[f i ui]</name>
+    <name>write_imagei</name>
+  </keyword>
+  <keyword>
+    <link>imageFunctions.html</link>
+    <name>write_imageui</name>
   </keyword>
   <keyword>
     <link>write_mem_fence.html</link>
@@ -2015,10 +2727,1045 @@
   </keyword>
   <keyword>
     <link>cl_khr_3d_image_writes.html</link>
-    <name>Writing to 3D Image Memory Objects</name>
+    <name>cl_khr_3d_image_writes</name>
   </keyword>
-  
-  
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_addressing_mode</name>
+  </keyword>
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_bool</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_buffer_create_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_build_status</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_channel_order</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_channel_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_command_queue_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_command_queue_properties</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_command_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_context_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_context_properties</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_d3d10_device_set_khr</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_d3d10_device_source_khr</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_device_exec_capabilities</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_device_fp_config</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_device_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_device_local_mem_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_device_mem_cache_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_device_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_event_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_filter_mode</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_gl_object_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_gl_texture_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_image_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_kernel_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_kernel_work_group_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_map_flags</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_mem_fence_flags</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_mem_flags</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_mem_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_mem_object_type</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_platform_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_profiling_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_program_build_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>cl_sampler_info</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_ADDRESS_NONE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_ADDRESS_CLAMP_TO_EDGE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_ADDRESS_CLAMP</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_ADDRESS_REPEAT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FALSE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_TRUE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_BUILD_ERROR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_BUILD_IN_PROGRESS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_BUILD_NONE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_BUILD_SUCCESS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_A</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_R</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_RG</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_RA</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_RGB</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_RGBA</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_BGRA</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_ARGB</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_INTENSITY</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_LUMINANCE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FLOAT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_HALF_FLOAT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SIGNED_INT16</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SIGNED_INT32</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SIGNED_INT8</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SNORM_INT8</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SNORM_INT16</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNORM_INT_101010</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNORM_INT16</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNORM_INT8</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNORM_SHORT_555</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNORM_SHORT_565</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNSIGNED_INT16</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNSIGNED_INT32</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_UNSIGNED_INT8</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_QUEUE_CONTEXT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_QUEUE_DEVICE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_QUEUE_PROPERTIES</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_QUEUE_REFERENCE_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_QUEUE_PROFILING_ENABLE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_ACQUIRE_GL_OBJECTS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_COPY_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_COPY_BUFFER_TO_IMAGE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_COPY_IMAGE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_COPY_IMAGE_TO_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_MAP_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_MAP_IMAGE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_MARKER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_NATIVE_KERNEL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_NDRANGE_KERNEL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_READ_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_READ_IMAGE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_RELEASE_GL_OBJECTS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_TASK</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_UNMAP_MEM_OBJECT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_WRITE_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_COMMAND_WRITE_IMAGE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_CONTEXT_DEVICES</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_CONTEXT_PROPERTIES</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_CONTEXT_REFERENCE_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_CONTEXT_PLATFORM</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_EXEC_KERNEL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_EXEC_NATIVE_KERNEL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FP_DENORM</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FP_FMA</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FP_INF_NAN</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FP_ROUND_TO_INF</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FP_ROUND_TO_NEAREST</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FP_ROUND_TO_ZERO</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_ADDRESS_BITS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_AVAILABLE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_COMPILER_AVAILABLE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_ENDIAN_LITTLE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_ERROR_CORRECTION_SUPPORT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_EXECUTION_CAPABILITIES</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_EXTENSIONS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_GLOBAL_MEM_CACHE_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_GLOBAL_MEM_CACHE_TYPE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_GLOBAL_MEM_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_IMAGE_SUPPORT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_IMAGE2D_MAX_HEIGHT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_IMAGE2D_MAX_WIDTH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_IMAGE3D_MAX_DEPTH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_IMAGE3D_MAX_HEIGHT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_IMAGE3D_MAX_WIDTH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_LOCAL_MEM_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_LOCAL_MEM_TYPE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_CLOCK_FREQUENCY</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_COMPUTE_UNITS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_CONSTANT_ARGS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_MEM_ALLOC_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_PARAMETER_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_READ_IMAGE_ARGS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_SAMPLERS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_WORK_GROUP_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_WORK_ITEM_SIZES</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MAX_WRITE_IMAGE_ARGS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MEM_BASE_ADDR_ALIGN</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_NAME</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PLATFORM</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PROFILE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_PROFILING_TIMER_RESOLUTION</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_QUEUE_PROPERTIES</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_SINGLE_FP_CONFIG</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_TYPE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_VENDOR_ID</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_VENDOR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_VERSION</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DRIVER_VERSION</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GLOBAL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_LOCAL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_NONE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_READ_ONLY_CACHE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_READ_WRITE_CACHE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_TYPE_DEFAULT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_TYPE_CPU</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_TYPE_GPU</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_TYPE_ACCELERATOR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_DEVICE_TYPE_ALL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_EVENT_COMMAND_QUEUE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_EVENT_COMMAND_TYPE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_EVENT_REFERENCE_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_EVENT_COMMAND_EXECUTION_STATUS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FILTER_NEAREST</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_FILTER_LINEAR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GL_OBJECT_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GL_OBJECT_TEXTURE2D</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GL_OBJECT_TEXTURE3D</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GL_OBJECT_RENDERBUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GL_TEXTURE_TARGET</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_GL_MIPMAP_LEVEL</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_FORMAT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_ELEMENT_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_ROW_PITCH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_SLICE_PITCH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_WIDTH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_HEIGHT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_IMAGE_DEPTH</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_FUNCTION_NAME</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_NUM_ARGS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_REFERENCE_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_CONTEXT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_PROGRAM</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_WORK_GROUP_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_COMPILE_WORK_GROUP_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_KERNEL_LOCAL_MEM_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MAP_READ</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MAP_WRITE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_READ_WRITE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_WRITE_ONLY</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_READ_ONLY</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_USE_HOST_PTR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_ALLOC_HOST_PTR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_COPY_HOST_PTR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_TYPE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_FLAGS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_SIZE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_HOST_PTR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_MAP_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_REFERENCE_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_CONTEXT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_OBJECT_BUFFER</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_OBJECT_IMAGE2D</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_MEM_OBJECT_IMAGE3D</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PLATFORM_PROFILE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PLATFORM_VERSION</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PLATFORM_NAME</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PLATFORM_VENDOR</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PLATFORM_EXTENSIONS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROFILING_COMMAND_QUEUED</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROFILING_COMMAND_SUBMIT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROFILING_COMMAND_START</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROFILING_COMMAND_END</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROGRAM_BUILD_STATUS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROGRAM_BUILD_OPTIONS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_PROGRAM_BUILD_LOG</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SAMPLER_REFERENCE_COUNT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SAMPLER_CONTEXT</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SAMPLER_NORMALIZED_COORDS</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SAMPLER_ADDRESSING_MODE</name>
+  </keyword> 
+   <keyword>
+    <link>enums.html</link>
+    <name>CL_SAMPLER_FILTER_MODE</name>
+  </keyword> 
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_E_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LOG2E_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LOG10E_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LN2_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LN10_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_PI_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_PI_2_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_PI_4_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_1_PI_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_2_PI_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_2_SQRTPI_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_SQRT2_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_SQRT1_2_F</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_E</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LOG2E</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LOG10E</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LN2</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_LN10</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_PI</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_PI_2</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_PI_4</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_1_PI</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_2_PI</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_2_SQRTPI</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_SQRT2</name>
+  </keyword>
+  <keyword>
+    <link>mathConstants.html</link>
+    <name>M_SQRT1_2</name>
+  </keyword>
+  <keyword>
+    <link>clCreateSampler.html</link>
+    <name>CL_INVALID_CONTEXT</name>
+  </keyword>
+  <keyword>
+    <link>clCreateSampler.html</link>
+    <name>CL_INVALID_VALUE</name>
+  </keyword>
+  <keyword>
+    <link>clCreateSampler.html</link>
+    <name>CL_INVALID_OPERATION</name>
+  </keyword>
+  <keyword>
+    <link>clCreateSampler.html</link>
+    <name>CL_DEVICE_IMAGE_SUPPORT</name>
+  </keyword>
+  <keyword>
+    <link>clCreateSampler.html</link>
+    <name>CL_OUT_OF_RESOURCES</name>
+  </keyword>
+  <keyword>
+    <link>clCreateSampler.html</link>
+    <name>CL_OUT_OF_HOST_MEMORY</name>
+  </keyword>
+
  <!-- 
   
   OpenCL Runtime 

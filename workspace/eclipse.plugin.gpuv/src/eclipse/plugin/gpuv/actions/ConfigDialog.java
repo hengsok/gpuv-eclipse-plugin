@@ -10,21 +10,15 @@ import java.util.Set;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
@@ -46,9 +40,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 
@@ -60,20 +52,21 @@ public class ConfigDialog extends Dialog {
 
 	public ConfigDialog(Shell parentShell) throws IOException {
 		super(parentShell);
-
 		// Read in list of arguments
 		generalTabArgs = XMLKeywordsManager.getGeneralOptions();
-		generalTabArgs.putAll(XMLKeywordsManager.getRecentArgs());
+		Map<String, String> appliedOptions = XMLKeywordsManager.getAppliedOptions(); 
+		generalTabArgs.putAll(appliedOptions);
 
+		// Select previously used options by default.
 		this.selectedArgs = new HashMap<String, String>();
-
+		selectedArgs.putAll(appliedOptions);
 	}
 
 	// TODO need fix
 	protected void okPressed() {
 		// store the arguments that're been selected for recently used list
 		// later
-		XMLKeywordsManager.storeRecentArgs(selectedArgs);
+		XMLKeywordsManager.applyOptions(selectedArgs);
 
 		//Get Active Editor Content
 		IEditorPart activeEditor = PlatformUI.getWorkbench()
@@ -110,16 +103,23 @@ public class ConfigDialog extends Dialog {
 		}
 		else{
 			//Alert the user if no OpenCL file is currently opened
-			MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
-			dialog.setText("Warning");
-			dialog.setMessage("Please open one OpenCL file first before attempting to run analysis.");
+			MessageBox dialog = createMessageBox("Warning", 
+					"Please open one OpenCL file first before attempting to run analysis.");
 			dialog.open();
 		}
+		close();
 	}
 
+	private MessageBox createMessageBox (String title, String message) {
+		MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
+		dialog.setText(title);
+		dialog.setMessage(message);
+		return dialog;
+	}
+	
+	
 	protected Control createDialogArea(Composite parent) {
 		final Shell currShell = this.getShell();
-		final Display display = currShell.getDisplay();
 		// Disabling ESC and CR for config box.
 		// The keys are used only by auto-suggestion text field.
 		currShell.addListener(SWT.Traverse, new Listener() {
@@ -193,13 +193,10 @@ public class ConfigDialog extends Dialog {
 		selections.setHeaderVisible(true);
 		new TableColumn(selections, SWT.NONE).setText("Selected options");
 		selections.getColumns()[0].pack();
+		selections.pack();
 
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
-
-		// Shell for suggestion list
-		// final Shell popupShell = new Shell(display, SWT.ON_TOP);
-		// popupShell.setLayout(new FillLayout());
 
 		final Table table = new Table(container_advanced, SWT.SINGLE
 				| SWT.BORDER | SWT.CHECK | SWT.V_SCROLL);
@@ -247,14 +244,6 @@ public class ConfigDialog extends Dialog {
 			}
 		});
 
-		// closing popupShell on dispose of current shell
-		// currShell.addDisposeListener(new DisposeListener() {
-		// @Override
-		// public void widgetDisposed(DisposeEvent arg0) {
-		// popupShell.dispose();
-		// }
-		// });
-
 		// refreshing when switching between tabs
 		settings.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -265,9 +254,6 @@ public class ConfigDialog extends Dialog {
 		// Keyboard actions
 		autoSuggest.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
-				// if(!popupShell.getVisible()){
-				// return;
-				// }
 				switch (event.keyCode) {
 				case SWT.ARROW_DOWN:
 					int index = (table.getSelectionIndex() + 1)
@@ -283,15 +269,11 @@ public class ConfigDialog extends Dialog {
 					event.doit = false;
 					break;
 				case SWT.CR: // Carriage Return
-					if (/*
-						 * popupShell.isVisible() TODO remove all popupShell
-						 * related things &&
-						 */table.getSelectionIndex() != -1) {
+					if (table.getSelectionIndex() != -1) {
 						optionSelectAction(table.getSelection()[0], autoSuggest, selections);
 					}
 					break;
 				case SWT.ESC:
-					// popupShell.setVisible(false);
 					table.removeAll();
 					break;
 				}
@@ -301,7 +283,6 @@ public class ConfigDialog extends Dialog {
 			public void handleEvent(Event event) {
 				String string = autoSuggest.getText();
 				if (string.length() == 0) {
-					// popupShell.setVisible(false);
 					table.removeAll();
 				} else {
 					Set<String> resultSet = new HashSet<String>(
@@ -311,12 +292,10 @@ public class ConfigDialog extends Dialog {
 
 					int numOfItems = resultSet.size();
 					// max. 8 items displayed, rest hidden
-					int numToShow = Math.min(8, numOfItems);
 					int maxLength = autoSuggest.getSize().x;
 
 					// displays only when there is an item
 					if (numOfItems <= 0) {
-						// popupShell.setVisible(false);
 						table.removeAll();
 
 					} else {
@@ -342,89 +321,32 @@ public class ConfigDialog extends Dialog {
 						}
 						// can press enter to select the first match
 						table.setSelection(0);
-
-						Rectangle shellBounds = currShell.getBounds();
-						Rectangle textBounds = autoSuggest.getBounds();
-						Rectangle containerBounds = container_advanced
-								.getBounds();
-						// popupShell.setBounds(shellBounds.x + textBounds.x
-						// + containerBounds.x, shellBounds.y
-						// + textBounds.y + containerBounds.y
-						// + textBounds.height * 2, maxLength,
-						// table.getItemHeight() * (numToShow + 1));
-						// popupShell.setVisible(true);
-
-						// TODO
-						// popupShell.setEnabled(true); --> same effect as
-						// current problem.
-						// table.setEnabled(true); --> greys out the table. ...
-						// not affected by this
 					}
 				}
 			}
 		});
 
-		// TODO selection detection ... and invoke argument input
 		table.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				if(event.detail == SWT.CHECK) {
 					optionSelectAction((TableItem) event.item, autoSuggest, selections);
 				}
-//
-//				String string = event.detail == SWT.CHECK ? "Checked"
-//						: "Selected";
-//				System.out.println(event.item + " " + string);
 			}
 		});
-
-		Listener focusOutListener = new Listener() {
-			public void handleEvent(Event event) {
-				/* async is needed to wait until focus reaches its new Control */
-				display.asyncExec(new Runnable() {
-					public void run() {
-						if (display.isDisposed())
-							return;
-						Control control = display.getFocusControl();
-						if (control == null
-								|| (control != autoSuggest && control != table)) {
-							// popupShell.setVisible(false);
-							table.removeAll();
-
-						}
-					}
-				});
-			}
-		};
-		table.addListener(SWT.FocusOut, focusOutListener);
-		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
-		
 
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
 				autoSuggest.setText(table.getSelection()[0].getText());
-				// popupShell.setVisible(false);
 				table.removeAll();
-
 			}
 		});
 
-		// when ESC pressed, popupShell does not show
+		// when ESC pressed, suggestions emptied
 		table.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
 				if (event.keyCode == SWT.ESC) {
-					// popupShell.setVisible(false);
 					table.removeAll();
-
 				}
-			}
-		});
-
-		// when config box is moved, popupShell does not show.
-		currShell.addListener(SWT.Move, new Listener() {
-			public void handleEvent(Event event) {
-				// popupShell.setVisible(false);
-				table.removeAll();
-
 			}
 		});
 
@@ -434,6 +356,8 @@ public class ConfigDialog extends Dialog {
 		generalSetting.setControl(container_general);
 		advancedSetting.setControl(container_advanced);
 
+		refreshSelections(selections);
+		
 		initContent();
 
 		return parent;
@@ -447,10 +371,11 @@ public class ConfigDialog extends Dialog {
 			if (isSelectedNotMultiple(baseOption)) {
 				// Already selected.
 				item.setChecked(true);
-				System.out.println("cannot select this option multiple times!");
+				MessageBox dialog = createMessageBox("Warning", 
+						"Cannot select this option multiple times!");
+				dialog.open();
 			} else {
 				// invoke argument input dialog
-				// TODO move this to another function?
 				final Shell dialog = new Shell(this.getShell(), SWT.DIALOG_TRIM
 						| SWT.APPLICATION_MODAL);
 				dialog.setText("Argument input");
@@ -460,6 +385,16 @@ public class ConfigDialog extends Dialog {
 				formLayout.spacing = 10;
 				dialog.setLayout(formLayout);
 
+				dialog.addDisposeListener(new DisposeListener(){
+					@Override
+					public void widgetDisposed(DisposeEvent arg0) {
+						// keep the suggestion open
+						autoSuggest.setText(autoSuggest.getText());
+						autoSuggest.setSelection(autoSuggest.getCharCount());
+					}
+					
+				});
+				
 				final String argType = XMLKeywordsManager.getArgType(baseOption);
 				final int argNum = XMLKeywordsManager.getArgNum(baseOption);
 
@@ -532,7 +467,9 @@ public class ConfigDialog extends Dialog {
 											(inputInt + ""));
 								}
 							} catch (NumberFormatException nfe) {
-								dialog.setText("Arguments must be integers!");
+								MessageBox dialog = createMessageBox("Warning", 
+										"Arguments must be integers!");
+								dialog.open();								
 								resultOption = null;
 							}
 						}
@@ -541,9 +478,6 @@ public class ConfigDialog extends Dialog {
 							selectedArgs.put(resultOption, baseOption);
 							refreshSelections(selections);
 							dialog.close();
-							// keep the popupShell open
-							autoSuggest.setText(autoSuggest.getText());
-							autoSuggest.setSelection(autoSuggest.getCharCount());
 						}
 					}
 				});
@@ -590,24 +524,41 @@ public class ConfigDialog extends Dialog {
 	protected Control createButtonBar(final Composite parent) {
 		final Composite btnBar = new Composite(parent, SWT.NONE);
 		final GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
+		layout.numColumns = 3;
 		btnBar.setLayout(layout);
-
-		// Initialise default buttons
-		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
-				false);
-		defaultBtn.grabExcessVerticalSpace = false;
-		defaultBtn.grabExcessHorizontalSpace = true;
-		btnBar.setLayoutData(defaultBtn);
-
+		btnBar.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false));
 		btnBar.setFont(parent.getFont());
-
-		// add the dialog's button bar to the right
-		final Control buttonCtrl = super.createButtonBar(btnBar);
-		buttonCtrl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
-				false));
+		
+		// Initialise default buttons
+		createButton(btnBar, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
+		createButton(btnBar, IDialogConstants.CLIENT_ID, "Apply", true);
+		createButton(btnBar, IDialogConstants.OK_ID, " Apply and analyse ", false);
+		
+//		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
+//				false);
+//		defaultBtn.grabExcessVerticalSpace = false;
+//		defaultBtn.grabExcessHorizontalSpace = true;
+//		btnBar.setLayoutData(defaultBtn);
+//		
+//		btnBar.setFont(parent.getFont());
+//
+//		Button applyButton = new Button(btnBar, SWT.NONE);
+//		applyButton.setText("Apply");
+//		// add the dialog's button bar to the right
+//		final Control buttonCtrl = super.createButtonBar(btnBar);
+//		buttonCtrl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
+//				false));
 
 		return btnBar;
+	}
+	
+	protected void buttonPressed(int buttonId) {
+		super.buttonPressed(buttonId);
+		if (IDialogConstants.CLIENT_ID == buttonId) {
+			//"Apply" button
+			XMLKeywordsManager.applyOptions(selectedArgs);
+			close();
+		}
 	}
 
 	private void createArgCheckboxes(Composite parent) {
@@ -626,8 +577,10 @@ public class ConfigDialog extends Dialog {
 						 * selectedArgs, and if it is, prevent.
 						 */
 						if (isSelectedNotMultiple(baseOption)) {
-							// conflict! TODO popup dialog?
-							System.out.println("Cannot select this option multiple times!");
+							// conflict!
+							MessageBox dialog = createMessageBox("Warning", 
+									"Cannot select this option multiple times!");
+							dialog.open();
 							button.setGrayed(true);
 						} else {
 							selectedArgs.put(option, baseOption);
@@ -664,10 +617,10 @@ public class ConfigDialog extends Dialog {
 
 	}
 
-	protected void initializeBounds() {
-		super.initializeBounds();
-		this.getButton(IDialogConstants.OK_ID).setText("Run");
-	}
+//	protected void initializeBounds() {
+//		super.initializeBounds();
+//		this.getButton(IDialogConstants.OK_ID).setText("Apply and analyse");
+//	}
 
 	public Set<String> getSelectedArgs() {
 		return selectedArgs.keySet();
