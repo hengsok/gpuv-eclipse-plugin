@@ -7,8 +7,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -29,6 +37,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -36,6 +45,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 
@@ -62,25 +75,46 @@ public class ConfigDialog extends Dialog {
 		// later
 		XMLKeywordsManager.storeRecentArgs(selectedArgs);
 
-		/*
-		 * TODO uncomment to implement run
-		 * 
-		 * //Get Active Editor Content IEditorPart activeEditor =
-		 * PlatformUI.getWorkbench()
-		 * .getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		 * 
-		 * if (activeEditor == null) return;
-		 * System.out.println(activeEditor.getTitle() + ": ");
-		 * AbstractTextEditor part = (AbstractTextEditor) activeEditor
-		 * .getAdapter(AbstractTextEditor.class);
-		 * System.out.println(part.getDocumentProvider()
-		 * .getDocument(part.getEditorInput()).get());
-		 * //------------------------------
-		 * 
-		 * // run the arguments with shell ShellCommand t = new ShellCommand();
-		 * try { t.runCommand(getSelectedArgs()); } catch (IOException e) {
-		 * e.printStackTrace(); }
-		 */
+		//Get Active Editor Content
+		IEditorPart activeEditor = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+
+//		if (activeEditor == null)
+//			return;
+//		System.out.println(activeEditor.getTitle() + ": ");
+//		AbstractTextEditor part = (AbstractTextEditor) activeEditor
+//				.getAdapter(AbstractTextEditor.class);
+//		System.out.println(part.getDocumentProvider()
+//				.getDocument(part.getEditorInput()).get());
+		//------------------------------
+		
+		// run the arguments with shell
+//		ShellCommand t = new ShellCommand();
+//		try {
+//			t.runCommand(getSelectedArgs());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+	    IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		if(editor != null){
+		    IResource res = (IResource) editor.getEditorInput().getAdapter(IResource.class);
+		    if (res == null) return;
+		        
+		    IProject project = res.getProject();
+		    try {
+				project.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			//Alert the user if no OpenCL file is currently opened
+			MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
+			dialog.setText("Warning");
+			dialog.setMessage("Please open one OpenCL file first before attempting to run analysis.");
+			dialog.open();
+		}
 	}
 
 	protected Control createDialogArea(Composite parent) {
@@ -364,6 +398,7 @@ public class ConfigDialog extends Dialog {
 		};
 		table.addListener(SWT.FocusOut, focusOutListener);
 		autoSuggest.addListener(SWT.FocusOut, focusOutListener);
+		
 
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
