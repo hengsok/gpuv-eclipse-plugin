@@ -1,6 +1,5 @@
 package eclipse.plugin.gpuv.builder;
 
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;

@@ -2,16 +2,11 @@ package eclipse.plugin.gpuv.builder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -27,36 +22,13 @@ import org.eclipse.core.runtime.IProgressMonitor;
 public class GPUVBuilder extends IncrementalProjectBuilder {
 	
 	public static final String BUILDER_ID = "eclipse.plugin.gpuv.builder.GPUVBuilder";
-
 	public static final String MARKER_TYPE = "eclipse.plugin.gpuv.builder.nature.problem";
 
-	private final static Logger LOGGER = Logger.getLogger(GPUVBuilder.class
-			.getName());
+//	private final static Logger LOGGER = Logger.getLogger(GPUVBuilder.class
+//			.getName());
 
 	private GPUVBuilderConfig config = null;
 	
-	class Issue {
-
-		public String message;
-		public int markerSeverity;
-		public int lineNumber;
-
-		public Issue(int markerSeverity, int lineNumber, String message) {
-			super();
-			this.message = message;
-			this.markerSeverity = markerSeverity;
-			this.lineNumber = lineNumber;
-		}
-
-	}
-
-	private GPUVBuilderConfig getConfig() {
-		if (config == null) {
-			this.config = new GPUVBuilderConfig();
-		}
-		return config;
-	}
-
 	class DeltaVisitor implements IResourceDeltaVisitor {
 		public boolean visit(IResourceDelta delta) throws CoreException {
 			IResource resource = delta.getResource();
@@ -85,25 +57,38 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 			return true;
 		}
 	}
-
 	
+	class Issue {
+		public String message;
+		public int markerSeverity;
+		public int lineNumber;
+
+		public Issue(int markerSeverity, int lineNumber, String message) {
+			super();
+			this.message = message;
+			this.markerSeverity = markerSeverity;
+			this.lineNumber = lineNumber;
+		}
+	}
+
+	private GPUVBuilderConfig getConfig() {
+		if (config == null) {
+			this.config = new GPUVBuilderConfig();
+		}
+		return config;
+	}
 
 	protected IProject[] build(int kind, Map<String,String> args, IProgressMonitor monitor)
 			throws CoreException {
-		
 		// GPUV: Requesting the builder to forget last build state
 		super.forgetLastBuiltState();
-		
 		//invoke full build
 		fullBuild(monitor);
 		return null;
 	}
 	
-	
-
-
 	void addMarkersToResource(IResource resource) {
-		LOGGER.log(Level.INFO, "Trying " + resource.getName() + "...");
+		//LOGGER.log(Level.INFO, "Trying " + resource.getName() + "...");
 		if (resource instanceof IFile
 				&& getConfig().getFilterPattern().matcher(resource.getName()).find()) {
 			IFile file = (IFile) resource;
@@ -126,9 +111,9 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		List<Issue> issues = new ArrayList<Issue>();
 		String line;
 		Process p;
-		String command = getConfig().getCommand() + " --local_size=1024 --num_groups=2 --verbose " + fullPath.makeAbsolute().toOSString();
+		String command = getConfig().getCommand() + " --local_size=1024 --num_groups=2 " + fullPath.makeAbsolute().toOSString();
 		try {
-			LOGGER.log(Level.INFO, "Execute: " + command);
+			//LOGGER.log(Level.INFO, "Execute: " + command);
 			p = Runtime.getRuntime().exec(command);
 		} catch (IOException e1) {
 			issues.add(new Issue(IMarker.SEVERITY_ERROR, 1,
@@ -136,7 +121,6 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 			return issues;
 		}
 		
-	
 		//Get input stream
 		BufferedReader bri = new BufferedReader(new InputStreamReader(
 				p.getInputStream()));
@@ -146,28 +130,63 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 				p.getErrorStream()));
 		try {
 			//analysing input stream
+			int lookAheadLine = 0;
+			int lineCount = 0;
+			String lookAheadMsg = "";
 			while ((line = bri.readLine()) != null) {
-				Issue issue = readIssue(line);
-				//Add to list of issues to create markers later
-				if (issue != null)
-					issues.add(issue);
-				
-				//print to console
-				//TODO Might need to change to System.out
-				GPUVDefaultConsole.printToConsole(line);
-				//System.out.println(line);
+				if(!line.isEmpty()){
+					//Detecting three cases handle next few lines that follows
+					if (line.contains("read-write")) {
+						lookAheadLine = 2;
+						lineCount = 1;
+						lookAheadMsg = "Possible read-write race ";
+					}
+					else if (line.contains("write-read")) {
+						lookAheadLine = 2;
+						lineCount = 1;
+						lookAheadMsg = "Possible write-read race ";
+					}
+					else if (line.contains("write-write")) {
+						lookAheadLine = 2;
+						lineCount = 1;
+						lookAheadMsg = "Possible write-write race ";
+					}
+					else{
+						Issue issue = null;
+						//Write-write, read-write or write-read
+						if(lookAheadLine > 0 && (line.contains("write by") 
+								|| line.contains("read by"))){
+							issue = readIssue(line, lookAheadMsg + lineCount + ": ");
+							lineCount++;
+							lookAheadLine--;
+							
+							if(lookAheadLine == 0){
+								//reset lookAheadMsg
+								lookAheadMsg = "";
+							}
+						}
+						else{
+							issue = readIssue(line, "");
+						}
+						//Add to list of issues to create markers later
+						if (issue != null)
+							issues.add(issue);
+					}
+					//print to console
+					//TODO Might need to change to System.out
+					GPUVDefaultConsole.printToConsole(line + "\n");
+					//System.out.println(line);
+				}
 			}
 			bri.close();
 			
 			//analysing error stream
 			while ((line = bre.readLine()) != null) {
-				issues.add(new Issue(IMarker.SEVERITY_ERROR, 1, "stderr: "
+				issues.add(new Issue(IMarker.SEVERITY_ERROR, 1, "Error stream reports: "
 						+ line));
-				
 				//print to console
 				//TODO Might need to change to System.out
 				GPUVDefaultConsole.printToConsole(line);
-				//System.out.println(line);
 			}
 			bre.close();
 			
@@ -176,50 +195,49 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 					+ e.getMessage()));
 			return issues;
 		}
-		
 		//TODO handle different exit point
 		int gpuVerifyExitValue;
 		try {
 			gpuVerifyExitValue = p.waitFor();
 		} catch (InterruptedException e) {
 			issues.add(new Issue(IMarker.SEVERITY_ERROR, 1,
-					"Command interrupted: " + e.getMessage()));
+					"Execution error: " + e.getMessage()));
 			return issues;
 		}
-		
-		GPUVDefaultConsole.printToConsole(Integer.toString(gpuVerifyExitValue));
-		
-		
 		return issues;
 	}
 
-	private Issue readIssue(String line) {
+	private Issue readIssue(String line, String appendAdditionalMsg) {
 		//LOGGER.log(Level.INFO, "Parsing line: " + line);
 		try {
-			Matcher matcher = getConfig().getOutputLinePattern().matcher(line);
-			if (matcher.find()) {
-				int lineNumber = Integer.parseInt(matcher
-						.replaceAll(getConfig().getLineNumberReplacement()));
-				String message = matcher
-						.replaceAll(getConfig().getMessageReplacement());
-				String severityStr = matcher
-						.replaceAll(getConfig().getSeverityReplacement());
+			//go through each regex and try to match anyone of them with this line
+			for(GPUVRegex g: config.getGPUVRegex()){
+				Matcher matcher = g.getOutputLinePattern().matcher(line);
+				if (matcher.find()) {
+					int lineNumber = Integer.parseInt(matcher
+							.replaceAll(g.getLineNumReplacement()));
+					
+					String message = matcher
+							.replaceAll(g.getMsgReplacement());
+					
+					//trim message to remove whitespace in front or at back of string
+					message = message.trim();
+					
+					//Define the types of marker to use here
+					int markerSeverity = IMarker.SEVERITY_ERROR;
+					
+					
+					//Append any additional messages
+					message = appendAdditionalMsg + message;
 				
-				//Define the types of marker to use here
-				int markerSeverity = IMarker.SEVERITY_ERROR;
-				
-				//TODO: line detection
-				// if (line.startsWith("LaTeX Warning: ") || line.indexOf("pdfTeX warning") != -1) {
-	            //        error = m.group(1);
-	                    
-				LOGGER.log(Level.INFO, "Line matched: " + severityStr + "@"
-						+ lineNumber + " " + message);
-				Issue issue = new Issue(markerSeverity, lineNumber, message);
-				return issue;
+					Issue issue = new Issue(markerSeverity, lineNumber, message);
+					return issue;
+				}
 			}
+			
 		} catch (RuntimeException e) {
 			return new Issue(IMarker.SEVERITY_ERROR, 1,
-					"Error when matching line: " + line + "\n" + e.getMessage());
+					"Error at this line: " + line + "\n" + e.getMessage());
 		}
 		return null;
 	}
@@ -240,12 +258,9 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		}
 	}
 
-
 	protected void incrementalBuild(IResourceDelta delta,
 			IProgressMonitor monitor) throws CoreException {
 
 		delta.accept(new DeltaVisitor());
 	}
-	
-
 }

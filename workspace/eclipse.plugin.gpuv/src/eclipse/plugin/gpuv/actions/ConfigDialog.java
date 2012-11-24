@@ -89,8 +89,10 @@ public class ConfigDialog extends Dialog {
 //			e.printStackTrace();
 //		}
 
+		
 	    IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if(editor != null){
+			close();
 		    IResource res = (IResource) editor.getEditorInput().getAdapter(IResource.class);
 		    if (res == null) return;
 		        
@@ -106,8 +108,10 @@ public class ConfigDialog extends Dialog {
 			MessageBox dialog = createMessageBox("Warning", 
 					"Please open one OpenCL file first before attempting to run analysis.");
 			dialog.open();
+			close();
 		}
-		close();
+		
+		
 	}
 
 	private MessageBox createMessageBox (String title, String message) {
