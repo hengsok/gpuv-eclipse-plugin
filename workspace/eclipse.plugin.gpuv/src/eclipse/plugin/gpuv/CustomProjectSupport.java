@@ -108,6 +108,7 @@ public class CustomProjectSupport {
 			desc.setLocationURI(projectLocation);
 			try {
 				newProject = CCorePlugin.getDefault().createCDTProject(desc, newProject, monitor);
+				
 				if (!newProject.isOpen()) {
 					newProject.open(null);
 				}
