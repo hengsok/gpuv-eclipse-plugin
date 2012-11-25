@@ -10,7 +10,6 @@ public class OpenCLEditor extends TextEditor {
 		super();
 		colorManager = new ColorManager();
         setDocumentProvider(new OpenCLDocumentProvider());
-        
         setSourceViewerConfiguration(new OpenCLConfiguration(colorManager));
 	}
 	public void dispose() {

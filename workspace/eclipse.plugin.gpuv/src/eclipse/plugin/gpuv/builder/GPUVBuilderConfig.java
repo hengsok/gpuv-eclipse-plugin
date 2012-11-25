@@ -1,46 +1,73 @@
 package eclipse.plugin.gpuv.builder;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
+
+/**
+ * Configuration for builder defining regular expression, command to execute 
+ * @author Heng Sok
+ *
+ */
 
 public class GPUVBuilderConfig {
 	private Pattern filterPattern;
-	private Pattern outputLinePattern;
-	private String lineNumberReplacement;
-	private String messageReplacement;
-	private String severityReplacement;
 	private String command;
 	
+	private List<GPUVRegex> regexs;
+
 	public GPUVBuilderConfig(){
-		this.command = "sh /Users/hengsok/Dropbox/ComputingYear3/GPUVerify/project/runtime-New_configuration(2)/TestLK/execute2.sh \"$1\"";
+		regexs = new ArrayList<GPUVRegex>();
+
+		//TODO after compiling into jar, make sure path to python is still working
+		this.command = "cmd.exe /c " + getGPUVBinaryLocation() + "GPUVerify.bat";
 		String filterRegexp = "^.*\\.cl$";
 		this.filterPattern = Pattern.compile(filterRegexp);
-		String outputLineRegexp = "^([A-Z]:)?[^:]+:([0-9]+):([0-9]+): (.)(.*)$";
-		this.outputLinePattern = Pattern.compile(outputLineRegexp);
-		this.lineNumberReplacement = "$2";
-		this.messageReplacement = "$4$5";
-		this.severityReplacement = "E";
+		
+		/**([A-Z]:)? => Determines the drive letter if this is a wins system. For Linux, ignore.
+		 * [^:]+ => Except semi-colon, this could be anything
+		 * ([0-9]+) => This could only be numbers referring to line containing error
+		 * ([0-9]+) => This gives column number
+		 * (.)(.*) => Give any messages
+		 */
+		
+		String outputLineRegex1 = "^([A-Z]:)?[^:]+:([0-9]+):([0-9]+): (.)(.*)$";
+		regexs.add(new GPUVRegex(outputLineRegex1, "$2", "$4$5"));
+
+	}
+
+	private String getGPUVBinaryLocation(){
+		//Determine the location of this plugin to get location of GPUV binary
+		Bundle bundle = Platform.getBundle("eclipse.plugin.gpuv");
+		String location = "";
+		try {
+			location = FileLocator.getBundleFile(bundle).getAbsolutePath();
+		} catch (IOException e) {
+			//:TODO might need to change print to console to System.out
+			GPUVDefaultConsole.printToConsole("Internal Error: Could not determine file path" +
+					" of GPUVerify Binary files.");
+		}
+
+		//Append the GPUV binary folder
+		String finalLocation = location + File.separator + "GPUVerifyBinary" + File.separator;
+		
+		return finalLocation;
 	}
 	
+	public List<GPUVRegex> getGPUVRegex(){
+		return this.regexs;
+	}
+
 	public Pattern getFilterPattern(){
 		return this.filterPattern;
 	}
-	
-	public Pattern getOutputLinePattern(){
-		return this.outputLinePattern;
-	}
-	
-	public String getLineNumberReplacement(){
-		return this.lineNumberReplacement;
-	}
-	
-	public String getMessageReplacement(){
-		return this.messageReplacement;
-	}
-	
-	public String getSeverityReplacement(){
-		return this.severityReplacement;
-	}
-	
+
 	public String getCommand(){
 		return this.command;
 	}
