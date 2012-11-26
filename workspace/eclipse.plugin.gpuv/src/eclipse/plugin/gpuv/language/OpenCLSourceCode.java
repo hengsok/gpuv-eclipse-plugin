@@ -1,23 +1,28 @@
 package eclipse.plugin.gpuv.language;
 
+import java.util.List;
+
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
 import org.eclipse.cdt.core.model.ICLanguageKeywords;
 import org.eclipse.cdt.core.parser.util.ArrayUtil;
+
+import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class OpenCLSourceCode extends GCCLanguage implements ICLanguageKeywords {
 
 	@Override
 	public String[] getKeywords() {
-		System.out.println("Called keywords");
-		return ArrayUtil.addAll(super.getKeywords(), new String[] { "hello",
-				"printme" });
+		List<String> kwl = XMLKeywordsManager.getKeywords();
+		String[] kws = new String[kwl.size()];
+		kwl.toArray(kws);
+		
+		return ArrayUtil.addAll(super.getKeywords(), kws);
 	}
 
 	@Override
 	public String[] getBuiltinTypes() {
-		System.out.println("Called keywords");
-		return ArrayUtil.addAll(super.getBuiltinTypes(), new String[] { "Lambros",
-				"Petrou" });
+		return ArrayUtil.addAll(super.getBuiltinTypes(), new String[] { "FooType",
+				"BarType" });
 	}
 
 	@Override
