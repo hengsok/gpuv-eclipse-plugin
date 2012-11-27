@@ -19,6 +19,7 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 	 * The constructor.
 	 */
 	public ConfigAction() {
+		this.window = window;
 	}
 
 	/**
@@ -32,6 +33,9 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 		ConfigDialog dialog = null;
 		
 		try {
+			if(window == null){
+				System.out.println("window null");
+			}
 			dialog = new ConfigDialog(window.getShell());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,6 +68,5 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
 	public void init(IWorkbenchWindow window) {
-		this.window = window;
 	}
 }
