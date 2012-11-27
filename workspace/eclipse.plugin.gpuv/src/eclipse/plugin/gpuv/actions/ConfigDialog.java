@@ -88,7 +88,7 @@ public class ConfigDialog extends Dialog {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-
+		
 		
 	    IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		if(editor != null){
