@@ -7,12 +7,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -27,7 +26,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
@@ -39,9 +37,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 import eclipse.plugin.gpuv.builder.GPUVBuildAction;
@@ -71,7 +66,10 @@ public class ConfigDialog extends Dialog {
 		// store the arguments that're been selected for recently used list
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
-		
+		runAnalysis();
+	}
+	
+	protected void runAnalysis(){
 		//Once ok button is pressed, build project (Run analysis)
 		GPUVBuildAction gpuvBuildAct = new GPUVBuildAction();
 		
@@ -162,17 +160,19 @@ public class ConfigDialog extends Dialog {
 
 		// selected option list
 		final Table selections = new Table(container_advanced, SWT.CHECK
-				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+				| SWT.BORDER | SWT.V_SCROLL);
 		GridData selectionGrid = new GridData();
 		selectionGrid.verticalSpan = 3;
 		selectionGrid.widthHint = 200;
 		selectionGrid.heightHint = 160;
 		selections.setLayoutData(selectionGrid);
 		selections.setHeaderVisible(true);
-		new TableColumn(selections, SWT.NONE).setText("Selected options");
+		TableColumn tc = new TableColumn(selections, SWT.NONE);
+		tc.setText("Selected options");
+		tc.setWidth(200);
 		selections.getColumns()[0].pack();
-		selections.pack();
-
+		
+		
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
 
@@ -314,11 +314,35 @@ public class ConfigDialog extends Dialog {
 
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
-				autoSuggest.setText(table.getSelection()[0].getText());
-				table.removeAll();
+				optionSelectAction((TableItem) event.item, autoSuggest, selections);
 			}
 		});
-
+		
+		
+		selections.addListener(SWT.DefaultSelection, new Listener() {
+			public void handleEvent(Event event) {
+				String prevOption = ((TableItem) event.item).getText();
+				String baseOption = selectedArgs.get(prevOption);
+				
+				createArgumentDialog(prevOption, baseOption, autoSuggest, selections);
+				
+				
+			}
+		});	
+		
+		// when ESC pressed, suggestions emptied
+		selections.addListener(SWT.KeyDown, new Listener() {
+			public void handleEvent(Event event) {
+				if (event.keyCode == SWT.DEL) {
+					selectedArgs.remove(selections.getSelection()[0].getText());
+					refreshSelections(selections);
+					// refresh the suggestion 
+					autoSuggest.setText(autoSuggest.getText());
+					autoSuggest.setSelection(autoSuggest.getCharCount());
+				}
+			}
+		});
+		
 		// when ESC pressed, suggestions emptied
 		table.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
@@ -353,115 +377,7 @@ public class ConfigDialog extends Dialog {
 						"Cannot select this option multiple times!");
 				dialog.open();
 			} else {
-				// invoke argument input dialog
-				final Shell dialog = new Shell(this.getShell(), SWT.DIALOG_TRIM
-						| SWT.APPLICATION_MODAL);
-				dialog.setText("Argument input");
-				FormLayout formLayout = new FormLayout();
-				formLayout.marginWidth = 10;
-				formLayout.marginHeight = 10;
-				formLayout.spacing = 10;
-				dialog.setLayout(formLayout);
-
-				dialog.addDisposeListener(new DisposeListener(){
-					@Override
-					public void widgetDisposed(DisposeEvent arg0) {
-						// keep the suggestion open
-						autoSuggest.setText(autoSuggest.getText());
-						autoSuggest.setSelection(autoSuggest.getCharCount());
-					}
-					
-				});
-				
-				final String argType = XMLKeywordsManager.getArgType(baseOption);
-				final int argNum = XMLKeywordsManager.getArgNum(baseOption);
-
-				Label label = new Label(dialog, SWT.NONE);
-				if (argType.equals("String")) {
-					label.setText("Type in String:");
-				} else if (argType.equals("Integer")) {
-					label.setText("Type in integer:");
-				}
-				FormData data = new FormData();
-				label.setLayoutData(data);
-
-				Button cancel = new Button(dialog, SWT.PUSH);
-				cancel.setText("Cancel");
-				data = new FormData();
-				data.width = 100;
-				data.right = new FormAttachment(100, 0);
-				data.bottom = new FormAttachment(100, 0);
-				cancel.setLayoutData(data);
-				cancel.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent e) {
-						dialog.close();
-					}
-				});
-
-				// add appropriate number of input fields
-				// according to the number of arguments
-				final Text[] inputFields = new Text[argNum];
-				for (int i = 0; i < argNum; i++) {
-					inputFields[i] = new Text(dialog, SWT.BORDER);
-					data = new FormData();
-					data.width = 120 / argNum;
-					if (i <= 0) {
-						data.left = new FormAttachment(label, 0, SWT.DEFAULT);
-					} else {
-						data.left = new FormAttachment(inputFields[i - 1], 0,
-								SWT.DEFAULT);
-					}
-					data.bottom = new FormAttachment(cancel, 0, SWT.DEFAULT);
-					inputFields[i].setLayoutData(data);
-				}
-				inputFields[0].setFocus();
-
-				Button ok = new Button(dialog, SWT.PUSH);
-				ok.setText("OK");
-				data = new FormData();
-				data.width = 100;
-				data.right = new FormAttachment(cancel, 0, SWT.DEFAULT);
-				data.bottom = new FormAttachment(100, 0);
-				ok.setLayoutData(data);
-				ok.addSelectionListener(new SelectionAdapter() {
-					public void widgetSelected(SelectionEvent e) {
-						// parse arguments and add to
-						// selectedArgs
-						String resultOption = null;
-						if (argType.equals("String")) {
-							resultOption = baseOption + "\""
-									+ inputFields[0].getText() + "\"";
-						} else if (argType.equals("Integer")) {
-							resultOption = baseOption;
-							try {
-								for (int j = 0; j < argNum; j++) {
-									int inputInt = 0;
-									String inputText = inputFields[j].getText();
-									if (!inputText.isEmpty()) {
-										inputInt = Integer.parseInt(inputText);
-									}
-									resultOption = resultOption.replace(
-											(char) ('X' + j) + "",
-											(inputInt + ""));
-								}
-							} catch (NumberFormatException nfe) {
-								MessageBox dialog = createMessageBox("Warning", 
-										"Arguments must be integers!");
-								dialog.open();								
-								resultOption = null;
-							}
-						}
-						if (resultOption != null) { // okay to
-													// proceed
-							selectedArgs.put(resultOption, baseOption);
-							refreshSelections(selections);
-							dialog.close();
-						}
-					}
-				});
-				dialog.setDefaultButton(ok);
-				dialog.pack();
-				dialog.open();
+				createArgumentDialog(baseOption, autoSuggest, selections);
 			}
 			// for options not taking arguments
 		} else if (selectedArgs.containsValue(baseOption)) { //TODO make a methdo to check isSelected?
@@ -474,6 +390,160 @@ public class ConfigDialog extends Dialog {
 			refreshSelections(selections);
 		}
 	}
+
+	/*
+	 * Creates an input dialog for option arguments.
+	 * There can be String input (one textfield) or integer (three)
+	 */
+	private void createArgumentDialog(final String prevOption, final String baseOption, final Text autoSuggest, final Table selections) {
+		// invoke argument input dialog
+		final Shell dialog = new Shell(this.getShell(), SWT.DIALOG_TRIM
+				| SWT.APPLICATION_MODAL);
+		dialog.setText("Argument input");
+		FormLayout formLayout = new FormLayout();
+		formLayout.marginWidth = 10;
+		formLayout.marginHeight = 10;
+		formLayout.spacing = 10;
+		dialog.setLayout(formLayout);
+
+		dialog.addDisposeListener(new DisposeListener(){
+			@Override
+			public void widgetDisposed(DisposeEvent arg0) {
+				// keep the suggestion open
+				autoSuggest.setText(autoSuggest.getText());
+				autoSuggest.setSelection(autoSuggest.getCharCount());
+			}
+		});
+		
+		final String argType = XMLKeywordsManager.getArgType(baseOption);
+		final int argNum = XMLKeywordsManager.getArgNum(baseOption);
+
+		Label label = new Label(dialog, SWT.NONE);
+		if (argType.equals("String")) {
+			label.setText("Type in String:");
+		} else if (argType.equals("Integer")) {
+			label.setText("Type in integer:");
+		}
+		FormData data = new FormData();
+		label.setLayoutData(data);
+
+		Button cancel = new Button(dialog, SWT.PUSH);
+		cancel.setText("Cancel");
+		data = new FormData();
+		data.width = 100;
+		data.right = new FormAttachment(100, 0);
+		data.bottom = new FormAttachment(100, 0);
+		cancel.setLayoutData(data);
+		cancel.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				dialog.close();
+			}
+		});
+
+		// add appropriate number of input fields
+		// according to the number of arguments
+		final Text[] inputFields = new Text[argNum];
+		for (int i = 0; i < argNum; i++) {
+			inputFields[i] = new Text(dialog, SWT.BORDER);
+			data = new FormData();
+			data.width = 200 / argNum;
+			if (i <= 0) {
+				data.left = new FormAttachment(label, 0, SWT.DEFAULT);
+			} else {
+				data.left = new FormAttachment(inputFields[i - 1], 0,
+						SWT.DEFAULT);
+			}
+			data.bottom = new FormAttachment(cancel, 0, SWT.DEFAULT);
+			inputFields[i].setLayoutData(data);
+		}
+		inputFields[0].setFocus();
+
+		Button ok = new Button(dialog, SWT.PUSH);
+		ok.setText("OK");
+		data = new FormData();
+		data.width = 100;
+		data.right = new FormAttachment(cancel, 0, SWT.DEFAULT);
+		data.bottom = new FormAttachment(100, 0);
+		ok.setLayoutData(data);
+		ok.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				// parse arguments and add to
+				// selectedArgs
+				String resultOption = null;
+				if (argType.equals("String")) {
+					String arg = inputFields[0].getText();
+					if(arg.length()==0){
+						MessageBox dialog = createMessageBox("Warning", 
+								"Please specify the argument!");
+						dialog.open();								
+						resultOption = null;
+					} else {
+						resultOption = baseOption + "\""
+								+ arg + "\"";
+					}
+				} else if (argType.equals("Integer")) {
+					resultOption = baseOption;
+					try {
+						for (int j = 0; j < argNum; j++) {
+							int inputInt = 0;
+							String inputText = inputFields[j].getText();
+							if (!inputText.isEmpty()) {
+								inputInt = Integer.parseInt(inputText);
+							}
+							resultOption = resultOption.replace(
+									(char) ('X' + j) + "",
+									(inputInt + ""));
+						}
+					} catch (NumberFormatException nfe) {
+						MessageBox dialog = createMessageBox("Warning", 
+								"Arguments must be integers!");
+						dialog.open();								
+						resultOption = null;
+					}
+				}
+				// Okay to proceed
+				if (resultOption != null) { 
+					if(prevOption != null){
+						// if modifying option, then remove prev one.
+						selectedArgs.remove(prevOption);
+					}
+					selectedArgs.put(resultOption, baseOption);
+					refreshSelections(selections);
+					dialog.close();
+				}
+			}
+		});
+		dialog.setDefaultButton(ok);
+		
+		if(prevOption != null){
+			// Modification prompted. 
+			// provide button to remove the option.
+			Button remove = new Button(dialog, SWT.PUSH);
+			remove.setText("Remove");
+			data = new FormData();
+			data.width = 100;
+			data.right = new FormAttachment(ok, 0, SWT.DEFAULT);
+			data.bottom = new FormAttachment(100, 0);
+			remove.setLayoutData(data);
+			remove.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					selectedArgs.remove(prevOption);
+					refreshSelections(selections);
+					dialog.close();
+				}
+			});
+		}
+		dialog.pack();
+		dialog.open();		
+	}
+	
+	/*
+	 * Overloading of createArgumentDialog() without 'prevOption' parameter
+	 */
+	private void createArgumentDialog(final String baseOption, final Text autoSuggest, final Table selections) {
+		createArgumentDialog(null, baseOption, autoSuggest, selections);
+	}
+	
 
 	// refresh selection table and checkboxes
 	private void refreshSelections(Table selections) {
@@ -511,21 +581,6 @@ public class ConfigDialog extends Dialog {
 		createButton(btnBar, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
 		createButton(btnBar, IDialogConstants.OK_ID, " Apply and analyse ", true);
 		createButton(btnBar, IDialogConstants.CLIENT_ID, "Apply", false);
-		
-//		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
-//				false);
-//		defaultBtn.grabExcessVerticalSpace = false;
-//		defaultBtn.grabExcessHorizontalSpace = true;
-//		btnBar.setLayoutData(defaultBtn);
-//		
-//		btnBar.setFont(parent.getFont());
-//
-//		Button applyButton = new Button(btnBar, SWT.NONE);
-//		applyButton.setText("Apply");
-//		// add the dialog's button bar to the right
-//		final Control buttonCtrl = super.createButtonBar(btnBar);
-//		buttonCtrl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
-//				false));
 
 		return btnBar;
 	}
