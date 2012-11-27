@@ -211,6 +211,9 @@ public class XMLKeywordsManager {
 		return appliedOptionMap;
 	}
 	
+	/*
+	 * Return the set of applied options
+	 */
 	public static Set<String> getApplicedOptionSet() {
 		return getAppliedOptions().keySet();
 	}
