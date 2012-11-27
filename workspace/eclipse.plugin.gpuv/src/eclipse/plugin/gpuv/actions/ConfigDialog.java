@@ -168,15 +168,7 @@ public class ConfigDialog extends Dialog {
 		selections.getColumns()[0].pack();
 		selections.pack();
 
-		
-		selections.addListener(SWT.DefaultSelection, new Listener() {
-			public void handleEvent(Event event) {
-				selectedArgs.remove(((TableItem) event.item).getText());
-				refreshSelections(selections);
-				//TODO close suggestions
-				//TODO option argument check for string arg
-			}
-		});		
+	
 		
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
@@ -322,7 +314,31 @@ public class ConfigDialog extends Dialog {
 				optionSelectAction((TableItem) event.item, autoSuggest, selections);
 			}
 		});
-
+		
+		
+		selections.addListener(SWT.DefaultSelection, new Listener() {
+			public void handleEvent(Event event) {
+				selectedArgs.remove(((TableItem) event.item).getText());
+				refreshSelections(selections);
+				// refresh the suggestion 
+				autoSuggest.setText(autoSuggest.getText());
+				autoSuggest.setSelection(autoSuggest.getCharCount());
+			}
+		});	
+		
+		// when ESC pressed, suggestions emptied
+		selections.addListener(SWT.KeyDown, new Listener() {
+			public void handleEvent(Event event) {
+				if (event.keyCode == SWT.DEL) {
+					selectedArgs.remove(selections.getSelection()[0].getText());
+					refreshSelections(selections);
+					// refresh the suggestion 
+					autoSuggest.setText(autoSuggest.getText());
+					autoSuggest.setSelection(autoSuggest.getCharCount());
+				}
+			}
+		});
+		
 		// when ESC pressed, suggestions emptied
 		table.addListener(SWT.KeyDown, new Listener() {
 			public void handleEvent(Event event) {
@@ -433,8 +449,16 @@ public class ConfigDialog extends Dialog {
 						// selectedArgs
 						String resultOption = null;
 						if (argType.equals("String")) {
-							resultOption = baseOption + "\""
-									+ inputFields[0].getText() + "\"";
+							String arg = inputFields[0].getText();
+							if(arg.length()==0){
+								MessageBox dialog = createMessageBox("Warning", 
+										"Please specify the argument!");
+								dialog.open();								
+								resultOption = null;
+							} else {
+								resultOption = baseOption + "\""
+										+ arg + "\"";
+							}
 						} else if (argType.equals("Integer")) {
 							resultOption = baseOption;
 							try {
