@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -208,6 +209,10 @@ public class XMLKeywordsManager {
 	public static Map<String,String> getAppliedOptions() {
 		readXMLByType(appliedFilename, APPLIED_OPTIONS);
 		return appliedOptionMap;
+	}
+	
+	public static Set<String> getApplicedOptionSet() {
+		return getAppliedOptions().keySet();
 	}
 
 	/*

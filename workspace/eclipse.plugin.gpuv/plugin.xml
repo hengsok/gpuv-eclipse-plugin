@@ -18,7 +18,7 @@
          <action
                class="eclipse.plugin.gpuv.actions.ConfigAction"
                icon="icons/sample.gif"
-               id="eclipse.plugin.gpuv.actions.SampleAction"
+               id="eclipse.plugin.gpuv.actions.ConfigAction"
                label="&amp;Open Configuration"
                menubarPath="gpuvMenu/gpuvGroup"
                toolbarPath="gpuvGroup"
@@ -172,5 +172,28 @@
 		<super type="org.eclipse.core.resources.problemmarker" />
 		<persistent value="true" />
 	</extension>
+ <extension
+       point="org.eclipse.ui.popupMenus">
+    <objectContribution
+          adaptable="true"
+          id="eclipse.plugin.gpuv.popupMenu"
+          objectClass="org.eclipse.core.resources.IResource">
+          <filter name="extension" value="cl" />
+       <action
+             class="eclipse.plugin.gpuv.actions.ConfigAction"
+             enablesFor="+"
+             icon="icons/sample.gif"
+             id="eclipse.plugin.gpuv.analyseAction"
+             label="Run analysis"
+             menubarPath="eclipse.plugin.gpuv.analysisMenu/runAnalysis"
+             tooltip="Run analysis">
+       </action>
+       <menu
+             id="eclipse.plugin.gpuv.analysisMenu"
+             label="Analysis"
+             path="analysis">
+       </menu>
+    </objectContribution>
+ </extension>
 
 </plugin>
