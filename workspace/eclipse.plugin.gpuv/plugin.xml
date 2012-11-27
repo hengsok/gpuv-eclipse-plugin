@@ -26,20 +26,7 @@
          </action>
       </actionSet>
    </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            category="eclipse.plugin.gpuv"
-            class="eclipse.plugin.gpuv.views.MainViewDisplayResults"
-            id="eclipse.plugin.gpuv.gpuview"
-            name="GPUVerify View"
-            restorable="true">
-      </view>
-      <category
-            id="eclipse.plugin.gpuv"
-            name="GPUVerify">
-      </category>
-   </extension>
+  
    <extension
          point="org.eclipse.help.contexts">
       <contexts

@@ -43,6 +43,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
+import eclipse.plugin.gpuv.builder.GPUVBuildAction;
 
 public class ConfigDialog extends Dialog {
 
@@ -62,46 +63,20 @@ public class ConfigDialog extends Dialog {
 		selectedArgs.putAll(appliedOptions);
 	}
 
-	// TODO need fix
+	/**
+	 * When Apply and Run Analysis button is pressed, invoke this method.
+	 */
 	protected void okPressed() {
 		// store the arguments that're been selected for recently used list
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
-
-		//Get Active Editor Content
-		IEditorPart activeEditor = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-
-//		if (activeEditor == null)
-//			return;
-//		System.out.println(activeEditor.getTitle() + ": ");
-//		AbstractTextEditor part = (AbstractTextEditor) activeEditor
-//				.getAdapter(AbstractTextEditor.class);
-//		System.out.println(part.getDocumentProvider()
-//				.getDocument(part.getEditorInput()).get());
-		//------------------------------
 		
-		// run the arguments with shell
-//		ShellCommand t = new ShellCommand();
-//		try {
-//			t.runCommand(getSelectedArgs());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
+		//Once ok button is pressed, build project (Run analysis)
+		GPUVBuildAction gpuvBuildAct = new GPUVBuildAction();
 		
-	    IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		if(editor != null){
+		if(gpuvBuildAct.isEditorReady()){
 			close();
-		    IResource res = (IResource) editor.getEditorInput().getAdapter(IResource.class);
-		    if (res == null) return;
-		        
-		    IProject project = res.getProject();
-		    try {
-				project.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+			gpuvBuildAct.executeBuild();
 		}
 		else{
 			//Alert the user if no OpenCL file is currently opened
@@ -110,8 +85,6 @@ public class ConfigDialog extends Dialog {
 			dialog.open();
 			close();
 		}
-		
-		
 	}
 
 	private MessageBox createMessageBox (String title, String message) {
