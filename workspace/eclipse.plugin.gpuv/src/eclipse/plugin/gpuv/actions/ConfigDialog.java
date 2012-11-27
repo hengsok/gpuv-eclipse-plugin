@@ -309,8 +309,7 @@ public class ConfigDialog extends Dialog {
 
 		table.addListener(SWT.DefaultSelection, new Listener() {
 			public void handleEvent(Event event) {
-				autoSuggest.setText(table.getSelection()[0].getText());
-				table.removeAll();
+				optionSelectAction((TableItem) event.item, autoSuggest, selections);
 			}
 		});
 
@@ -506,21 +505,6 @@ public class ConfigDialog extends Dialog {
 		createButton(btnBar, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
 		createButton(btnBar, IDialogConstants.OK_ID, " Apply and analyse ", true);
 		createButton(btnBar, IDialogConstants.CLIENT_ID, "Apply", false);
-		
-//		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
-//				false);
-//		defaultBtn.grabExcessVerticalSpace = false;
-//		defaultBtn.grabExcessHorizontalSpace = true;
-//		btnBar.setLayoutData(defaultBtn);
-//		
-//		btnBar.setFont(parent.getFont());
-//
-//		Button applyButton = new Button(btnBar, SWT.NONE);
-//		applyButton.setText("Apply");
-//		// add the dialog's button bar to the right
-//		final Control buttonCtrl = super.createButtonBar(btnBar);
-//		buttonCtrl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
-//				false));
 
 		return btnBar;
 	}
