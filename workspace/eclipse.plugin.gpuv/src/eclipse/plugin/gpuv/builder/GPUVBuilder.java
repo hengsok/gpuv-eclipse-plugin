@@ -18,6 +18,14 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 public class GPUVBuilder extends IncrementalProjectBuilder {
 	
@@ -28,35 +36,6 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 //			.getName());
 
 	private GPUVBuilderConfig config = null;
-	
-	class DeltaVisitor implements IResourceDeltaVisitor {
-		public boolean visit(IResourceDelta delta) throws CoreException {
-			IResource resource = delta.getResource();
-			switch (delta.getKind()) {
-			case IResourceDelta.ADDED:
-				// handle added resource
-				addMarkersToResource(resource);
-				break;
-			case IResourceDelta.REMOVED:
-				// handle removed resource
-				break;
-			case IResourceDelta.CHANGED:
-				// handle changed resource
-				addMarkersToResource(resource);
-				break;
-			}
-			// return true to continue visiting children.
-			return true;
-		}
-	}
-
-	class ResourceVisitor implements IResourceVisitor {
-		public boolean visit(IResource resource) {
-			addMarkersToResource(resource);
-			// return true to continue visiting children.
-			return true;
-		}
-	}
 	
 	class Issue {
 		public String message;
@@ -248,19 +227,35 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		} catch (CoreException ce) {
 		}
 	}
+	
+	private IFile getCurrentlyOpenedFile(){
+		//final IWorkbenchWindow iw;
+		//getProject().getWorkspace().ge;
+		
+		
+		
+		//Get Active Editor Content
+		IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+		//IEditorPart editor= getSite().getPage().getActiveEditor();
+		if (activeEditor == null)
+			return null;
+		
+		//Obtain the file that is currently in-view in editor
+		IFile file = (IFile) activeEditor.getEditorInput().getAdapter(IFile.class);
+		if (file != null) {
+			return file;
+		}
+		
+		System.err.println("Cannot open the file currently in-view in editor.");
+		return null;
+	}
 
 	protected void fullBuild(final IProgressMonitor monitor)
 			throws CoreException {
-		try {
-			//TODO: if we want to run only certain file, have to change ResourceVisitor here
-			getProject().accept(new ResourceVisitor());
-		} catch (CoreException e) {
-		}
+		// Start adding problem markers now given the file
+		IFile file = getCurrentlyOpenedFile();
+		addMarkersToResource(file);
 	}
 
-	protected void incrementalBuild(IResourceDelta delta,
-			IProgressMonitor monitor) throws CoreException {
 
-		delta.accept(new DeltaVisitor());
-	}
 }
