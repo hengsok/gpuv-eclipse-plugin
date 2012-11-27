@@ -12,7 +12,6 @@ import org.osgi.framework.Bundle;
 
 /**
  * Configuration for builder defining regular expression, command to execute 
- * @author Heng Sok
  *
  */
 
