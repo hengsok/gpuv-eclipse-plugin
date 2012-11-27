@@ -9,6 +9,9 @@ import java.util.Set;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -157,18 +160,18 @@ public class ConfigDialog extends Dialog {
 
 		// selected option list
 		final Table selections = new Table(container_advanced, SWT.CHECK
-				| SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+				| SWT.BORDER | SWT.V_SCROLL);
 		GridData selectionGrid = new GridData();
 		selectionGrid.verticalSpan = 3;
 		selectionGrid.widthHint = 200;
 		selectionGrid.heightHint = 160;
 		selections.setLayoutData(selectionGrid);
 		selections.setHeaderVisible(true);
-		new TableColumn(selections, SWT.NONE).setText("Selected options");
+		TableColumn tc = new TableColumn(selections, SWT.NONE);
+		tc.setText("Selected options");
+		tc.setWidth(200);
 		selections.getColumns()[0].pack();
-		selections.pack();
-
-	
+		
 		
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
@@ -530,8 +533,6 @@ public class ConfigDialog extends Dialog {
 				}
 			});
 		}
-		
-		
 		dialog.pack();
 		dialog.open();		
 	}
