@@ -1,7 +1,10 @@
 package eclipse.plugin.gpuv.actions;
 
+import java.io.IOException;
+
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
@@ -19,7 +22,6 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 	 * The constructor.
 	 */
 	public ConfigAction() {
-		this.window = window;
 	}
 
 	/**
@@ -29,18 +31,16 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
-
 		ConfigDialog dialog = null;
-		
+		Shell shell = null;
+		if(window != null){
+			shell = window.getShell();
+		}
 		try {
-			if(window == null){
-				System.out.println("window null");
-			}
-			dialog = new ConfigDialog(window.getShell());
-		} catch (Exception e) {
+			dialog = new ConfigDialog(shell);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
 		dialog.open();
 	}
 
@@ -68,5 +68,6 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#init
 	 */
 	public void init(IWorkbenchWindow window) {
+		this.window = window;
 	}
 }

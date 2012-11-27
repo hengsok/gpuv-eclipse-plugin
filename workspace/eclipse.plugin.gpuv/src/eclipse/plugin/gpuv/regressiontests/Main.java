@@ -1,7 +1,6 @@
 package eclipse.plugin.gpuv.regressiontests;
 
 import math.MyMath;
-import eclipse.plugin.gpuv.*;
 
 public class Main {
   public static void main(String[] args) {

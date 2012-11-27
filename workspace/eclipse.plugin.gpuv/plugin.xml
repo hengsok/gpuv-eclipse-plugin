@@ -168,9 +168,8 @@
           <filter name="extension" value="cl" />
        <action
              class="eclipse.plugin.gpuv.actions.ConfigAction"
-             enablesFor="+"
              icon="icons/sample.gif"
-             id="eclipse.plugin.gpuv.actions.ConfigAction"
+             id="eclipse.plugin.gpuv.actions.AnalysisAction"
              label="Run analysis"
              menubarPath="eclipse.plugin.gpuv.analysisMenu/runAnalysis"
              tooltip="Run analysis">
