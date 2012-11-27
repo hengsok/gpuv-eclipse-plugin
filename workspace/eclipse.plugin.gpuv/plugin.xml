@@ -79,6 +79,7 @@
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="eclipse.plugin.gpuv.perspective">
+         <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
          <view
                id="org.eclipse.ui.navigator.ProjectExplorer"
                minimized="false"
