@@ -19,10 +19,19 @@
                class="eclipse.plugin.gpuv.actions.ConfigAction"
                icon="icons/sample.gif"
                id="eclipse.plugin.gpuv.actions.ConfigAction"
-               label="&amp;Analysis Configuration"
+               label="&amp;Configure analysis"
                menubarPath="gpuvMenu/gpuvGroup"
                toolbarPath="gpuvGroup"
                tooltip="Configure GPUVerify options">
+         </action>
+         <action
+               class="eclipse.plugin.gpuv.actions.RunAction"
+               icon="icons/sample.gif"
+               id="eclipse.plugin.gpuv.actions.RunAnalysisAction"
+               label="&amp;Run analysis"
+               menubarPath="gpuvMenu/gpuvGroup"
+               toolbarPath="gpuvGroup"
+               tooltip="Run analysis with applied options">
          </action>
       </actionSet>
    </extension>
@@ -169,16 +178,24 @@
        <action
              class="eclipse.plugin.gpuv.actions.ConfigAction"
              icon="icons/sample.gif"
-             id="eclipse.plugin.gpuv.actions.AnalysisAction"
-             label="Run analysis"
-             menubarPath="eclipse.plugin.gpuv.analysisMenu/runAnalysis"
-             tooltip="Run analysis">
+             id="eclipse.plugin.gpuv.actions.ConfigureAnalysisAction"
+             label="&amp;Configure analysis"
+             menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
+             tooltip="Configure GPUVerify options">
        </action>
        <menu
              id="eclipse.plugin.gpuv.analysisMenu"
-             label="&amp;Analysis Configuration"
+             label="&amp;GPUVerify Analysis"
              path="analysis">
        </menu>
+       <action
+             class="eclipse.plugin.gpuv.actions.RunAction"
+             icon="icons/sample.gif"
+             id="eclipse.plugin.gpuv.actions.RunAnalysisAction2"
+             label="&amp;Run analysis"
+             menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
+             tooltip="Run analysis with applied options">
+       </action>
     </objectContribution>
  </extension>
 

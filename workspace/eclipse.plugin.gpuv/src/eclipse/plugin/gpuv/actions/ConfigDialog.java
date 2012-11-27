@@ -34,7 +34,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 import eclipse.plugin.gpuv.builder.GPUVBuildAction;
@@ -64,7 +63,10 @@ public class ConfigDialog extends Dialog {
 		// store the arguments that're been selected for recently used list
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
-		
+		runAnalysis();
+	}
+	
+	protected void runAnalysis(){
 		//Once ok button is pressed, build project (Run analysis)
 		GPUVBuildAction gpuvBuildAct = new GPUVBuildAction();
 		
