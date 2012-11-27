@@ -535,8 +535,8 @@ public class ConfigDialog extends Dialog {
 		
 		// Initialise default buttons
 		createButton(btnBar, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
-		createButton(btnBar, IDialogConstants.CLIENT_ID, "Apply", true);
-		createButton(btnBar, IDialogConstants.OK_ID, " Apply and analyse ", false);
+		createButton(btnBar, IDialogConstants.OK_ID, " Apply and analyse ", true);
+		createButton(btnBar, IDialogConstants.CLIENT_ID, "Apply", false);
 		
 //		final GridData defaultBtn = new GridData(SWT.FILL, SWT.BOTTOM, true,
 //				false);

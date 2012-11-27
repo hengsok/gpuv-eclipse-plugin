@@ -18,8 +18,8 @@
          <action
                class="eclipse.plugin.gpuv.actions.ConfigAction"
                icon="icons/sample.gif"
-               id="eclipse.plugin.gpuv.actions.SampleAction"
-               label="&amp;Open Configuration"
+               id="eclipse.plugin.gpuv.actions.ConfigAction"
+               label="&amp;Analysis Configuration"
                menubarPath="gpuvMenu/gpuvGroup"
                toolbarPath="gpuvGroup"
                tooltip="Configure GPUVerify options">
@@ -67,25 +67,9 @@
       </perspective>
    </extension>
    <extension
-         id="eclipse.plugin.gpuv.natures"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="eclipse.plugin.gpuv.ProjectNature">
-         </run>
-      </runtime>
-   </extension>
-   <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="eclipse.plugin.gpuv.perspective">
-         <view
-               id="org.eclipse.ui.console.ConsoleView"
-               minimized="false"
-               ratio="0.8"
-               relationship="bottom"
-               relative="org.eclipse.ui.editorss">
-         </view>
          <view
                id="org.eclipse.ui.navigator.ProjectExplorer"
                minimized="false"
@@ -93,9 +77,33 @@
                relationship="left"
                relative="org.eclipse.ui.editorss">
          </view>
+         <view
+               id="org.eclipse.ui.views.ProblemView"
+               minimized="false"
+               ratio="0.8"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.8"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
       </perspectiveExtension>
    </extension>
    <extension
+         point="org.eclipse.cdt.core.language">
+      <language
+            class="eclipse.plugin.gpuv.language.OpenCLSourceCode"
+            id="eclipse.plugin.gpuv.language.opencl"
+            name="OpenCL">
+         <contentType
+               id="eclipse.plugin.gpuv.openclcontent"></contentType>
+      </language>
+   </extension>
+   <!--extension
          point="org.eclipse.ui.editors">
       <editor
             class="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
@@ -109,11 +117,12 @@
                contentTypeId="eclipse.plugin.gpuv.openclcontent">
          </contentTypeBinding>
       </editor>
-   </extension>
+   </extension-->
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
-            base-type="org.eclipse.core.runtime.text"
+            base-type="org.eclipse.cdt.core.cSource"
+            file-extensions="cl"
             id="eclipse.plugin.gpuv.openclcontent"
             name="OpenCL Source File"
             priority="high">
@@ -150,5 +159,28 @@
 		<super type="org.eclipse.core.resources.problemmarker" />
 		<persistent value="true" />
 	</extension>
+ <extension
+       point="org.eclipse.ui.popupMenus">
+    <objectContribution
+          adaptable="true"
+          id="eclipse.plugin.gpuv.popupMenu"
+          objectClass="org.eclipse.core.resources.IResource">
+          <filter name="extension" value="cl" />
+       <action
+             class="eclipse.plugin.gpuv.actions.ConfigAction"
+             enablesFor="+"
+             icon="icons/sample.gif"
+             id="eclipse.plugin.gpuv.actions.ConfigAction"
+             label="Run analysis"
+             menubarPath="eclipse.plugin.gpuv.analysisMenu/runAnalysis"
+             tooltip="Run analysis">
+       </action>
+       <menu
+             id="eclipse.plugin.gpuv.analysisMenu"
+             label="&amp;Analysis Configuration"
+             path="analysis">
+       </menu>
+    </objectContribution>
+ </extension>
 
 </plugin>
