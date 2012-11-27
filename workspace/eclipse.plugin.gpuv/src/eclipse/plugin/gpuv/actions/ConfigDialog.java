@@ -168,6 +168,16 @@ public class ConfigDialog extends Dialog {
 		selections.getColumns()[0].pack();
 		selections.pack();
 
+		
+		selections.addListener(SWT.DefaultSelection, new Listener() {
+			public void handleEvent(Event event) {
+				selectedArgs.remove(((TableItem) event.item).getText());
+				refreshSelections(selections);
+				//TODO close suggestions
+				//TODO option argument check for string arg
+			}
+		});		
+		
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
 
