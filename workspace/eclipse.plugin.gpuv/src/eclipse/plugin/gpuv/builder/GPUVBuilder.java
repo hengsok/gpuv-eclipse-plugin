@@ -40,7 +40,7 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 	//			.getName());
 
 	private GPUVBuilderConfig config = null;
-	private int markerSeverity = IMarker.SEVERITY_ERROR;
+	private int markerSeverity = IMarker.SEVERITY_WARNING;
 
 	class Issue {
 		public String message;
@@ -98,13 +98,20 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		
 		Set<String> options = XMLKeywordsManager.getApplicedOptionSet();
 		if(options.contains("--findbugs")){
+			markerSeverity = IMarker.SEVERITY_ERROR;
+		}else{
 			markerSeverity = IMarker.SEVERITY_WARNING;
 		}
 		String optionString = " ";
+		String testOptions = " --local_size=1024 --num_groups=2 --verbose ";
 		for(String t : options){
 			optionString +=  t + " ";
+			
 		}
-		String command = getConfig().getCommand() + optionString + fullPath.makeAbsolute().toOSString();
+		
+		String command = getConfig().getCommand() + testOptions + fullPath.makeAbsolute().toOSString();
+		//TODO: remove this and testOptions
+		System.out.println(optionString);
 		try {
 			//LOGGER.log(Level.INFO, "Execute: " + command);
 			p = Runtime.getRuntime().exec(command);
@@ -197,7 +204,35 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 					"Execution error: " + e.getMessage()));
 			return issues;
 		}
+		
+		String errorString = checkExitCode(gpuVerifyExitValue);
+		//:TODO change this
+		GPUVDefaultConsole.printToConsole(errorString);
+		
 		return issues;
+	}
+	
+	private String checkExitCode(int gpuVerifyExitValue){
+		String errorString;
+		switch (gpuVerifyExitValue) {
+		case 0:  errorString = "Analysis is run successfully.";
+		break;
+		case 1:  errorString = "There is a command line error.";
+		break;
+		case 2:  errorString = "There is a CLANG error. Please contact the developer.";
+		break;
+		case 3:  errorString = "There is an OPT error. Please contact the developer.";
+		break;
+		case 4:  errorString = "There is a Bugle error. Please contact the developer.";
+		break;
+		case 5:  errorString = "There is a GPUVerifyVCGen error. Please contact the developer.";
+		break;
+		case 6:  errorString = "There is an Boogie error. Please contact the developer.";
+		break;
+		default: errorString = "";
+		break;
+		}
+		return errorString;
 	}
 
 	private Issue readIssue(String line, String appendAdditionalMsg) {
