@@ -1,9 +1,10 @@
 package eclipse.plugin.gpuv.wizards;
 
-import org.eclipse.core.resources.IContainer;
+import org.eclipse.cdt.core.model.ICContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jface.dialogs.IDialogPage;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
@@ -99,15 +100,8 @@ public class NewFileWizardPage extends WizardPage {
 			IStructuredSelection ssel = (IStructuredSelection) selection;
 			if (ssel.size() > 1)
 				return;
-			Object obj = ssel.getFirstElement();
-			if (obj instanceof IResource) {
-				IContainer container;
-				if (obj instanceof IContainer)
-					container = (IContainer) obj;
-				else
-					container = ((IResource) obj).getParent();
-				containerText.setText(container.getFullPath().toString());
-			}
+			ICContainer obj = (ICContainer) ssel.getFirstElement();
+			containerText.setText(obj.getPath().toString());
 		}
 		fileText.setText("main.cl");
 	}

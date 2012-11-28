@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
@@ -160,29 +161,15 @@ public class ConfigDialog extends Dialog {
 		autoSuggest.setLayoutData(autoGrid);
 
 		// selected option list
-		TableViewer viewer = new TableViewer(container_advanced, SWT.MULTI | SWT.CHECK
-		      | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-
-		// Create the column
-	    final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
-	            SWT.NONE);
-        final TableColumn column = viewerColumn.getColumn();
-        column.setText("Selected Options");
-        column.setWidth(200);
-		
-		// Make lines and make header visible
-		final Table selections = viewer.getTable();
+		final Table selections = new Table(container_advanced, SWT.MULTI | SWT.CHECK
+			      | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 		GridData selectionGrid = new GridData();
 		selectionGrid.verticalSpan = 3;
 		selectionGrid.widthHint = 200;
 		selectionGrid.heightHint = 160;
 		selections.setLayoutData(selectionGrid);
-		selections.setHeaderVisible(true);
-		
-		
-		
-		
-		
+		selections.setToolTipText("Selected Options");
+
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
 
@@ -193,8 +180,7 @@ public class ConfigDialog extends Dialog {
 		tableGrid.heightHint = 90;
 		tableGrid.horizontalSpan = 2;
 		table.setLayoutData(tableGrid);
-		// new TableItem(table,
-		// SWT.NONE).setText("\n Use arrows to navigate \n and press enter to select\n");
+		table.setToolTipText("Suggestions");
 
 		// Button for clearing selected option list
 		final Button clearButton = new Button(container_advanced, SWT.PUSH);
