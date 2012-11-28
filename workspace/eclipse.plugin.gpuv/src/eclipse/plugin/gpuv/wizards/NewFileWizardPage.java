@@ -1,6 +1,6 @@
 package eclipse.plugin.gpuv.wizards;
 
-import org.eclipse.cdt.internal.core.model.CContainer;
+import org.eclipse.cdt.core.model.ICContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
@@ -100,7 +100,7 @@ public class NewFileWizardPage extends WizardPage {
 			IStructuredSelection ssel = (IStructuredSelection) selection;
 			if (ssel.size() > 1)
 				return;
-			CContainer obj = (CContainer) ssel.getFirstElement();
+			ICContainer obj = (ICContainer) ssel.getFirstElement();
 			containerText.setText(obj.getPath().toString());
 		}
 		fileText.setText("main.cl");
