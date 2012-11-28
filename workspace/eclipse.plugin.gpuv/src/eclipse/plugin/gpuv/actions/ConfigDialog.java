@@ -71,7 +71,7 @@ public class ConfigDialog extends Dialog {
 		runAnalysis();
 	}
 	
-	protected void runAnalysis(){
+	protected void runAnalysis(){ //TODO duplicate. TODO; check whether necessary options are applied (e.g. num-group)
 		//Once ok button is pressed, build project (Run analysis)
 		GPUVBuildAction gpuvBuildAct = new GPUVBuildAction();
 		
