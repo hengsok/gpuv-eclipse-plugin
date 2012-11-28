@@ -9,7 +9,7 @@
             visible="true"
             id="eclipse.plugin.gpuv.actionSet">
          <menu
-               label="GPUVerify &amp;Menu"
+               label="&amp;GPUVerify"
                id="gpuvMenu">
             <separator
                   name="gpuvGroup">
@@ -33,7 +33,6 @@
                toolbarPath="gpuvGroup"
                tooltip="Run analysis with applied options">
          </action>
-
       </actionSet>
    </extension>
   
@@ -80,8 +79,7 @@
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="eclipse.plugin.gpuv.perspective">
-         <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
-         <hiddenMenuItem id="project"></hiddenMenuItem>
+
          <view
                id="org.eclipse.ui.navigator.ProjectExplorer"
                minimized="false"
@@ -103,6 +101,12 @@
                relationship="stack"
                relative="org.eclipse.ui.views.ProblemView">
          </view>
+         <hiddenMenuItem
+               id="project">
+         </hiddenMenuItem>
+         <hiddenMenuItem
+               id="org.eclipse.ui.run">
+         </hiddenMenuItem>
       </perspectiveExtension>
    </extension>
    <extension
@@ -181,7 +185,7 @@
        <action
              class="eclipse.plugin.gpuv.actions.ConfigAction"
              icon="icons/sample.gif"
-             id="eclipse.plugin.gpuv.actions.ConfigureAnalysisAction"
+             id="eclipse.plugin.gpuv.actions.ConfigAction"
              label="&amp;Configure analysis"
              menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
              tooltip="Configure GPUVerify options">
@@ -194,23 +198,12 @@
        <action
              class="eclipse.plugin.gpuv.actions.RunAction"
              icon="icons/sample.gif"
-             id="eclipse.plugin.gpuv.actions.RunAnalysisAction2"
+             id="eclipse.plugin.gpuv.actions.RunAnalysisAction"
              label="&amp;Run analysis"
              menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
              tooltip="Run analysis with applied options">
        </action>
     </objectContribution>
- </extension>
- <extension
-       point="org.eclipse.ui.activities">
-    <activity
-          id="eclipse.plugin.gpuv.activity1"
-          name="name">
-    </activity>
-    <activityPatternBinding
-          activityId="eclipse.plugin.gpuv.activityPatternBinding1"
-          pattern="eclipse.plugin.gpuv.activityPatternBinding1">
-    </activityPatternBinding>
  </extension>
 
 </plugin>
