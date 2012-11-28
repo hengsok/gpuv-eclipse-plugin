@@ -45,11 +45,11 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            id="org.eclipse.cdt.ui.newCWizards"
-            name="C/C++/OpenCL Project">
+            id="eclipse.plugin.gpuv.category.gpuverifyproject"
+            name="OpenCL Project">
       </category>
       <wizard
-            category="org.eclipse.cdt.ui.newCWizards"
+            category="eclipse.plugin.gpuv.category.gpuverifyproject"
             class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
             finalPerspective="eclipse.plugin.gpuv.perspective"
             icon="icons/sample.gif"
@@ -58,7 +58,7 @@
             project="true">
       </wizard>
       <wizard
-            category="org.eclipse.cdt.ui.newCWizards"
+            category="eclipse.plugin.gpuv.category.gpuverifyproject"
             class="eclipse.plugin.gpuv.wizards.NewFileWizard"
             icon="icons/sample.gif"
             id="eclipse.plugin.gpuv.wizards.NewFileWizard"
