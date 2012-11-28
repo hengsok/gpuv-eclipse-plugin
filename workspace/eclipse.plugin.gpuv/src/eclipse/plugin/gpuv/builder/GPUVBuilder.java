@@ -40,7 +40,7 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 	//			.getName());
 
 	private GPUVBuilderConfig config = null;
-	private int markerSeverity = IMarker.SEVERITY_ERROR;
+	private int markerSeverity = IMarker.SEVERITY_WARNING;
 
 	class Issue {
 		public String message;
@@ -98,13 +98,17 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		
 		Set<String> options = XMLKeywordsManager.getApplicedOptionSet();
 		if(options.contains("--findbugs")){
-			markerSeverity = IMarker.SEVERITY_WARNING;
+			markerSeverity = IMarker.SEVERITY_ERROR;
 		}
 		String optionString = " ";
+		String testOptions = " --local_size=1024 --num_groups=2 --verbose ";
 		for(String t : options){
 			optionString +=  t + " ";
+			
 		}
-		String command = getConfig().getCommand() + optionString + fullPath.makeAbsolute().toOSString();
+		
+		String command = getConfig().getCommand() + testOptions + fullPath.makeAbsolute().toOSString();
+		System.out.println(command);
 		try {
 			//LOGGER.log(Level.INFO, "Execute: " + command);
 			p = Runtime.getRuntime().exec(command);
