@@ -12,6 +12,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -159,18 +160,27 @@ public class ConfigDialog extends Dialog {
 		autoSuggest.setLayoutData(autoGrid);
 
 		// selected option list
-		final Table selections = new Table(container_advanced, SWT.CHECK
-				| SWT.BORDER | SWT.V_SCROLL);
+		TableViewer viewer = new TableViewer(container_advanced, SWT.MULTI | SWT.CHECK
+		      | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+
+		// Create the column
+	    final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
+	            SWT.NONE);
+        final TableColumn column = viewerColumn.getColumn();
+        column.setText("Selected Options");
+        column.setWidth(200);
+		
+		// Make lines and make header visible
+		final Table selections = viewer.getTable();
 		GridData selectionGrid = new GridData();
 		selectionGrid.verticalSpan = 3;
 		selectionGrid.widthHint = 200;
 		selectionGrid.heightHint = 160;
 		selections.setLayoutData(selectionGrid);
 		selections.setHeaderVisible(true);
-		TableColumn tc = new TableColumn(selections, SWT.NONE);
-		tc.setText("Selected options");
-		tc.setWidth(200);
-		selections.getColumns()[0].pack();
+		
+		
+		
 		
 		
 		// number of items appearing on the suggestion list
@@ -323,10 +333,15 @@ public class ConfigDialog extends Dialog {
 			public void handleEvent(Event event) {
 				String prevOption = ((TableItem) event.item).getText();
 				String baseOption = selectedArgs.get(prevOption);
-				
-				createArgumentDialog(prevOption, baseOption, autoSuggest, selections);
-				
-				
+				if(XMLKeywordsManager.takesInput(baseOption)){
+					createArgumentDialog(prevOption, baseOption, autoSuggest, selections);
+				} else {
+					selectedArgs.remove(selections.getSelection()[0].getText());
+					refreshSelections(selections);
+					// refresh the suggestion 
+					autoSuggest.setText(autoSuggest.getText());
+					autoSuggest.setSelection(autoSuggest.getCharCount());
+				}
 			}
 		});	
 		
@@ -380,7 +395,7 @@ public class ConfigDialog extends Dialog {
 				createArgumentDialog(baseOption, autoSuggest, selections);
 			}
 			// for options not taking arguments
-		} else if (selectedArgs.containsValue(baseOption)) { //TODO make a methdo to check isSelected?
+		} else if (selectedArgs.containsValue(baseOption)) {
 			item.setChecked(false);
 			selectedArgs.remove(baseOption);
 			refreshSelections(selections);
