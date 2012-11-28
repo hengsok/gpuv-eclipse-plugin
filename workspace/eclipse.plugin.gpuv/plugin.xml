@@ -9,7 +9,7 @@
             visible="true"
             id="eclipse.plugin.gpuv.actionSet">
          <menu
-               label="&amp;GPUVerify"
+               label="GPUVerify &amp;Menu"
                id="gpuvMenu">
             <separator
                   name="gpuvGroup">
@@ -198,11 +198,17 @@
              tooltip="Run analysis with applied options">
        </action>
     </objectContribution>
-    <objectContribution
-          adaptable="false"
-          id="org.eclipse."
-          objectClass="eclipse.plugin.gpuv.Object1">
-    </objectContribution>
+ </extension>
+ <extension
+       point="org.eclipse.ui.activities">
+    <activity
+          id="eclipse.plugin.gpuv.activity1"
+          name="name">
+    </activity>
+    <activityPatternBinding
+          activityId="eclipse.plugin.gpuv.activityPatternBinding1"
+          pattern="eclipse.plugin.gpuv.activityPatternBinding1">
+    </activityPatternBinding>
  </extension>
 
 </plugin>

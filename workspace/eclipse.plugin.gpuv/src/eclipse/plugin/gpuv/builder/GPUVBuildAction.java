@@ -22,7 +22,9 @@ public class GPUVBuildAction {
 	 */
 	public GPUVBuildAction(){
 		 editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-		 res = (IResource) editor.getEditorInput().getAdapter(IResource.class);
+		 if(editor != null){
+			 res = (IResource) editor.getEditorInput().getAdapter(IResource.class);
+		 }
 	}
 	
 	/**
