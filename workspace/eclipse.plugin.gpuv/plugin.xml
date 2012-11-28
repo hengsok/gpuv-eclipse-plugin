@@ -33,6 +33,7 @@
                toolbarPath="gpuvGroup"
                tooltip="Run analysis with applied options">
          </action>
+
       </actionSet>
    </extension>
   
@@ -80,6 +81,7 @@
       <perspectiveExtension
             targetID="eclipse.plugin.gpuv.perspective">
          <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
+         <hiddenMenuItem id="project"></hiddenMenuItem>
          <view
                id="org.eclipse.ui.navigator.ProjectExplorer"
                minimized="false"
