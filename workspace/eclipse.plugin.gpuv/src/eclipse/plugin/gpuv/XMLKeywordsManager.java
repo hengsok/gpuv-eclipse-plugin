@@ -20,6 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import eclipse.plugin.gpuv.radix.RadixTree;
 import eclipse.plugin.gpuv.radix.RadixTreeImpl;
@@ -43,8 +44,7 @@ public class XMLKeywordsManager {
 	private static String installLocation;
 	private static String foldername;
 	private static final String appliedFilename = "appliedOptions.xml";
-	
-	private static Map<String,String> appliedOptionMap; //TODO necessary?
+	private static Map<String,String> appliedOptionMap;
 
 	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
@@ -204,7 +204,7 @@ public class XMLKeywordsManager {
 	/* 
 	 * read in appliedOptions.xml on each config box invocation.
 	 * In one session, all used options are kept in appliedOptionSet, 
-	 * and is only flushed when Eclipse is restarted. TODO what if empty initially?
+	 * and is only flushed when Eclipse is restarted.
 	 */
 	public static Map<String,String> getAppliedOptions() {
 		readXMLByType(appliedFilename, APPLIED_OPTIONS);
@@ -234,7 +234,20 @@ public class XMLKeywordsManager {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(xmlFile);
+			// Need to check correctness of the xml file.
+			Document doc = null;
+			try{
+				doc = dBuilder.parse(xmlFile);
+			} catch (SAXException se){
+				// Incorrect xml file. 
+				System.err.println("XML File " + xmlFile.getName() + " is corrupted!");
+				System.exit(1);
+			} catch (Exception e) {
+				// Other errors
+				System.err.println("An error occured when reading file " + xmlFile.getName() + "!");
+				System.exit(1);
+			}
+			
 			doc.getDocumentElement().normalize();
 
 			NodeList nList = doc.getElementsByTagName("keyword");
