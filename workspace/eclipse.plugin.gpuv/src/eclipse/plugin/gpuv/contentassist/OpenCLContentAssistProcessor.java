@@ -170,7 +170,6 @@ public class OpenCLContentAssistProcessor implements IContentAssistProcessor {
 
 	@Override
 	public String getErrorMessage() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

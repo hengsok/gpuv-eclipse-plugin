@@ -26,13 +26,9 @@ import eclipse.plugin.gpuv.radix.RadixTree;
 import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 
 /*
- * XML reader layer on top of Radix Tree implementation.
- * TODO 2: need to clean up keywords (charn -> char8 ... and Abstract Data Types -> .... ) 
- */
-
-/*
- * Read in xml files (options.xml, keywords.xml) and store them once (in Activator).
+ * Read in XML files (options.xml, keywords.xml, appliedOptions.xml)
  * Methods can be accessed by the class name (static).
+
  */
 public class XMLKeywordsManager {
 	public static final int KEYWORD_SEARCH = 0;
@@ -157,7 +153,6 @@ public class XMLKeywordsManager {
 				keyword.appendChild(option);
 				
 				// actual option elements (with arguments substituted)
-				// TODO make use of it
 				Element actualOption = doc.createElement("actualOption");
 				actualOption.appendChild(doc.createTextNode(key));
 				keyword.appendChild(actualOption);
@@ -269,7 +264,7 @@ public class XMLKeywordsManager {
 						dataNode data = new dataNode(keyword, option, argType,
 								argNum, type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
-					} else if(searchType == APPLIED_OPTIONS) { //TODO merge with OPTION_SEARCH
+					} else if(searchType == APPLIED_OPTIONS) {
 						// for applied options
 						String option = getTagValue("option", eElement);
 						String actualOption = getTagValue("actualOption", eElement);

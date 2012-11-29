@@ -68,26 +68,9 @@ public class ConfigDialog extends Dialog {
 		// store the arguments that're been selected for recently used list
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
-		runAnalysis();
+		new RunAnalysis().runAnalysis();
 	}
 	
-	protected void runAnalysis(){ //TODO duplicate. TODO; check whether necessary options are applied (e.g. num-group)
-		//Once ok button is pressed, build project (Run analysis)
-		GPUVBuildAction gpuvBuildAct = new GPUVBuildAction();
-		
-		if(gpuvBuildAct.isEditorReady()){
-			close();
-			gpuvBuildAct.executeBuild();
-		}
-		else{
-			//Alert the user if no OpenCL file is currently opened
-			MessageBox dialog = createMessageBox("Warning", 
-					"Please open one OpenCL file first before attempting to run analysis.");
-			dialog.open();
-			close();
-		}
-	}
-
 	private MessageBox createMessageBox (String title, String message) {
 		MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
 		dialog.setText(title);
@@ -486,7 +469,7 @@ public class ConfigDialog extends Dialog {
 					resultOption = baseOption;
 					try {
 						for (int j = 0; j < argNum; j++) {
-							int inputInt = 0;
+							int inputInt = 1; // 1 by default
 							String inputText = inputFields[j].getText();
 							if (!inputText.isEmpty()) {
 								inputInt = Integer.parseInt(inputText);
@@ -636,13 +619,6 @@ public class ConfigDialog extends Dialog {
 	}
 
 	private void initContent() {
-		// TODO
-		// Might want to set selection only for certain often used checkboxes
-		// here
-		// for (String arg : argSet){
-		// Button button = (Button) argCheckboxButtons.get(arg);
-		// button.setSelection(selectedArgs.contains(arg));
-		// }
 	}
 
 	protected void configureShell(Shell shell) {

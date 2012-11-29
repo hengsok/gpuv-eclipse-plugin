@@ -13,43 +13,36 @@ public class SinglelineDocCommentViewerConfiguration implements
 		IDocCommentViewerConfiguration {
 
 	public SinglelineDocCommentViewerConfiguration() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean isDocumentationComment(IDocument doc, int offset, int length) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public ICTokenScanner createCommentScanner(
 			ITokenStoreFactory tokenStoreFactory) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public IAutoEditStrategy createAutoEditStrategy() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ITextDoubleClickStrategy createDoubleClickStrategy() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ICompletionProposalComputer createProposalComputer() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public IDocCommentDictionary getSpellingDictionary() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
