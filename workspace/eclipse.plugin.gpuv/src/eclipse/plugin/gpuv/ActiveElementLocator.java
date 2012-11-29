@@ -44,7 +44,7 @@ public class ActiveElementLocator {
 				filepathFull = null;
 			}
 		}
-		
+		//TODO one active and one selected? which to choose? 
 		// Filename of the active Editor
 		if(filepathFull == null){
 			IEditorPart activeEditor = getActiveEditor();
@@ -64,7 +64,6 @@ public class ActiveElementLocator {
 		} else {
 			return null;
 		}
-		
 		return filepath + "_options.xml";
 	}
 	

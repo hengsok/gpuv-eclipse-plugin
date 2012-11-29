@@ -29,6 +29,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
 
+import eclipse.plugin.gpuv.ActiveElementLocator;
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 
 public class GPUVBuilder extends IncrementalProjectBuilder {
@@ -38,9 +39,6 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 
 	//	private final static Logger LOGGER = Logger.getLogger(GPUVBuilder.class
 	//			.getName());
-
-	
-	
 
 	
 
@@ -69,28 +67,25 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
-				IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-				IEditorPart activeEditor = window.getActivePage().getActiveEditor();
+				ActiveElementLocator ael = new ActiveElementLocator();
+				IEditorPart activeEditor = ael.getActiveEditor();
+				IResource res = ael.getActiveResource();
+				IProject activeProject = ael.getActiveProject();
 
 				// If activeEditor is not available, return
-				if (activeEditor == null)
+				if (activeEditor == null || res == null || activeProject == null)
 					return;
-				
-				IResource res = (IResource) activeEditor.getEditorInput().getAdapter(IResource.class);
-				if (res == null)
-					return;
-				IProject activeProject = res.getProject();
 				
 				//Check so that build only current project and not all
 				//opened projects
-//				if(activeProject.getName().equals(getProject().getName())){
-//					IFile fileToBuild = (IFile) activeEditor.getEditorInput().getAdapter(IFile.class);
-//					if (fileToBuild != null) {
-//						GPUVBuilderThread gpuvBuilderThread = new GPUVBuilderThread(fileToBuild); 
-//						Thread gpuvBThread = new Thread(gpuvBuilderThread);
-//						gpuvBThread.start();
-//					}
-//				}
+				if(activeProject.getName().equals(getProject().getName())){
+					IFile fileToBuild = (IFile) activeEditor.getEditorInput().getAdapter(IFile.class);
+					if (fileToBuild != null) {
+						GPUVBuilderThread gpuvBuilderThread = new GPUVBuilderThread(fileToBuild); 
+						Thread gpuvBThread = new Thread(gpuvBuilderThread);
+						gpuvBThread.start();
+					}
+				}
 			}
 		});
 	}
