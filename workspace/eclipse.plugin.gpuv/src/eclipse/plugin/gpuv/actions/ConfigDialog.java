@@ -63,8 +63,9 @@ public class ConfigDialog extends Dialog {
 		// store the arguments that're been selected for recently used list
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
-		new RunAnalysis().runAnalysis();
-		close();
+		if (new RunAnalysis().runAnalysis()) {
+			close(); // close if successful.
+		}
 	}
 	
 	private MessageBox createMessageBox (String title, String message) {
