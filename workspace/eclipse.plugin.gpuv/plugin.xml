@@ -33,6 +33,15 @@
                toolbarPath="gpuvGroup"
                tooltip="Run analysis with applied options">
          </action>
+         <action
+               class="eclipse.plugin.gpuv.actions.ToggleAutoAnalysisAction"
+               definitionId="org.eclipse.ui.project.analyseAutomatically"
+               id="org.eclipse.ui.project.analyseAutomatically"
+               label="Analyse Automatically"
+               menubarPath="gpuvMenu/gpuvGroup"
+               state="true"
+               style="toggle">
+         </action>
       </actionSet>
    </extension>
   
@@ -102,10 +111,10 @@
                relative="org.eclipse.ui.views.ProblemView">
          </view>
          <hiddenMenuItem
-               id="project">
+               id="org.eclipse.ui.run">
          </hiddenMenuItem>
          <hiddenMenuItem
-               id="org.eclipse.ui.run">
+               id="project">
          </hiddenMenuItem>
       </perspectiveExtension>
    </extension>

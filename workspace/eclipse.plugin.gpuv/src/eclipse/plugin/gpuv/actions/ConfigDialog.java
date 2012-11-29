@@ -9,8 +9,6 @@ import java.util.Set;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -33,12 +31,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
 
+import eclipse.plugin.gpuv.ActiveElementLocator;
 import eclipse.plugin.gpuv.XMLKeywordsManager;
-import eclipse.plugin.gpuv.builder.GPUVBuildAction;
 
 public class ConfigDialog extends Dialog {
 
@@ -65,26 +63,10 @@ public class ConfigDialog extends Dialog {
 		// store the arguments that're been selected for recently used list
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
-		runAnalysis();
+		new RunAnalysis().runAnalysis();
+		close();
 	}
 	
-	protected void runAnalysis(){
-		//Once ok button is pressed, build project (Run analysis)
-		GPUVBuildAction gpuvBuildAct = new GPUVBuildAction();
-		
-		if(gpuvBuildAct.isEditorReady()){
-			close();
-			gpuvBuildAct.executeBuild();
-		}
-		else{
-			//Alert the user if no OpenCL file is currently opened
-			MessageBox dialog = createMessageBox("Warning", 
-					"Please open one OpenCL file first before attempting to run analysis.");
-			dialog.open();
-			close();
-		}
-	}
-
 	private MessageBox createMessageBox (String title, String message) {
 		MessageBox dialog = new MessageBox(getShell(), SWT.ICON_QUESTION | SWT.OK);
 		dialog.setText(title);
@@ -158,29 +140,15 @@ public class ConfigDialog extends Dialog {
 		autoSuggest.setLayoutData(autoGrid);
 
 		// selected option list
-		TableViewer viewer = new TableViewer(container_advanced, SWT.MULTI | SWT.CHECK
-		      | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-
-		// Create the column
-	    final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
-	            SWT.NONE);
-        final TableColumn column = viewerColumn.getColumn();
-        column.setText("Selected Options");
-        column.setWidth(200);
-		
-		// Make lines and make header visible
-		final Table selections = viewer.getTable();
+		final Table selections = new Table(container_advanced, SWT.MULTI | SWT.CHECK
+			      | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 		GridData selectionGrid = new GridData();
 		selectionGrid.verticalSpan = 3;
 		selectionGrid.widthHint = 200;
 		selectionGrid.heightHint = 160;
 		selections.setLayoutData(selectionGrid);
-		selections.setHeaderVisible(true);
-		
-		
-		
-		
-		
+		selections.setToolTipText("Selected Options");
+
 		// number of items appearing on the suggestion list
 		final int restriction = 1000;
 
@@ -191,8 +159,7 @@ public class ConfigDialog extends Dialog {
 		tableGrid.heightHint = 90;
 		tableGrid.horizontalSpan = 2;
 		table.setLayoutData(tableGrid);
-		// new TableItem(table,
-		// SWT.NONE).setText("\n Use arrows to navigate \n and press enter to select\n");
+		table.setToolTipText("Suggestions");
 
 		// Button for clearing selected option list
 		final Button clearButton = new Button(container_advanced, SWT.PUSH);
@@ -498,7 +465,7 @@ public class ConfigDialog extends Dialog {
 					resultOption = baseOption;
 					try {
 						for (int j = 0; j < argNum; j++) {
-							int inputInt = 0;
+							int inputInt = 1; // 1 by default
 							String inputText = inputFields[j].getText();
 							if (!inputText.isEmpty()) {
 								inputInt = Integer.parseInt(inputText);
@@ -648,25 +615,19 @@ public class ConfigDialog extends Dialog {
 	}
 
 	private void initContent() {
-		// TODO
-		// Might want to set selection only for certain often used checkboxes
-		// here
-		// for (String arg : argSet){
-		// Button button = (Button) argCheckboxButtons.get(arg);
-		// button.setSelection(selectedArgs.contains(arg));
-		// }
 	}
 
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText("GPUVerify Configurations");
-
+		String title = "GPUVerify Configurations";
+		IEditorPart ep = new ActiveElementLocator().getActiveEditor();
+		if(ep != null){
+			title += " - " + ep.getTitle();
+		} else {
+			title = "OpenCL File not selected!";
+		}
+		shell.setText(title);
 	}
-
-//	protected void initializeBounds() {
-//		super.initializeBounds();
-//		this.getButton(IDialogConstants.OK_ID).setText("Apply and analyse");
-//	}
 
 	public Set<String> getSelectedArgs() {
 		return selectedArgs.keySet();
