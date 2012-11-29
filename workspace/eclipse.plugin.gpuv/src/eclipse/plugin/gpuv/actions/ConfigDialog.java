@@ -629,6 +629,8 @@ public class ConfigDialog extends Dialog {
 		IEditorPart ep = new ActiveElementLocator().getActiveEditor();
 		if(ep != null){
 			title += " - " + ep.getTitle();
+		} else {
+			title = "OpenCL File not selected!";
 		}
 		shell.setText(title);
 	}
