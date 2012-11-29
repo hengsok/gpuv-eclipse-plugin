@@ -21,6 +21,21 @@ public class ActiveElementLocator {
 		this.window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 	}
 	
+	public IFile getSelectedFile() {
+		ISelectionService service = window.getSelectionService();
+		IStructuredSelection structured = (IStructuredSelection) service
+				.getSelection("org.eclipse.ui.navigator.ProjectExplorer");
+
+		if(structured != null) {
+			try {
+				return (IFile) structured.getFirstElement();
+			} catch (Exception ee){
+				return null;
+			}
+		}
+		return null;
+	}
+	
 	/*
 	 * Return the string of xml filename for applied options
 	 * specific to the currently active project & .cl file
@@ -32,17 +47,12 @@ public class ActiveElementLocator {
 		
 		// check if an OpenCL file is selected from ProjectExplorer
 		// if so, use the selected file's path.
-		ISelectionService service = window.getSelectionService();
-		IStructuredSelection structured = (IStructuredSelection) service
-				.getSelection("org.eclipse.ui.navigator.ProjectExplorer");
-		if(structured != null) {
-			try {
-				IFile file = (IFile) structured.getFirstElement();
-				IPath path = file.getLocation();
-				filepathFull = file.getProject().getName() + "_" + file.getName();
-			} catch (Exception ee){
-				filepathFull = null;
-			}
+		
+		IFile file = getSelectedFile();
+		if(file != null){
+			filepathFull = file.getProject().getName() + "_" + file.getName();
+		} else {
+			filepathFull = null;
 		}
 		//TODO one active and one selected? which to choose? 
 		// Filename of the active Editor
