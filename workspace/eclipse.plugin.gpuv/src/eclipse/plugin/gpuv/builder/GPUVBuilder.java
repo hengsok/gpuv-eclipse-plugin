@@ -83,14 +83,14 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 				
 				//Check so that build only current project and not all
 				//opened projects
-				if(activeProject.getName().equals(getProject().getName())){
-					IFile fileToBuild = (IFile) activeEditor.getEditorInput().getAdapter(IFile.class);
-					if (fileToBuild != null) {
-						GPUVBuilderThread gpuvBuilderThread = new GPUVBuilderThread(fileToBuild); 
-						Thread gpuvBThread = new Thread(gpuvBuilderThread);
-						gpuvBThread.start();
-					}
-				}
+//				if(activeProject.getName().equals(getProject().getName())){
+//					IFile fileToBuild = (IFile) activeEditor.getEditorInput().getAdapter(IFile.class);
+//					if (fileToBuild != null) {
+//						GPUVBuilderThread gpuvBuilderThread = new GPUVBuilderThread(fileToBuild); 
+//						Thread gpuvBThread = new Thread(gpuvBuilderThread);
+//						gpuvBThread.start();
+//					}
+//				}
 			}
 		});
 	}

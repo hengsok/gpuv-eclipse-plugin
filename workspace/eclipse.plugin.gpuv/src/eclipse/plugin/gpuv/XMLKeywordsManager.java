@@ -16,6 +16,12 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -39,8 +45,8 @@ public class XMLKeywordsManager {
 	private static Map<String, dataNode> optionMap;
 	private static String installLocation;
 	private static String foldername;
-	private static final String appliedFilename = "appliedOptions.xml";
-	private static Map<String,String> appliedOptionMap;
+	private static final String appliedFoldername = "applied";
+	private static Map<String, String> appliedOptionMap;
 
 	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
@@ -48,9 +54,10 @@ public class XMLKeywordsManager {
 		optionMap = new HashMap<String, dataNode>();
 		installLocation = location;
 		foldername = "xmlFiles";
-		appliedOptionMap = new HashMap<String,String>();
+		appliedOptionMap = new HashMap<String, String>();
 		readXMLByType("keywords.xml", KEYWORD_SEARCH);
 		readXMLByType("options.xml", OPTION_SEARCH);
+		makeAppliedOptionDir();
 	}
 
 	public static List<String> getKeywords() {
@@ -67,9 +74,10 @@ public class XMLKeywordsManager {
 		return keywordTree.searchPrefix(caseInsensitive, recordLimit);
 	}
 
-	// Only return general options that does not take arguments (for general tab)
-	public static Map<String,String> getGeneralOptions() {
-		Map<String,String> result = new HashMap<String,String>();
+	// Only return general options that does not take arguments (for general
+	// tab)
+	public static Map<String, String> getGeneralOptions() {
+		Map<String, String> result = new HashMap<String, String>();
 		Iterator<Map.Entry<String, dataNode>> entries = optionMap.entrySet()
 				.iterator();
 		while (entries.hasNext()) {
@@ -117,14 +125,32 @@ public class XMLKeywordsManager {
 	}
 
 	/*
+	 * Make a directory for applied option xml files at initial run
+	 */
+	private void makeAppliedOptionDir() {
+		File appliedFolder = new File(installLocation + File.separator
+				+ foldername + File.separator + appliedFoldername);
+		if (!appliedFolder.exists()) {
+			appliedFolder.mkdir();
+		}
+	}
+
+	/*
 	 * Write applied options to an xml file using DOM method
 	 */
 	public static void applyOptions(Map<String, String> optionsToStore) {
+		String appliedFilename = new ActiveElementLocator().getOptionsFilename();
+		if(appliedFilename == null){
+			// cannot get the filename
+			System.err.println("Cannot locate the file!");
+			return;
+		}
 		try {
-			File xmlFile = new File(installLocation + File.separator + foldername
+			File xmlFile = new File(installLocation + File.separator
+					+ foldername + File.separator + appliedFoldername
 					+ File.separator + appliedFilename);
 
-			if(xmlFile.exists()){
+			if (xmlFile.exists()) {
 				xmlFile.delete();
 			}
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory
@@ -144,14 +170,16 @@ public class XMLKeywordsManager {
 
 				// name elements
 				Element name = doc.createElement("name");
-				name.appendChild(doc.createTextNode(optionMap.get(value).getName()));
+				name.appendChild(doc.createTextNode(optionMap.get(value)
+						.getName()));
 				keyword.appendChild(name);
 
 				// option elements
 				Element option = doc.createElement("option");
-				option.appendChild(doc.createTextNode(optionMap.get(value).getOption()));
+				option.appendChild(doc.createTextNode(optionMap.get(value)
+						.getOption()));
 				keyword.appendChild(option);
-				
+
 				// actual option elements (with arguments substituted)
 				Element actualOption = doc.createElement("actualOption");
 				actualOption.appendChild(doc.createTextNode(key));
@@ -159,27 +187,32 @@ public class XMLKeywordsManager {
 
 				// argType elements
 				Element argType = doc.createElement("argType");
-				argType.appendChild(doc.createTextNode(optionMap.get(value).getArgType()));
+				argType.appendChild(doc.createTextNode(optionMap.get(value)
+						.getArgType()));
 				keyword.appendChild(argType);
-				
+
 				// argNum elements
 				Element argNum = doc.createElement("argNum");
-				argNum.appendChild(doc.createTextNode(""+optionMap.get(value).getArgNum()));
+				argNum.appendChild(doc.createTextNode(""
+						+ optionMap.get(value).getArgNum()));
 				keyword.appendChild(argNum);
-				
+
 				// type elements
 				Element type = doc.createElement("type");
-				type.appendChild(doc.createTextNode(optionMap.get(value).getType()));
+				type.appendChild(doc.createTextNode(optionMap.get(value)
+						.getType()));
 				keyword.appendChild(type);
-				
+
 				// multiple elements
 				Element multiple = doc.createElement("multiple");
-				multiple.appendChild(doc.createTextNode(""+ optionMap.get(value).getMultiple()));
+				multiple.appendChild(doc.createTextNode(""
+						+ optionMap.get(value).getMultiple()));
 				keyword.appendChild(multiple);
-				
+
 				// description elements
 				Element description = doc.createElement("description");
-				description.appendChild(doc.createTextNode(optionMap.get(value).getDescription()));
+				description.appendChild(doc.createTextNode(optionMap.get(value)
+						.getDescription()));
 				keyword.appendChild(description);
 
 				// write the content into xml file
@@ -196,16 +229,24 @@ public class XMLKeywordsManager {
 		}
 	}
 
-	/* 
-	 * read in appliedOptions.xml on each config box invocation.
-	 * In one session, all used options are kept in appliedOptionSet, 
-	 * and is only flushed when Eclipse is restarted.
+	/*
+	 * read in appliedOptions.xml on each config box invocation. In one session,
+	 * all used options are kept in appliedOptionSet, and is only flushed when
+	 * Eclipse is restarted.
 	 */
-	public static Map<String,String> getAppliedOptions() {
-		readXMLByType(appliedFilename, APPLIED_OPTIONS);
+	public static Map<String, String> getAppliedOptions() {
+		String appliedFilename = new ActiveElementLocator().getOptionsFilename();
+		if(appliedFilename == null){
+			// cannot get the filename
+			System.err.println("Cannot locate the file!");
+			return appliedOptionMap;
+		}
+		readXMLByType(appliedFoldername + File.separator
+				+ appliedFilename,
+				APPLIED_OPTIONS);
 		return appliedOptionMap;
 	}
-	
+
 	/*
 	 * Return the set of applied options
 	 */
@@ -221,28 +262,30 @@ public class XMLKeywordsManager {
 		try {
 			File xmlFile = new File(installLocation + File.separator
 					+ foldername + File.separator + filename);
-			if(!xmlFile.exists()){
-				return; // don't read if file does not exist 
+			if (!xmlFile.exists()) {
+				return; // don't read if file does not exist
 			}
 			appliedOptionMap.clear();
-			
+
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			// Need to check correctness of the xml file.
 			Document doc = null;
-			try{
+			try {
 				doc = dBuilder.parse(xmlFile);
-			} catch (SAXException se){
-				// Incorrect xml file. 
-				System.err.println("XML File " + xmlFile.getName() + " is corrupted!");
+			} catch (SAXException se) {
+				// Incorrect xml file.
+				System.err.println("XML File " + xmlFile.getName()
+						+ " is corrupted!");
 				System.exit(1);
 			} catch (Exception e) {
 				// Other errors
-				System.err.println("An error occured when reading file " + xmlFile.getName() + "!");
+				System.err.println("An error occured when reading file "
+						+ xmlFile.getName() + "!");
 				System.exit(1);
 			}
-			
+
 			doc.getDocumentElement().normalize();
 
 			NodeList nList = doc.getElementsByTagName("keyword");
@@ -264,10 +307,11 @@ public class XMLKeywordsManager {
 						dataNode data = new dataNode(keyword, option, argType,
 								argNum, type, multiple.equals("true"), desc);
 						optionMap.put(option, data);
-					} else if(searchType == APPLIED_OPTIONS) {
+					} else if (searchType == APPLIED_OPTIONS) {
 						// for applied options
 						String option = getTagValue("option", eElement);
-						String actualOption = getTagValue("actualOption", eElement);
+						String actualOption = getTagValue("actualOption",
+								eElement);
 						appliedOptionMap.put(actualOption, option);
 					} else { // for editor keyword suggestion
 						String lowerKeyword = keyword.toLowerCase();
