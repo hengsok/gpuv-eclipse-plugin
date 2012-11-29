@@ -71,6 +71,7 @@ public class ConfigDialog extends Dialog {
 		// later
 		XMLKeywordsManager.applyOptions(selectedArgs);
 		new RunAnalysis().runAnalysis();
+		close();
 	}
 	
 	private MessageBox createMessageBox (String title, String message) {

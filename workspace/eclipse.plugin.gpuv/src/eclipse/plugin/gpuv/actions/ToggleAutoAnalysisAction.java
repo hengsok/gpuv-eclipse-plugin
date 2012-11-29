@@ -48,8 +48,14 @@ public class ToggleAutoAnalysisAction extends Action implements
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
 		System.out.println(ResourcesPlugin.getWorkspace().isAutoBuilding());
-		
-		
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IWorkspaceDescription description = workspace.getDescription();
+        description.setAutoBuilding(false);
+        try {
+            workspace.setDescription(description);
+        } catch (CoreException e) {
+            ErrorDialog.openError(window.getShell(), null, null, e.getStatus());
+        }
 	}
 	
 }

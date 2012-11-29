@@ -19,6 +19,9 @@ public class ActiveElementLocator {
 	private IWorkbenchWindow window;
 	public ActiveElementLocator() {
 		this.window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if(this.window == null){ // dealing with threads
+			this.window = PlatformUI.getWorkbench().getWorkbenchWindows()[0];
+		}
 	}
 	
 	public IFile getSelectedFile() {

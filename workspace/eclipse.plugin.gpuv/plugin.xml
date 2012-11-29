@@ -39,7 +39,7 @@
                id="org.eclipse.ui.project.analyseAutomatically"
                label="Analyse Automatically"
                menubarPath="gpuvMenu/gpuvGroup"
-               style="push">
+               style="toggle">
          </action>
       </actionSet>
    </extension>
