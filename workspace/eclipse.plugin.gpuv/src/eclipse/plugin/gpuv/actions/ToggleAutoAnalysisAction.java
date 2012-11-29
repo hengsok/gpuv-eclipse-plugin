@@ -10,30 +10,20 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.ide.actions.ToggleAutoBuildAction;
+import org.eclipse.ui.menus.UIElement;
 
 public class ToggleAutoAnalysisAction extends Action implements
 		IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 
-	/**
+	/*
 	 * Creates a new ToggleAutoAnalysisAction
-	 * 
-	 * @param window
-	 *            The window for parenting dialogs associated with this action
 	 */
 	public ToggleAutoAnalysisAction() {
-		setChecked(ResourcesPlugin.getWorkspace().isAutoBuilding());
-		System.out.println(ResourcesPlugin.getWorkspace().isAutoBuilding());
-	}
+    }
 	//TODO make the menu checked depending on condition
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.ui.actions.ActionFactory.IWorkbenchAction#dispose()
-	 */
+
 	public void dispose() {
 		// nothing to dispose
 	}
@@ -57,5 +47,9 @@ public class ToggleAutoAnalysisAction extends Action implements
 	@Override
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
+		System.out.println(ResourcesPlugin.getWorkspace().isAutoBuilding());
+		
+		
 	}
+	
 }

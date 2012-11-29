@@ -35,11 +35,11 @@
          </action>
          <action
                class="eclipse.plugin.gpuv.actions.ToggleAutoAnalysisAction"
-               definitionId="org.eclipse.ui.project.buildAutomatically"
-               id="org.eclipse.ui.project.buildAutomatically"
+               definitionId="org.eclipse.ui.project.analyseAutomatically"
+               id="org.eclipse.ui.project.analyseAutomatically"
                label="Analyse Automatically"
                menubarPath="gpuvMenu/gpuvGroup"
-               style="toggle">
+               style="push">
          </action>
       </actionSet>
    </extension>

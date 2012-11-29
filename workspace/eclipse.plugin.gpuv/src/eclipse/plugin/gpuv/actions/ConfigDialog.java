@@ -39,7 +39,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
 
+import eclipse.plugin.gpuv.ActiveElementLocator;
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 import eclipse.plugin.gpuv.builder.GPUVBuildAction;
 
@@ -623,14 +625,13 @@ public class ConfigDialog extends Dialog {
 
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
-		shell.setText("GPUVerify Configurations");
-
+		String title = "GPUVerify Configurations";
+		IEditorPart ep = new ActiveElementLocator().getActiveEditor();
+		if(ep != null){
+			title += " - " + ep.getTitle();
+		}
+		shell.setText(title);
 	}
-
-//	protected void initializeBounds() {
-//		super.initializeBounds();
-//		this.getButton(IDialogConstants.OK_ID).setText("Apply and analyse");
-//	}
 
 	public Set<String> getSelectedArgs() {
 		return selectedArgs.keySet();
