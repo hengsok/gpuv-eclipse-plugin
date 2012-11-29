@@ -110,9 +110,6 @@
                relative="org.eclipse.ui.views.ProblemView">
          </view>
          <hiddenMenuItem
-               id="project">
-         </hiddenMenuItem>
-         <hiddenMenuItem
                id="org.eclipse.ui.run">
          </hiddenMenuItem>
       </perspectiveExtension>
