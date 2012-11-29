@@ -1,7 +1,5 @@
 package eclipse.plugin.gpuv.actions;
 
-import java.io.IOException;
-
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;

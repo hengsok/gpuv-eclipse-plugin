@@ -98,7 +98,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 		try {
 			InputStream stream = openContentStream();
 			if (file.exists()) {
-				file.setContents(stream, true, true, monitor);
+				//file.setContents(stream, true, true, monitor);
 			} else {
 				file.create(stream, true, monitor);
 			}
@@ -125,7 +125,7 @@ public class NewFileWizard extends Wizard implements INewWizard {
 	 */
 
 	private InputStream openContentStream() {
-		String contents = "//main.cl";
+		String contents = "//main.cl\r\n//Copyright Heng Sok (hs4110), Inhyeok Kim (ik610), Yuxiang Zhou (yz4009), Myung Lee (msl09), Hin Cheng (hfc10)";
 		return new ByteArrayInputStream(contents.getBytes());
 	}
 

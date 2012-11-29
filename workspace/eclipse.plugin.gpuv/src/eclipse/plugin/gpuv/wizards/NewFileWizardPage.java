@@ -1,6 +1,7 @@
 package eclipse.plugin.gpuv.wizards;
 
 import org.eclipse.cdt.core.model.ICContainer;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
@@ -100,8 +101,14 @@ public class NewFileWizardPage extends WizardPage {
 			IStructuredSelection ssel = (IStructuredSelection) selection;
 			if (ssel.size() > 1)
 				return;
-			ICContainer obj = (ICContainer) ssel.getFirstElement();
-			containerText.setText(obj.getPath().toString());
+			Object obj = ssel.getFirstElement();
+			if (obj instanceof ICContainer) {
+				containerText.setText(((ICContainer) obj).getPath().toString());
+			} else if (obj instanceof IFolder) {
+				containerText.setText(((IFolder) obj).getFullPath().toString());
+			} else {
+				System.out.println("Unhandled Type");
+			}
 		}
 		fileText.setText("main.cl");
 	}

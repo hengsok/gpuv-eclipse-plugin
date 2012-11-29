@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
 import org.eclipse.cdt.core.dom.parser.IScannerExtensionConfiguration;
-import org.eclipse.cdt.core.dom.parser.c.ICParserExtensionConfiguration;
 import org.eclipse.cdt.core.model.ICLanguageKeywords;
-import org.eclipse.cdt.core.parser.ParserLanguage;
 import org.eclipse.cdt.core.parser.util.ArrayUtil;
+import org.eclipse.cdt.core.parser.util.CharArrayIntMap;
 
 import eclipse.plugin.gpuv.XMLKeywordsManager;
 
@@ -21,35 +20,23 @@ public class OpenCLSourceCode extends GCCLanguage implements ICLanguageKeywords 
 		
 		return ArrayUtil.addAll(super.getKeywords(), kws);
 	}
-
+	
 	@Override
 	public String[] getBuiltinTypes() {
-		return ArrayUtil.addAll(super.getBuiltinTypes(), new String[] { "FooType",
-				"BarType" });
+		List<String> kwl = XMLKeywordsManager.getKeywords();
+		String[] kws = new String[kwl.size()];
+		kwl.toArray(kws);
+		
+		return ArrayUtil.addAll(super.getBuiltinTypes(), kws);
 	}
-	
+
 	@Override
-	protected IScannerExtensionConfiguration getScannerExtensionConfiguration()
-	{
-		//TODO: auto suggestion description box?
+	protected IScannerExtensionConfiguration getScannerExtensionConfiguration() {
+		IScannerExtensionConfiguration sec = super.getScannerExtensionConfiguration();
+		CharArrayIntMap ak = sec.getAdditionalKeywords();
+		XMLKeywordsManager.addKeywordsOpencl(ak);
 		
-		return super.getScannerExtensionConfiguration();
-	}
-	
-	@Override
-	protected ParserLanguage getParserLanguage()
-	{
-		//TODO: auto suggestion description box?
-		
-		return super.getParserLanguage();
-	}
-	
-	@Override 
-	protected ICParserExtensionConfiguration getParserExtensionConfiguration()
-	{
-		//TODO: auto suggestion description box?
-		
-		return super.getParserExtensionConfiguration();
+		return sec;
 	}
 
 	@Override

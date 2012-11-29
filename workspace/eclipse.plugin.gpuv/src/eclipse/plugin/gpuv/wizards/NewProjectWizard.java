@@ -53,7 +53,7 @@ public class NewProjectWizard extends Wizard implements INewWizard,
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class NewProjectWizard extends Wizard implements INewWizard,
 					IContainer container = (IContainer) resource;
 					final IFile file = container.getFile(new Path(fileName));
 					try {
-						InputStream stream = new ByteArrayInputStream("//main.cl".getBytes());
+						InputStream stream = new ByteArrayInputStream("//main.cl\r\n//Copyright Heng Sok (hs4110), Inhyeok Kim (ik610), Yuxiang Zhou (yz4009), Myung Lee (msl09), Hin Cheng (hfc10)".getBytes());
 						if (file.exists()) {
 							file.setContents(stream, true, true, monitor);
 						} else {

@@ -151,23 +151,4 @@ public class CustomProjectSupport {
 		}
 	}
 
-	/**
-	 * 
-	 * @param project
-	 * @throws CoreException
-	 */
-	private static void addNature(IProject project) throws CoreException {
-		if (!project.hasNature(ProjectNature.NATURE_ID)) {
-			IProjectDescription description = project.getDescription();
-			String[] prevNatures = description.getNatureIds();
-			String[] newNatures = new String[prevNatures.length + 1];
-			System.arraycopy(prevNatures, 0, newNatures, 0, prevNatures.length);
-			newNatures[prevNatures.length] = ProjectNature.NATURE_ID;
-			description.setNatureIds(newNatures);
-
-			IProgressMonitor monitor = null;
-			project.setDescription(description, monitor);
-		}
-	}
-
 }

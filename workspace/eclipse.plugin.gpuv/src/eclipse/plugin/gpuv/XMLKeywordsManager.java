@@ -8,18 +8,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
+import org.eclipse.cdt.core.parser.IToken;
+import org.eclipse.cdt.core.parser.util.CharArrayIntMap;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import eclipse.plugin.gpuv.radix.RadixTree;
 import eclipse.plugin.gpuv.radix.RadixTreeImpl;
@@ -59,6 +61,13 @@ public class XMLKeywordsManager {
 
 	public static List<String> getKeywords() {
 		return keywordList;
+	}
+	
+	public static void addKeywordsOpencl(CharArrayIntMap map) {
+		for(String k : XMLKeywordsManager.getKeywords())
+		{
+			map.put(k.toCharArray(), IToken.t_int);
+		}
 	}
 
 	// prefix search for auto suggestion (depends on search type)
