@@ -47,7 +47,7 @@ public class XMLKeywordsManager {
 		keywordList = new ArrayList<String>();
 		optionMap = new HashMap<String, dataNode>();
 		installLocation = location;
-		foldername = "."; // TODO gather all files
+		foldername = "xmlFiles";
 		appliedOptionMap = new HashMap<String,String>();
 		readXMLByType("keywords.xml", KEYWORD_SEARCH);
 		readXMLByType("options.xml", OPTION_SEARCH);
