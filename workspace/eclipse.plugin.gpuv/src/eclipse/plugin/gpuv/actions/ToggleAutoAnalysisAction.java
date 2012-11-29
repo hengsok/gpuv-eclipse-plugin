@@ -50,7 +50,7 @@ public class ToggleAutoAnalysisAction extends Action implements
 		System.out.println(ResourcesPlugin.getWorkspace().isAutoBuilding());
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceDescription description = workspace.getDescription();
-        description.setAutoBuilding(false);
+        description.setAutoBuilding(true);
         try {
             workspace.setDescription(description);
         } catch (CoreException e) {

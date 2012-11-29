@@ -39,6 +39,7 @@
                id="org.eclipse.ui.project.analyseAutomatically"
                label="Analyse Automatically"
                menubarPath="gpuvMenu/gpuvGroup"
+               state="true"
                style="toggle">
          </action>
       </actionSet>
@@ -111,6 +112,9 @@
          </view>
          <hiddenMenuItem
                id="org.eclipse.ui.run">
+         </hiddenMenuItem>
+         <hiddenMenuItem
+               id="project">
          </hiddenMenuItem>
       </perspectiveExtension>
    </extension>
