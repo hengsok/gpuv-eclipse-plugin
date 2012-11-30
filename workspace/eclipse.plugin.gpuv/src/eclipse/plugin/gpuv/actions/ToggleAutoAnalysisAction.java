@@ -15,23 +15,21 @@ public class ToggleAutoAnalysisAction extends Action implements
 		IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 
-	/*
-	 * Creates a new ToggleAutoAnalysisAction
-	 */
-	public ToggleAutoAnalysisAction() {
-    }
-	//TODO make the menu checked depending on condition
-
-
 	public void dispose() {
 		// nothing to dispose
 	}
 
 	@Override
 	public void run(IAction action) {
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		// change auto-building state when the menu is toggled
+        updateAutoBuilding(false);
+	}
+	
+	// revert auto-building state. If forced, set the state to true. 
+	private void updateAutoBuilding(boolean force){
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceDescription description = workspace.getDescription();
-        description.setAutoBuilding(!description.isAutoBuilding());
+        description.setAutoBuilding(force || !description.isAutoBuilding());
         try {
             workspace.setDescription(description);
         } catch (CoreException e) {
@@ -46,15 +44,8 @@ public class ToggleAutoAnalysisAction extends Action implements
 	@Override
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
-		System.out.println(ResourcesPlugin.getWorkspace().isAutoBuilding());
-		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        IWorkspaceDescription description = workspace.getDescription();
-        description.setAutoBuilding(true);
-        try {
-            workspace.setDescription(description);
-        } catch (CoreException e) {
-            ErrorDialog.openError(window.getShell(), null, null, e.getStatus());
-        }
+		// Set auto-building at startup.
+		updateAutoBuilding(true);
 	}
 	
 }

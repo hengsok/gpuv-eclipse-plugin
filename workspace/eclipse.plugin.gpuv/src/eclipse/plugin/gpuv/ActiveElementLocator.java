@@ -17,11 +17,13 @@ public class ActiveElementLocator {
 	private IWorkbenchWindow window;
 	public ActiveElementLocator() {
 		this.window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if(this.window == null){ // dealing with threads
+		// dealing with threads. save default window
+		if(this.window == null){ 
 			this.window = PlatformUI.getWorkbench().getWorkbenchWindows()[0];
 		}
 	}
 	
+	// return seleted file from ProjectExplorer
 	public IFile getSelectedFile() {
 		ISelectionService service = window.getSelectionService();
 		IStructuredSelection structured = (IStructuredSelection) service
@@ -48,15 +50,13 @@ public class ActiveElementLocator {
 		
 		// check if an OpenCL file is selected from ProjectExplorer
 		// if so, use the selected file's path.
-		
 		IFile file = getSelectedFile();
 		if(file != null){
 			filepathFull = file.getProject().getName() + "_" + file.getName();
 		} else {
 			filepathFull = null;
 		}
-		//TODO one active and one selected? which to choose? 
-		// Filename of the active Editor
+		// if nothing selected, then use Filename of the active Editor
 		if(filepathFull == null){
 			IEditorPart activeEditor = getActiveEditor();
 			IResource res = getActiveResource();
@@ -66,7 +66,6 @@ public class ActiveElementLocator {
 				return null; 
 			}
 			filepathFull = project.getName() + "_" + activeEditor.getTitle();
-			
 		}
 			
 		// file extension must be .cl to store options for it.
@@ -75,9 +74,11 @@ public class ActiveElementLocator {
 		} else {
 			return null;
 		}
+		// return the name of applied option xml file
 		return filepath + "_options.xml";
 	}
 	
+	// return the active project 
 	public IProject getActiveProject() {
 		try{
 			return getActiveResource().getProject();
@@ -85,6 +86,8 @@ public class ActiveElementLocator {
 			return null;
 		}
 	}
+	
+	// return the active editor
 	public IEditorPart getActiveEditor() {
 		try{
 			return window.getActivePage().getActiveEditor();
@@ -92,6 +95,7 @@ public class ActiveElementLocator {
 			return null;
 		}
 	}
+	// return the active resource
 	public IResource getActiveResource() {
 		try{
 			return (IResource) getActiveEditor().getEditorInput().getAdapter(IResource.class);

@@ -30,7 +30,6 @@ import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 /*
  * Read in XML files (options.xml, keywords.xml, appliedOptions.xml)
  * Methods can be accessed by the class name (static).
-
  */
 public class XMLKeywordsManager {
 	public static final int KEYWORD_SEARCH = 0;
@@ -44,6 +43,9 @@ public class XMLKeywordsManager {
 	private static final String appliedFoldername = "applied";
 	private static Map<String, String> appliedOptionMap;
 
+	/*
+	 * Initialise its private members
+	 */
 	public XMLKeywordsManager(String location) {
 		keywordTree = new RadixTreeImpl<String>();
 		keywordList = new ArrayList<String>();
@@ -56,10 +58,12 @@ public class XMLKeywordsManager {
 		makeAppliedOptionDir();
 	}
 
+	// returns the keyword list for OpenCL language
 	public static List<String> getKeywords() {
 		return keywordList;
 	}
 	
+	//TODO why make this method??
 	public static void addKeywordsOpencl(CharArrayIntMap map) {
 		for(String k : XMLKeywordsManager.getKeywords())
 		{
@@ -77,8 +81,10 @@ public class XMLKeywordsManager {
 		return keywordTree.searchPrefix(caseInsensitive, recordLimit);
 	}
 
-	// Only return general options that does not take arguments (for general
-	// tab)
+	/*
+	 * Only return general options that does not take arguments
+	 * (for general tab)
+	 */
 	public static Map<String, String> getGeneralOptions() {
 		Map<String, String> result = new HashMap<String, String>();
 		Iterator<Map.Entry<String, dataNode>> entries = optionMap.entrySet()
@@ -94,22 +100,24 @@ public class XMLKeywordsManager {
 		return result;
 	}
 
+	// Returns true if the option can be selected multiple times
 	public static boolean isMultiple(String optionName) {
 		return optionMap.get(optionName).getMultiple();
 	}
-
+	// Returns true if the option takes argument input
 	public static boolean takesInput(String optionName) {
 		return optionMap.get(optionName).getArgNum() != 0;
 	}
-
+	// Returns the argument type of the option
 	public static String getArgType(String optionName) {
 		return optionMap.get(optionName).getArgType();
 	}
-
+	// Returns the number of arguments for the option
 	public static int getArgNum(String optionName) {
 		return optionMap.get(optionName).getArgNum();
 	}
-
+	
+	// Auxiliary function for searching prefix match for options 
 	private static List<String> getMatchingOptions(String prefix) {
 		List<String> result = new ArrayList<String>();
 
@@ -127,9 +135,7 @@ public class XMLKeywordsManager {
 		return result;
 	}
 
-	/*
-	 * Make a directory for applied option xml files at initial run
-	 */
+	// Make a directory for applied option xml files at initial run
 	private void makeAppliedOptionDir() {
 		File appliedFolder = new File(installLocation + File.separator
 				+ foldername + File.separator + appliedFoldername);
@@ -138,9 +144,7 @@ public class XMLKeywordsManager {
 		}
 	}
 
-	/*
-	 * Write applied options to an xml file using DOM method
-	 */
+	// Write applied options to an xml file using DOM method
 	public static void applyOptions(Map<String, String> optionsToStore) {
 		String appliedFilename = new ActiveElementLocator().getOptionsFilename();
 		if(appliedFilename == null){
@@ -153,13 +157,14 @@ public class XMLKeywordsManager {
 					+ foldername + File.separator + appliedFoldername
 					+ File.separator + appliedFilename);
 
+			// delete existing file
 			if (xmlFile.exists()) {
 				xmlFile.delete();
 			}
+			
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
 			// root elements
 			Document doc = docBuilder.newDocument();
 			Element rootElement = doc.createElement("keywords");
@@ -233,7 +238,7 @@ public class XMLKeywordsManager {
 	}
 
 	/*
-	 * read in appliedOptions.xml on each config box invocation. In one session,
+	 * Read in appliedOptions.xml on each config box invocation. In one session,
 	 * all used options are kept in appliedOptionSet, and is only flushed when
 	 * Eclipse is restarted.
 	 */
@@ -252,6 +257,7 @@ public class XMLKeywordsManager {
 
 	/*
 	 * Return the set of applied options
+	 * (arguments substituted with real values) 
 	 */
 	public static Set<String> getApplicedOptionSet() {
 		return getAppliedOptions().keySet();
@@ -268,7 +274,7 @@ public class XMLKeywordsManager {
 			if (!xmlFile.exists()) {
 				return; // don't read if file does not exist
 			}
-			appliedOptionMap.clear();
+			appliedOptionMap.clear(); //flush
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
@@ -298,6 +304,7 @@ public class XMLKeywordsManager {
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
 					String keyword = getTagValue("name", eElement);
+					// save tag values according to search type 
 					if (searchType == OPTION_SEARCH) { // for option search
 						String option = getTagValue("option", eElement);
 						String type = getTagValue("type", eElement);
@@ -332,9 +339,9 @@ public class XMLKeywordsManager {
 		for (String str : GCCLanguage.getDefault().getKeywords()) {
 			keywordList.add(str); // add C keywords
 		}
-
 	}
 
+	// get tag value from DOM xml structure
 	private static String getTagValue(String sTag, Element eElement) {
 		NodeList nlList = eElement.getElementsByTagName(sTag).item(0)
 				.getChildNodes();
