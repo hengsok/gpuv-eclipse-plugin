@@ -9,6 +9,8 @@ import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
+import eclipse.plugin.gpuv.builder.GPUVDefaultConsole;
+
 /*
  * Provide methods to get currently active elements, 
  * including project and editor.
@@ -63,6 +65,7 @@ public class ActiveElementLocator {
 			IProject project = getActiveProject();
 			// If activeEditor is not available, return
 			if (activeEditor == null || res == null || project == null) {
+				GPUVDefaultConsole.printToConsole("Internal Error: Invalid OpenCL file!");
 				return null; 
 			}
 			filepathFull = project.getName() + "_" + activeEditor.getTitle();
@@ -72,6 +75,7 @@ public class ActiveElementLocator {
 		if (filepathFull.endsWith(".cl")) {
 			filepath = filepathFull.split(".cl")[0]; //name without extension
 		} else {
+			GPUVDefaultConsole.printToConsole("Internal Error: Invalid OpenCL file!");
 			return null;
 		}
 		// return the name of applied option xml file

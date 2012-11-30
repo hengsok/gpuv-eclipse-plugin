@@ -174,7 +174,7 @@ public class XMLKeywordsManager {
 		String appliedFilename = new ActiveElementLocator().getOptionsFilename();
 		if(appliedFilename == null){
 			// cannot get the filename
-			System.err.println("Cannot locate the file!");
+			GPUVDefaultConsole.printToConsole("Internal Error: Cannot locate the file!");
 			return;
 		}
 		try {
@@ -271,7 +271,7 @@ public class XMLKeywordsManager {
 		String appliedFilename = new ActiveElementLocator().getOptionsFilename();
 		if(appliedFilename == null){
 			// cannot get the filename
-			System.err.println("Cannot locate the file!");
+			GPUVDefaultConsole.printToConsole("Internal Error: Cannot locate the file!");
 			return appliedOptionMap;
 		}
 		readXMLByType(appliedFoldername + File.separator
@@ -310,13 +310,14 @@ public class XMLKeywordsManager {
 				doc = dBuilder.parse(xmlFile);
 			} catch (SAXException se) {
 				// Incorrect xml file.
-				System.err.println("XML File " + xmlFile.getName()
+				GPUVDefaultConsole.printToConsole("Internal Error: !" +
+						"XML File " + xmlFile.getName()
 						+ " is corrupted!");
 				System.exit(1);
 			} catch (Exception e) {
 				// Other errors
-				System.err.println("An error occured when reading file "
-						+ xmlFile.getName() + "!");
+				GPUVDefaultConsole.printToConsole("Internal Error: !" +
+						"An error occured while reading file!");
 				System.exit(1);
 			}
 

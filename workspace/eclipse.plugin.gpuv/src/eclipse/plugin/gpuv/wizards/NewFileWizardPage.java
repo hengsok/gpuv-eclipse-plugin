@@ -22,6 +22,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 
+import eclipse.plugin.gpuv.builder.GPUVDefaultConsole;
+
 /**
  * The "New" wizard page allows setting the container for the new file as well
  * as the file name. The page will only accept file name without the extension
@@ -107,7 +109,7 @@ public class NewFileWizardPage extends WizardPage {
 			} else if (obj instanceof IFolder) {
 				containerText.setText(((IFolder) obj).getFullPath().toString());
 			} else {
-				System.out.println("Unhandled Type");
+				GPUVDefaultConsole.printToConsole("Internal Error: Unhandled Type!");
 			}
 		}
 		fileText.setText("main.cl");
