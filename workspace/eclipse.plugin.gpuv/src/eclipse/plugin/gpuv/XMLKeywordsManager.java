@@ -60,6 +60,11 @@ public class XMLKeywordsManager {
 
 	// returns the keyword list for OpenCL language
 	public static List<String> getKeywords() {
+		if(keywordList == null)
+		{
+			keywordList = new ArrayList<String>();
+			readXMLByType("keywords.xml", KEYWORD_SEARCH);
+		}
 		return keywordList;
 	}
 	
