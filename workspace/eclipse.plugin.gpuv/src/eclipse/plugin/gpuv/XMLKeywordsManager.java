@@ -279,14 +279,6 @@ public class XMLKeywordsManager {
 	}
 
 	/*
-	 * Return the set of applied options
-	 * (arguments substituted with real values) 
-	 */
-	public static Set<String> getApplicedOptionSet() {
-		return getAppliedOptions().keySet();
-	}
-
-	/*
 	 * Read in specified xml files and create sets or lists depending on the
 	 * type of search required (OPTION_SEARCH, KEYWORD_SEARCH, APPLIED_OPTIONS)
 	 */

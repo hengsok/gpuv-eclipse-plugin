@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Converts radians to degrees" enabled="true" 					id="org.eclipse.cdt.ui.text.templates.c.degrees" name="degrees"> gentype degrees (gentype ${radians})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns maximum value - gentype" enabled="true" 					id="org.eclipse.cdt.ui.text.templates.c.max1" name="max">gentype max (gentype ${x}, gentype ${y}
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns maximum value - gentypef" enabled="true" 				id="org.eclipse.cdt.ui.text.templates.c.max2" name="max">gentypef max (gentypef ${x}, float ${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns maximum value - gentyped" enabled="true" 				id="org.eclipse.cdt.ui.text.templates.c.max3" name="max">gentyped max (gentyped ${x}, double ${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns |x|" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.abs" name="abs">ugentype abs (gentype ${x})
+</template>
+	 <template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns |x-y| without modulo overflow" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.abs_diff" name="abs_diff">ugentype abs_diff (gentype ${x}, gentype${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the arc cosine function" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.acos" name="acos">gentype acos (gentype)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the inverse hyperbolic cosine function" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.acosh" name="abs">gentype acosh (gentype)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="computes acos (x) / π" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.acospi" name="acospi">gentype acospi (gentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns x+y and saturates result" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.add_sat" name="add_sat">gentype add_sat (gentype ${x}, gentype ${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns 1 if the most significant bit in any component of x is set; otherwise returns 0" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.any" name="any">int any (igentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="returns 1 if the most significant bit in all components of x is set; otherwise returns 0" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.all" name="all">int all (igentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the arc sine function" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.asin" name="asin">gentype asin (gentype)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the inverse hyperbolic sine function" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.asinh" name="asinh">gentype asinh (gentype)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="computes asin (x) / π" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.asinpi" name="asinpi">gentype asinpi (gentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the arc tangent function" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atan" name="atan">gentype atan (gentype ${y_over_x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the arc tangent of y / x" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atan2" name="atan2">gentype atan2 (gentype ${y}, gentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="is the hyperbolic arc tangent function" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atanh" name="atanh">gentype atanh (gentype)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="computes atan (x) / π" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atanpi" name="atanpi">gentype atanpi (gentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="computes atan2 (y, x) / π" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atan2pi" name="atan2pi">gentype atan2pi (gentype ${y}, gentype ${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Compute (old + val) and store result at location pointed by p - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomadd1" name="atom_add">long atom_add (volatile __global long ${pointer_p},
+					long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Compute (old + val) and store result at location pointed by p - local" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_add2" name="atom_add">long atom_add (volatile __local long ${pointer_p},
+					long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Compute (old + val) and store result at location pointed by p - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_add3" name="atom_add">ulong atom_add (volatile __global ulong ${pointer_p},
+					ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p, Compute (old + val) and store result at location pointed by p - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_add4" name="atom_add">ulong atom_add (volatile __local ulong ${pointer_p},
+					ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p.
+Compute (old AND val) and store result at location pointed by p. The function return old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_and1" name="atom_and">long atom_and (volatile __global long ${pointer_p},
+					ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. 
+Compute (old AND val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_and2" name="atom_and">long atom_and (volatile __local long ${pointer_p}, 
+					long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p.
+Compute (old AND val) and store result at location pointed by p - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_and3" name="atom_and">ulong atom_and (volatile __global ulong ${pointer_p},
+
+					ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p.
+Compute (old AND val) and store result at location pointed by p - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_and4" name="atom_and">ulong atom_and (volatile __local ulong ${pointer_p},
+ 					ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_cmpxchg1" name="atom_cmpxchg">long atom_cmpxchg (volatile __global 
+		long ${pointer_p}, long ${cmp}, long ${val})
+</template>	
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_cmpxchg2" name="atom_cmpxchg">long atom_cmpxchg (volatile __local 
+		long ${pointer_p}, long ${cmp}, long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_cmpxchg3" name="atom_cmpxchg">ulong atom_cmpxchg (volatile __global 
+		ulong ${pointer_p}, ulong ${cmp}, ulong ${val})
+</template>		
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_cmpxchg4" name="atom_cmpxchg">ulong atom_cmpxchg (volatile __local 
+		ulong ${pointer_p}, ulong ${cmp}, ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_cmpxchg4" name="atom_cmpxchg">ulong atom_cmpxchg (volatile __local 
+		ulong ${pointer_p}, ulong ${cmp}, ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - 1) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_dec1" name="atom_dec">long atom_dec (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - 1) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_dec2" name="atom_dec">long atom_dec (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - 1) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_dec3" name="atom_dec">ulong atom_dec (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - 1) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_dec4" name="atom_dec">ulong atom_dec (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + 1) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_inc1" name="atom_inc">long atom_inc (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + 1) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_inc2" name="atom_inc">long atom_inc (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + 1) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_inc3" name="atom_inc">ulong atom_inc (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + 1) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_inc4" name="atom_inc">ulong atom_inc (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_max1" name="atom_max">long atom_max (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_max2" name="atom_max">long atom_max (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_max3" name="atom_max">ulong atom_max (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_max4" name="atom_max">ulong atom_max (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_min1" name="atom_min">long atom_min (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_min2" name="atom_min">long atom_min (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_min3" name="atom_min">ulong atom_min (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p.
+Compute max (old, val) and store minimum value at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_min4" name="atom_min">ulong atom_min (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old | val) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_or1" name="atom_or">long atom_or (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old | val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_or2" name="atom_or">long atom_or (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old | val) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_or3" name="atom_or">ulong atom_or (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old | val) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_or4" name="atom_or">ulong atom_or (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - val) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_sub1" name="atom_sub">long atom_sub (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_sub2" name="atom_sub">long atom_sub (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - val) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_sub3" name="atom_sub">ulong atom_sub (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old - val) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_sub4" name="atom_sub">ulong atom_sub (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Swaps the 32-bit value (referred to as old) stored at location pointed by p with new value given by val. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xchg1" name="atom_xchg">long atom_xchg (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Swaps the 32-bit value (referred to as old) stored at location pointed by p with new value given by val. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xchg2" name="atom_xchg">long atom_xchg (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Swaps the 32-bit value (referred to as old) stored at location pointed by p with new value given by val. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xchg3" name="atom_xchg">ulong atom_xchg (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Swaps the 32-bit value (referred to as old) stored at location pointed by p with new value given by val. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xchg4" name="atom_xchg">ulong atom_xchg (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Swaps the 32-bit value (referred to as old) stored at location pointed by p with new value given by val. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xchg4" name="atom_xchg">ulong atom_xchg (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old ^ val) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xor1" name="atom_xor">long atom_xor (volatile __global long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old ^ val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xor2" name="atom_xor">long atom_xor (volatile __local long ${pointer_p},
+ 		long ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old ^ val) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xor3" name="atom_xor">ulong atom_xor (volatile __global ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 64-bit value (referred to as old) stored at location pointed by p. 
+Compute (old ^ val) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atom_xor4" name="atom_xor">ulong atom_xor (volatile __local ulong ${pointer_p},
+ 		ulong ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + val) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_add1" name="atomic_add">int atomic_add (volatile __global int ${pointer_p},
+ 		int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + val) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_add2" name="atomic_add">unsigned int atomic_add (volatile __global 
+	unsigned int ${pointer_p},unsigned int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_add3" name="atomic_add">int atomic_add (volatile __local int ${pointer_p},
+ 		int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. 
+Compute (old + val) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_add4" name="atomic_add">unsigned int atomic_add (volatile __local 
+	unsigned int ${pointer_p}, unsigned int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old AND val) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_and1" name="atomic_and">int atomic_and (volatile __global int ${pointer_p},
+ 		int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old AND val) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_and2" name="atomic_and">unsigned int atomic_and (volatile __global 
+	unsigned int ${pointer_p}, unsigned int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old AND val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_and3" name="atomic_and">int atomic_and (volatile __local int ${pointer_p},
+ 		int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old AND val) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_and4" name="atomic_and">unsigned int atomic_and (volatile __local 
+	unsigned int ${pointer_p}, unsigned int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_cmpxchg1" name="atomic_cmpxchg">int atomic_cmpxchg (volatile __global 
+	int ${pointer_p}, int ${cmp}, int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_cmpxchg2" name="atomic_cmpxchg">	unsigned int atomic_cmpxchg (volatile __global
+	unsigned int ${pointer_p}, unsigned int ${cmp},
+ 	unsigned int val)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_cmpxchg3" name="atomic_cmpxchg">int atomic_cmpxchg (volatile __local 
+	int ${pointer_p}, int ${cmp}, int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old == cmp) ? val : old and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_cmpxchg4" name="atomic_cmpxchg">unsigned int atomic_cmpxchg (volatile __local
+	unsigned int ${pointer_p}, unsigned int ${cmp},
+ 	unsigned int val)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old - 1) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_dec1" name="atomic_dec">int atomic_dec (volatile __global int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old - 1) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_dec2" name="atomic_dec">unsigned int atomic_dec (volatile __global 
+	unsigned int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old - 1) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_dec3" name="atomic_dec">int atomic_dec (volatile __local int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old - 1) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_dec4" name="atomic_dec">unsigned int atomic_dec (volatile __local 
+	unsigned int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old + 1) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_inc1" name="atomic_inc">int atomic_inc (volatile __global int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old + 1) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_inc2" name="atomic_inc">unsigned int atomic_inc (volatile __global 
+	unsigned int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old + 1) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_inc3" name="atomic_inc">int atomic_inc (volatile __local int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute (old + 1) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_inc4" name="atomic_inc">unsigned int atomic_inc (volatile __local 
+	unsigned int ${pointer_p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute max (old, val) and store result at location pointed by p. The function returns old. - global1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_max1" name="atomic_max">int atomic_max (volatile __global int ${pointer_p},
+ 	int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute max (old, val) and store result at location pointed by p. The function returns old. - global2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_max2" name="atomic_max">unsigned int atomic_max (volatile __global 
+	unsigned int ${pointer_p}, unsigned int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute max (old, val) and store result at location pointed by p. The function returns old. - local1" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_max3" name="atomic_max">int atomic_max (volatile __local int ${pointer_p},
+ 	int ${val})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="Read the 32-bit value (referred to as old) stored at location pointed by p. Compute max (old, val) and store result at location pointed by p. The function returns old. - local2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.atomic_max4" name="atomic_max">unsigned int atomic_max (volatile __local 
+	unsigned int ${pointer_p}, unsigned int ${val})
+</template>
+	
+
+</templates>
