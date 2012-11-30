@@ -54,7 +54,7 @@
             category="eclipse.plugin.gpuv.category.gpuverifyproject"
             class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
             finalPerspective="eclipse.plugin.gpuv.perspective"
-            icon="icons/opencl.ico"
+            icon="icons/opencl.gif"
             id="eclipse.plugin.gpuv.wizard.newProjectWizard"
             name="GPUVerify Project"
             project="true">
@@ -62,7 +62,7 @@
       <wizard
             category="eclipse.plugin.gpuv.category.gpuverifyproject"
             class="eclipse.plugin.gpuv.wizards.NewFileWizard"
-            icon="icons/opencl.ico"
+            icon="icons/opencl.gif"
             id="eclipse.plugin.gpuv.wizards.NewFileWizard"
             name="New OpenCL File">
       </wizard>
