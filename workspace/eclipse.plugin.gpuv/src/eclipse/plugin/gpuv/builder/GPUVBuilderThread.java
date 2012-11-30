@@ -205,7 +205,7 @@ public class GPUVBuilderThread implements Runnable {
 
 		String errorString = checkExitCode(gpuVerifyExitValue);
 		//:TODO change this
-		GPUVDefaultConsole.printToConsole(errorString);
+		System.out.println(errorString);
 
 		return issues;
 	}

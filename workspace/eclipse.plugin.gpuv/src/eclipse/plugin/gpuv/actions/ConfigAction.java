@@ -53,6 +53,7 @@ public class ConfigAction implements IWorkbenchWindowActionDelegate {
 			}
 		}
 		
+		//Open the dialog
 		ConfigDialog dialog = null;
 		Shell shell = null;
 		if(window != null){

@@ -41,6 +41,9 @@ public class RunAnalysis {
 		return true;
 	}
 
+	/*
+	 * Auxiliary function to create a warning message box. 
+	 */
 	private MessageBox createMessageBox(String title, String message) {
 		MessageBox dialog = new MessageBox(new Shell(), SWT.ICON_QUESTION
 				| SWT.OK);

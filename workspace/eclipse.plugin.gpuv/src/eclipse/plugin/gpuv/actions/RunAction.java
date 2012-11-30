@@ -1,6 +1,5 @@
 package eclipse.plugin.gpuv.actions;
 
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -15,16 +14,19 @@ import org.eclipse.ui.part.FileEditorInput;
 import eclipse.plugin.gpuv.ActiveElementLocator;
 
 public class RunAction implements IWorkbenchWindowActionDelegate {
-
+	/*
+	 * Once Run analysis button is pressed, it tries to open the 
+	 * target OpenCL file on the editor view, and runs analysis. 
+	 */
 	@Override
 	public void run(IAction action) {
-		/*
-		 * Open the selected editor (if selected from PackageExplorer)
-		 */
-		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		IWorkbenchPage page = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getActivePage();
 		IFile file = new ActiveElementLocator().getSelectedFile();
-		if(file != null){
-			IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(file.getName());
+		// Open the selected editor (if selected from ProjectExplorer)
+		if (file != null) {
+			IEditorDescriptor desc = PlatformUI.getWorkbench()
+					.getEditorRegistry().getDefaultEditor(file.getName());
 			try {
 				page.openEditor(new FileEditorInput(file), desc.getId());
 			} catch (PartInitException e1) {
