@@ -63,7 +63,10 @@ public class XMLKeywordsManager {
 	public static void addKeywordsOpencl(CharArrayIntMap map) {
 		for(String k : XMLKeywordsManager.getKeywords())
 		{
-			map.put(k.toCharArray(), IToken.t_int);
+			int token = IToken.t_int;
+			if(k.equals("__kernel"))
+				token = IToken.t_static;
+			map.put(k.toCharArray(), token);
 		}
 	}
 
