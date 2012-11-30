@@ -8,6 +8,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+
+import eclipse.plugin.gpuv.builder.GPUVBuilderConfig;
 import eclipse.plugin.gpuv.builder.GPUVDefaultConsole;
 
 
@@ -34,17 +36,7 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-//TODO change SYstem.out to printToConsole
-		Bundle bundle = Platform.getBundle("eclipse.plugin.gpuv");
-		URL url = bundle.getEntry("xmlFiles");
-		URL fileURL = org.eclipse.core.runtime.FileLocator.toFileURL(url);
-
-		GPUVDefaultConsole.printToConsole("This is using console printing " + fileURL.toURI());
-
-		String location = fileURL.to
-		
-		new XMLKeywordsManager(location); // read necessary xml files
-
+		new XMLKeywordsManager(); // read necessary xml files
 		plugin = this;
 	}
 

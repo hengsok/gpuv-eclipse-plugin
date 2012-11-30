@@ -88,7 +88,6 @@ public class GPUVBuilderThread implements Runnable {
 	 * @return list of issues
 	 */
 	private List<Issue> getIssues(IPath fullPath) {
-		//LOGGER.log(Level.INFO, "Will generate issues for " + fullPath);
 		List<Issue> issues = new ArrayList<Issue>();
 		String line;
 		Process p;
@@ -100,14 +99,13 @@ public class GPUVBuilderThread implements Runnable {
 			markerSeverity = IMarker.SEVERITY_WARNING;
 		}
 		String optionString = " ";
-		//TODO remove testOptions
-		String testOptions = " --local_size=1024 --num_groups=2 --verbose ";
+		
 		for(String t : options){
 			optionString +=  t + " ";
 
 		}
 
-		String command = getConfig().getCommand() + testOptions + fullPath.makeAbsolute().toOSString();
+		String command = getConfig().getCommand() + optionString + fullPath.makeAbsolute().toOSString();
 		//TODO: remove this and testOptions
 		System.out.println(command);
 		try {
@@ -171,9 +169,8 @@ public class GPUVBuilderThread implements Runnable {
 							issues.add(issue);
 					}
 					//print to console
-					//TODO Might need to change to System.out
 					GPUVDefaultConsole.printToConsole(line + "\n");
-					//System.out.println(line);
+
 				}
 			}
 			bri.close();
@@ -183,7 +180,6 @@ public class GPUVBuilderThread implements Runnable {
 				issues.add(new Issue(IMarker.SEVERITY_ERROR, 1, "Error stream reports: "
 						+ line));
 				//print to console
-				//TODO Might need to change to System.out
 				GPUVDefaultConsole.printToConsole(line);
 			}
 			bre.close();
@@ -193,7 +189,7 @@ public class GPUVBuilderThread implements Runnable {
 					+ e.getMessage()));
 			return issues;
 		}
-		//TODO handle different exit point
+		//handle different exit point
 		int gpuVerifyExitValue;
 		try {
 			gpuVerifyExitValue = p.waitFor();
@@ -203,9 +199,9 @@ public class GPUVBuilderThread implements Runnable {
 			return issues;
 		}
 
+		//indicate what error is happening or success
 		String errorString = checkExitCode(gpuVerifyExitValue);
-		//:TODO change this
-		System.out.println(errorString);
+		GPUVDefaultConsole.printToConsole(errorString);
 
 		return issues;
 	}

@@ -1,6 +1,10 @@
 package eclipse.plugin.gpuv;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,12 +22,16 @@ import javax.xml.transform.stream.StreamResult;
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
 import org.eclipse.cdt.core.parser.IToken;
 import org.eclipse.cdt.core.parser.util.CharArrayIntMap;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import eclipse.plugin.gpuv.builder.GPUVDefaultConsole;
 import eclipse.plugin.gpuv.radix.RadixTree;
 import eclipse.plugin.gpuv.radix.RadixTreeImpl;
 
@@ -39,19 +47,29 @@ public class XMLKeywordsManager {
 	private static List<String> keywordList;
 	private static Map<String, dataNode> optionMap;
 	private static String installLocation;
-	private static String foldername;
 	private static final String appliedFoldername = "applied";
 	private static Map<String, String> appliedOptionMap;
 
 	/*
 	 * Initialise its private members
 	 */
-	public XMLKeywordsManager(String location) {
+	public XMLKeywordsManager() {
+		//Determine the location of this plugin to get location of GPUV binary
+		Bundle bundle = Platform.getBundle("eclipse.plugin.gpuv");
+		URL url = bundle.getEntry("xmlFiles");
+		URL fileURL = null;
+		try {
+			fileURL = FileLocator.toFileURL(url);
+		} catch (IOException e1) {
+			GPUVDefaultConsole.printToConsole("Internal Error: Could not determine file path" +
+					" of \'xmlFiles\' folder");
+		}
+		//Get platform specific path of the folder
+		installLocation = new File(fileURL.getPath()).getPath();
+		
 		keywordTree = new RadixTreeImpl<String>();
 		keywordList = new ArrayList<String>();
 		optionMap = new HashMap<String, dataNode>();
-		installLocation = location;
-		foldername = "xmlFiles";
 		appliedOptionMap = new HashMap<String, String>();
 		readXMLByType("keywords.xml", KEYWORD_SEARCH);
 		readXMLByType("options.xml", OPTION_SEARCH);
@@ -145,8 +163,7 @@ public class XMLKeywordsManager {
 
 	// Make a directory for applied option xml files at initial run
 	private void makeAppliedOptionDir() {
-		File appliedFolder = new File(installLocation + File.separator
-				+ foldername + File.separator + appliedFoldername);
+		File appliedFolder = new File(installLocation + File.separator + appliedFoldername);
 		if (!appliedFolder.exists()) {
 			appliedFolder.mkdir();
 		}
@@ -162,7 +179,7 @@ public class XMLKeywordsManager {
 		}
 		try {
 			File xmlFile = new File(installLocation + File.separator
-					+ foldername + File.separator + appliedFoldername
+					+ appliedFoldername
 					+ File.separator + appliedFilename);
 
 			// delete existing file
@@ -278,7 +295,7 @@ public class XMLKeywordsManager {
 	private static void readXMLByType(String filename, int searchType) {
 		try {
 			File xmlFile = new File(installLocation + File.separator
-					+ foldername + File.separator + filename);
+					+ filename);
 			if (!xmlFile.exists()) {
 				return; // don't read if file does not exist
 			}

@@ -2,6 +2,9 @@ package eclipse.plugin.gpuv.builder;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -28,7 +31,7 @@ public class GPUVBuilderConfig {
 		this.command = "cmd.exe /c " + getGPUVBinaryLocation() + "GPUVerify.bat";
 		String filterRegexp = "^.*\\.cl$";
 		this.filterPattern = Pattern.compile(filterRegexp);
-		
+		GPUVDefaultConsole.printToConsole("This is using console printing " + command);
 		/**([A-Z]:)? => Determines the drive letter if this is a wins system. For Linux, ignore.
 		 * [^:]+ => Except semi-colon, this could be anything
 		 * ([0-9]+) => This could only be numbers referring to line containing error
@@ -44,18 +47,25 @@ public class GPUVBuilderConfig {
 	private String getGPUVBinaryLocation(){
 		//Determine the location of this plugin to get location of GPUV binary
 		Bundle bundle = Platform.getBundle("eclipse.plugin.gpuv");
-		String location = "";
+		URL url = bundle.getEntry("GPUVerifyBinary");
+		URL fileURL = null;
 		try {
-			location = FileLocator.getBundleFile(bundle).getAbsolutePath();
-		} catch (IOException e) {
-			//:TODO might need to change print to console to System.out
+			fileURL = org.eclipse.core.runtime.FileLocator.toFileURL(url);
+		} catch (IOException e1) {
 			GPUVDefaultConsole.printToConsole("Internal Error: Could not determine file path" +
 					" of GPUVerify Binary files.");
 		}
-
-		//Append the GPUV binary folder
-		String finalLocation = location + File.separator + "GPUVerifyBinary" + File.separator;
 		
+		//Append the GPUV binary folder
+		String finalLocation = fileURL.getPath();
+		try {
+			finalLocation = URLDecoder.decode(finalLocation, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finalLocation = new File(finalLocation).getPath();
+		System.out.println(finalLocation);
 		return finalLocation;
 	}
 	
