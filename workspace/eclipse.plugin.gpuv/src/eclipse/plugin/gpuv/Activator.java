@@ -44,7 +44,6 @@ public class Activator extends AbstractUIPlugin {
 		
 		GPUVDefaultConsole.printToConsole("This is using console printing " + fileURL.toURI());
 		//new XMLKeywordsManager(location); // read necessary xml files
-		GPUVBuilderConfig newd = new GPUVBuilderConfig();
 		plugin = this;
 	}
 

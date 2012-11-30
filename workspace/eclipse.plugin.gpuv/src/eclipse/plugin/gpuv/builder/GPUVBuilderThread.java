@@ -107,7 +107,7 @@ public class GPUVBuilderThread implements Runnable {
 
 		String command = getConfig().getCommand() + optionString + fullPath.makeAbsolute().toOSString();
 		//TODO: remove this and testOptions
-		System.out.println(command);
+		GPUVDefaultConsole.printToConsole(command + "\n");
 		try {
 			//LOGGER.log(Level.INFO, "Execute: " + command);
 			p = Runtime.getRuntime().exec(command);

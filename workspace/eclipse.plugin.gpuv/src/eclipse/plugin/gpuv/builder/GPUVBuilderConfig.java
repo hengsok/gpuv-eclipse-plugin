@@ -57,15 +57,9 @@ public class GPUVBuilderConfig {
 		}
 		
 		//Append the GPUV binary folder
-		String finalLocation = fileURL.getPath();
-		try {
-			finalLocation = URLDecoder.decode(finalLocation, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finalLocation = new File(finalLocation).getPath();
-		System.out.println(finalLocation);
+		String finalLocation;
+		finalLocation = new File(fileURL.getPath()).getPath();
+		finalLocation = finalLocation + File.separator;
 		return finalLocation;
 	}
 	
