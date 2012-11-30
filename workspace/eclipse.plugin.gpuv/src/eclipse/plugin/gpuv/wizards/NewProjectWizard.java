@@ -135,7 +135,7 @@ public class NewProjectWizard extends Wizard implements INewWizard,
 					final IFile file = container.getFile(new Path(fileName));
 					try {
 						InputStream stream = new ByteArrayInputStream(
-								"//main.cl\r\n//Copyright Heng Sok (hs4110), Inhyeok Kim (ik610), Yuxiang Zhou (yz4009), Myung Lee (msl09), Hin Cheng (hfc10)"
+								"//main.cl\r\n//Copyright Heng Sok (hs4110), Inhyeok Kim (ik610), Yuxiang Zhou (yz4009), Myung Lee (msl09), Hin Cheng (hfc10)\r\n\r\n"
 										.getBytes());
 						if (file.exists()) {
 							file.setContents(stream, true, true, monitor);
