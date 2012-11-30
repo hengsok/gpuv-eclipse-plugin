@@ -25,6 +25,7 @@ public class GPUVDefaultConsole {
      */
     public static void printToConsole(String msg) {
         instance.getConsoleStream().println(msg);
+        
     }
     
     /**
