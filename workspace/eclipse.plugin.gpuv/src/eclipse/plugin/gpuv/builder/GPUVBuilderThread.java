@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 
@@ -92,12 +93,20 @@ public class GPUVBuilderThread implements Runnable {
 		String line;
 		Process p;
 
-		Set<String> options = XMLKeywordsManager.getApplicedOptionSet();
-		if(options.contains("--findbugs")){
+		Map<String, String> optionsMap = XMLKeywordsManager.getAppliedOptions();
+		Set<String> options = optionsMap.keySet();
+		if(optionsMap.containsValue("--findbugs")){
 			markerSeverity = IMarker.SEVERITY_ERROR;
 		}else{
 			markerSeverity = IMarker.SEVERITY_WARNING;
 		}
+		if(!optionsMap.containsValue("--num_groups=(X,Y,Z)")
+				|| !optionsMap.containsValue("--local_size=(X,Y,Z)")) {
+			GPUVDefaultConsole.printToConsole("Internal Error: Please select" +
+					" --num-groups and --local-size options!");
+			return issues;
+		}
+		
 		String optionString = " ";
 		
 		for(String t : options){
