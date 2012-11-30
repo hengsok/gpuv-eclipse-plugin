@@ -121,21 +121,6 @@
                id="eclipse.plugin.gpuv.openclcontent"></contentType>
       </language>
    </extension>
-   <!--extension
-         point="org.eclipse.ui.editors">
-      <editor
-            class="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
-            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
-            default="true"
-            extensions="cl"
-            icon="icons/sample.gif"
-            id="eclipse.plugin.gpuv.contentassist.OpenCLEditor"
-            name="OpenCL Editor">
-         <contentTypeBinding
-               contentTypeId="eclipse.plugin.gpuv.openclcontent">
-         </contentTypeBinding>
-      </editor>
-   </extension-->
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
@@ -145,9 +130,6 @@
             name="OpenCL Source File"
             priority="high">
       </content-type>
-   </extension>
-   <extension
-         point="org.eclipse.core.contenttype.contentTypes">
       <file-association
             content-type="eclipse.plugin.gpuv.openclcontent"
             file-extensions="cl">
