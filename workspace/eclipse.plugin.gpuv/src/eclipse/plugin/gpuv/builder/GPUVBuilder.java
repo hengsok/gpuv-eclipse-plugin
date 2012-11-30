@@ -13,6 +13,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
 import eclipse.plugin.gpuv.ActiveElementLocator;
+import eclipse.plugin.gpuv.pythoncheck.PythonCheck;
 
 public class GPUVBuilder extends IncrementalProjectBuilder {
 
@@ -75,10 +76,15 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 	protected void fullBuild(final IProgressMonitor monitor)
 			throws CoreException {
 
-		// Call the method to look for current "in the view" file and run build on it
-
-		invokeBuildOnCurrentFile();
+		PythonCheck pyc = new PythonCheck();
+		if(pyc.isInstalled()){
+			// Call the method to look for current "in the view" file and run build on it
+			invokeBuildOnCurrentFile();
+		}
+		else{
+			GPUVDefaultConsole.printToConsole("It appears that you do not have Python installed." +
+					" Please check that you have set up the path correctly in the environment " +
+					"variables.");
+		}
 	}
-
-
 }

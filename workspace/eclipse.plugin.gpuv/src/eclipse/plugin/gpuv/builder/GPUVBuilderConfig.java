@@ -29,7 +29,6 @@ public class GPUVBuilderConfig {
 		this.command = "cmd.exe /c " + getGPUVBinaryLocation() + "GPUVerify.bat";
 		String filterRegexp = "^.*\\.cl$";
 		this.filterPattern = Pattern.compile(filterRegexp);
-		GPUVDefaultConsole.printToConsole("This is using console printing " + command);
 		/**([A-Z]:)? => Determines the drive letter if this is a wins system. For Linux, ignore.
 		 * [^:]+ => Except semi-colon, this could be anything
 		 * ([0-9]+) => This could only be numbers referring to line containing error
