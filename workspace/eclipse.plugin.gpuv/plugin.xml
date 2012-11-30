@@ -35,7 +35,7 @@
          </action>
          <action
                class="eclipse.plugin.gpuv.actions.ToggleAutoAnalysisAction"
-               definitionId="org.eclipse.ui.project.analyseAutomatically"
+               definitionId="org.eclipse.ui.project.buildAutomatically"
                id="org.eclipse.ui.project.analyseAutomatically"
                label="Analyse Automatically"
                menubarPath="gpuvMenu/gpuvGroup"
@@ -43,13 +43,6 @@
                style="toggle">
          </action>
       </actionSet>
-   </extension>
-  
-   <extension
-         point="org.eclipse.help.contexts">
-      <contexts
-            file="contexts.xml">
-      </contexts>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">

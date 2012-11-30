@@ -2,9 +2,7 @@ package eclipse.plugin.gpuv.builder;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -50,15 +48,13 @@ public class GPUVBuilderConfig {
 		URL url = bundle.getEntry("GPUVerifyBinary");
 		URL fileURL = null;
 		try {
-			fileURL = org.eclipse.core.runtime.FileLocator.toFileURL(url);
+			fileURL = FileLocator.toFileURL(url);
 		} catch (IOException e1) {
 			GPUVDefaultConsole.printToConsole("Internal Error: Could not determine file path" +
 					" of GPUVerify Binary files.");
 		}
-		
 		//Append the GPUV binary folder
-		String finalLocation;
-		finalLocation = new File(fileURL.getPath()).getPath();
+		String finalLocation = new File(fileURL.getPath()).getPath();
 		finalLocation = finalLocation + File.separator;
 		return finalLocation;
 	}
