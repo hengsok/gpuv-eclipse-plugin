@@ -24,3 +24,13 @@ Import-Package: org.eclipse.jface.text,
  org.eclipse.ui.console,
  org.eclipse.ui.editors.text,
  org.junit
+Export-Package: eclipse.plugin.gpuv,
+ eclipse.plugin.gpuv.actions,
+ eclipse.plugin.gpuv.builder,
+ eclipse.plugin.gpuv.contentassist,
+ eclipse.plugin.gpuv.language,
+ eclipse.plugin.gpuv.perspectives,
+ eclipse.plugin.gpuv.radix,
+ eclipse.plugin.gpuv.regressiontests,
+ eclipse.plugin.gpuv.wizards,
+ math
