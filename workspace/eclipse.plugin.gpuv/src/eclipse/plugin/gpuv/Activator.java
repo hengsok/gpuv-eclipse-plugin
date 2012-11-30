@@ -8,6 +8,8 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+
+import eclipse.plugin.gpuv.builder.GPUVBuilderConfig;
 import eclipse.plugin.gpuv.builder.GPUVDefaultConsole;
 
 
@@ -42,7 +44,7 @@ public class Activator extends AbstractUIPlugin {
 		
 		GPUVDefaultConsole.printToConsole("This is using console printing " + fileURL.toURI());
 		//new XMLKeywordsManager(location); // read necessary xml files
-
+		GPUVBuilderConfig newd = new GPUVBuilderConfig();
 		plugin = this;
 	}
 
