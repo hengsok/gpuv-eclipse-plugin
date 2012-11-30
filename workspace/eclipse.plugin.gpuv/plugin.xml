@@ -189,5 +189,14 @@
        </action>
     </objectContribution>
  </extension>
+ <extension
+       point="org.eclipse.cdt.ui.DocCommentOwner">
+    <owner
+          id="eclipse.plugin.gpuv.owner.opencl"
+          multiline="org.eclipse.cdt.ui.text.doctools.doxygen.DoxygenMultilineConfiguration"
+          name="OpenCL"
+          singleline="org.eclipse.cdt.ui.text.doctools.doxygen.DoxygenSingleConfiguration">
+    </owner>
+ </extension>
 
 </plugin>
