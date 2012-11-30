@@ -54,7 +54,7 @@
             category="eclipse.plugin.gpuv.category.gpuverifyproject"
             class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
             finalPerspective="eclipse.plugin.gpuv.perspective"
-            icon="icons/opencl.jpg"
+            icon="icons/opencl.ico"
             id="eclipse.plugin.gpuv.wizard.newProjectWizard"
             name="GPUVerify Project"
             project="true">
@@ -62,7 +62,7 @@
       <wizard
             category="eclipse.plugin.gpuv.category.gpuverifyproject"
             class="eclipse.plugin.gpuv.wizards.NewFileWizard"
-            icon="icons/opencl.jpg"
+            icon="icons/opencl.ico"
             id="eclipse.plugin.gpuv.wizards.NewFileWizard"
             name="New OpenCL File">
       </wizard>
@@ -72,7 +72,7 @@
       <perspective
             class="eclipse.plugin.gpuv.perspectives.GPUVerifyPerspective"
             fixed="true"
-            icon="icons/opencl.jpg"
+            icon="icons/opencl.ico"
             id="eclipse.plugin.gpuv.perspective"
             name="GPUVerify Perspective">
       </perspective>
@@ -168,7 +168,7 @@
           <filter name="extension" value="cl" />
        <action
              class="eclipse.plugin.gpuv.actions.ConfigAction"
-             icon="icons/opencl.jpg"
+             icon="icons/config.ico"
              id="eclipse.plugin.gpuv.actions.ConfigAction"
              label="&amp;Configure analysis"
              menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
@@ -181,7 +181,7 @@
        </menu>
        <action
              class="eclipse.plugin.gpuv.actions.RunAction"
-             icon="icons/opencl.jpg"
+             icon="icons/analysis.ico"
              id="eclipse.plugin.gpuv.actions.RunAnalysisAction"
              label="&amp;Run analysis"
              menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
