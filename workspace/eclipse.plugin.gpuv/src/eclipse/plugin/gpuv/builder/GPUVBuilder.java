@@ -76,8 +76,7 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 	protected void fullBuild(final IProgressMonitor monitor)
 			throws CoreException {
 
-		PythonCheck pyc = new PythonCheck();
-		if(pyc.isInstalled()){
+		if(PythonCheck.isInstalled()){
 			// Call the method to look for current "in the view" file and run build on it
 			invokeBuildOnCurrentFile();
 		}
