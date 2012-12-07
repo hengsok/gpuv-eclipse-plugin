@@ -26,7 +26,15 @@ public class GPUVBuilderConfig {
 		regexs = new ArrayList<GPUVRegex>();
 
 		//TODO after compiling into jar, make sure path to python is still working
-		this.command = "cmd.exe /c " + getGPUVBinaryLocation() + "GPUVerify.bat";
+		String envSpecificCommands = getEnvSpecificCommands();
+		if(envSpecificCommands != null){
+			this.command = envSpecificCommands;
+		}
+		else{
+			GPUVDefaultConsole.printToConsole("There is some problem invoking the GPUVerify python script." +
+					" This could be due to OS issue. Please contact the developer.");
+		}
+		
 		String filterRegexp = "^.*\\.cl$";
 		this.filterPattern = Pattern.compile(filterRegexp);
 		/**([A-Z]:)? => Determines the drive letter if this is a wins system. For Linux, ignore.
@@ -41,10 +49,23 @@ public class GPUVBuilderConfig {
 
 	}
 
+	private String getEnvSpecificCommands(){
+		String OS = System.getProperty("os.name").toLowerCase();
+		if((OS.indexOf("win") >= 0)){
+			return "cmd.exe /c " + getGPUVBinaryLocation() + File.separator 
+					+ "windows" + File.separator +  "GPUVerify.bat";
+		}else if((OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 )) {
+			return "python " + getGPUVBinaryLocation() + File.separator 
+					+ "linux" + File.separator +  "GPUVerify.py";
+		}
+		return null;
+	}
+	
 	private String getGPUVBinaryLocation(){
 		//Determine the location of this plugin to get location of GPUV binary
 		Bundle bundle = Platform.getBundle("eclipse.plugin.gpuv");
 		URL url = bundle.getEntry("GPUVerifyBinary");
+		GPUVDefaultConsole.printToConsole(url.toString());
 		URL fileURL = null;
 		try {
 			fileURL = FileLocator.toFileURL(url);

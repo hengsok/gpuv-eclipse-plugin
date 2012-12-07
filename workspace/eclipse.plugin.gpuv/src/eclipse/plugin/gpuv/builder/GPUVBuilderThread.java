@@ -103,7 +103,7 @@ public class GPUVBuilderThread implements Runnable {
 		if(!optionsMap.containsValue("--num_groups=(X,Y,Z)")
 				|| !optionsMap.containsValue("--local_size=(X,Y,Z)")) {
 			GPUVDefaultConsole.printToConsole("Internal Error: Please select" +
-					" --num-groups and --local-size options!");
+					" --num_groups and --local_size options!");
 			return issues;
 		}
 		
