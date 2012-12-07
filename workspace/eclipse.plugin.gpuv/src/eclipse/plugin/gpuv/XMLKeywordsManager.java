@@ -349,10 +349,6 @@ public class XMLKeywordsManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		for (String str : GCCLanguage.getDefault().getKeywords()) {
-			keywordList.add(str); // add C keywords
-		}
 	}
 
 	// get tag value from DOM xml structure
