@@ -83,7 +83,6 @@ public class XMLKeywordsManager {
 		return keywordList;
 	}
 	
-	//TODO why make this method??
 	public static void addKeywordsOpencl(CharArrayIntMap map) {
 		for(String k : XMLKeywordsManager.getKeywords())
 		{
