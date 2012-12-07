@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<templates>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.degrees" name="degrees">degrees(radians)
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.min1" name="min">min(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentypef, float) - returns gentypef" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.min2" name="min">min(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentyped, double) - returns gentyped" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.min3" name="min">min(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, half) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.min4" name="min">min(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mix1" name="mix">mix(${x},${y},${a})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentypef, gentypef, float) - returns gentypef" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mix2" name="mix">mix(${x},${y},${a})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentyped, gentyped, float) - returns gentyped" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mix3" name="mix">mix(${x},${y},${a})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, half) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mix4" name="mix">mix(${x},${y},${a})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.radians" name="radians">radians(${degrees})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.sign" name="sign">sign(${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.smoothstep1" name="smoothstep">smoothstep(${edge0},${edge1},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(float, float, gentypef) - returns gentypef" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.smoothstep2" name="smoothstep">smoothstep(${edge0},${edge1},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(double, double, gentyped) - returns gentyped" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.smoothstep3" name="smoothstep">smoothstep(${edge0},${edge1},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(half, half, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.smoothstep4" name="smoothstep">smoothstep(${edge0},${edge1},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.step1" name="step">step(${edge},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(float, gentypef) - returns gentypef" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.step2" name="step">step(${edge},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(double, gentyped) - returns gentyped" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.step3" name="step">step(${edge},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(half, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.step4" name="step">step(${edge},${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(float4, float4) - returns float4" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.cross1" name="cross">cross(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(float3, float3) - returns float3" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.cross2" name="cross">cross(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(double4, double4) - returns double4" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.cross3" name="cross">cross(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(double3, double3) - returns double3" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.cross4" name="cross">cross(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(half4, half4) - returns half4" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.cross5" name="cross">cross(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(half3, half3) - returns half3" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.cross6" name="cross">cross(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn, floatn) - returns float" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.dot1" name="dot">dot(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(doublen, doublen) - returns double" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.dot2" name="dot">dot(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - returns half" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.dot3" name="dot">dot(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn, floatn) - returns float" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.distance1" name="distance">distance(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(doublen, doublen) - returns double" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.distance2" name="distance">distance(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - returns half" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.distance3" name="distance">distance(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn) - returns float" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.length1" name="length">length(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(doublen) - returns double" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.length2" name="length">length(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) - returns half" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.length3" name="length">length(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn) - returns floatn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.normalize1" name="normalize">normalize(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(doublen) - returns doublen" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.normalize2" name="normalize">normalize(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.normalize3" name="normalize">normalize(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn, floatn) - returns float" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.fast_distance" name="fast_distance">fast_distance(${p0},${p1})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn) - returns float" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.fast_length" name="fast_length">fast_length(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(floatn) - returns floatn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.fast_normalize" name="fast_normalize">fast_normalize(${p})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) - returns ugentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.abs" name="abs">abs(${x})
+</template>
+	 <template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - ugentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.abs_diff" name="abs_diff">abs_diff(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - returns gentype" enabled="true" 					id="org.eclipse.cdt.ui.text.templates.c.max1" name="max">max(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentypef, float) - returns gentypef" enabled="true" 				id="org.eclipse.cdt.ui.text.templates.c.max2" name="max">max(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentyped, double) - returns gentyped" enabled="true" 				id="org.eclipse.cdt.ui.text.templates.c.max3" name="max">max(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.add_sat" name="add_sat">add_sat(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, gentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.clamp1" name="clamp">clamp(${x},${minval},${maxval})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentypef, float, float) - returns gentypef" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.clamp2" name="clamp">clamp(${x},${minval},${maxval})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentyped, double, double) - returns gentyped" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.clamp3" name="clamp">clamp(${x}, ${minval},${maxval})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, sgentype, sgentype) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.clamp4" name="clamp">clamp(${x},${minval},${maxval})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, half) - returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.clamp5" name="clamp">clamp(${x},${minval},${maxval})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(__local gentype*, const __global gentype*, size_t, event_t) -returns event_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.async_work_group_copy1" name="async_work_group_copy">
+	async_work_group_copy(${dst},${src},${num_gentypes},$(event))
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(__global gentype*, const __global gentype*, size_t, event_t) -returns event_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.async_work_group_copy2" name="async_work_group_copy">
+	async_work_group_copy(${dst},${src},${num_gentypes},$(event))
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(__local gentype*, const __global gentype*, size_t, size_t, event_t) -returns event_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.async_work_group_strided_copy1" name="async_work_group_strided_copy">
+	async_work_group_strided_copy(
+	${dst},${src},${num_gentypes},${src_stride},$(event))
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(__global gentype*, const __global gentype*, size_t, event_t) -returns event_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.async_work_group_strided_copy2" name="async_work_group_strided_copy">
+	sync_work_group_copy(
+	${dst},${src},${num_gentypes},${dst_stride},$(event))
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(int, event_t*) -returns void" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.wait_group_events" name="wait_group_events">
+	wait_group_events(${num_events},${event_list})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(const __global gentype*, size_t) -returns void" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.prefetch" name="prefetch">
+	prefetch(${p},${num_elements})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(cl_mem_fence_flags) -returns void" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mem_fence" name="mem_fence">
+	mem_fence(${flags})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(cl_mem_fence_flags) -returns void" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.read_mem_fence" name="read_mem_fence">
+	read_mem_fence(${flags})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(cl_mem_fence_flags) -returns void" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.write_mem_fence" name="write_mem_fence">
+	write_mem_fence(${flags})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.clz" name="clz">
+	clz(${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.hadd" name="hadd">
+	hadd(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.rhadd" name="rhadd">
+	rhadd(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mad24" name="mad24">
+	mad24(${x},${y},${z})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mad_hi" name="mad_hi">
+	mad_hi(${a},${b},${c})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mad_sat" name="mad_sat">
+	mad_sat(${a},${b},${c})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mul24" name="mul24">
+	mul24(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.mul_hi" name="mul_hi">
+	mul_hi(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.popcount" name="popcount">
+	popcount(${x})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.rotate" name="rotate">
+	rotate(${v},${i})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(gentype, gentype) -returns gentype" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.sub_sat" name="sub_sat">
+	sub_sat(${x},${y})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(char, uchar) -returns short" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample1" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uchar, uchar) -returns ushort" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample2" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(charn, ucharn) -returns shortn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample3" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(ucharn, ucharn) -returns ushortn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample4" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(short, ushort) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample5" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(ushort, ushort) -returns uint" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample6" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(shortn, ushortn) -returns intn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample7" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(ushortn, ushortn) -returns uintn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample8" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(int, uint) -returns long" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample9" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint, unit) -returns ulong" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample10" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(intn, unitn) -returns longn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample11" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uintn, unitn) -returns ulongn" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.upsample12" name="upsample">
+	upsample(${hi},${lo})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_global_id" name="get_global_id">
+	get_global_id(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_global_size" name="get_global_size">
+	get_global_size(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_group_id" name="get_group_id">
+	get_group_id(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_local_size" name="get_local_size">
+	get_local_size(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_num_groups" name="get_num_groups">
+	get_num_groups(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="() -returns uint" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_work_dim" name="get_work_dim">
+	get_work_dim()
+</template>
+
+</templates>
