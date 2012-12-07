@@ -83,7 +83,6 @@ public class XMLKeywordsManager {
 		return keywordList;
 	}
 	
-	//TODO why make this method??
 	public static void addKeywordsOpencl(CharArrayIntMap map) {
 		for(String k : XMLKeywordsManager.getKeywords())
 		{
@@ -349,10 +348,6 @@ public class XMLKeywordsManager {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		for (String str : GCCLanguage.getDefault().getKeywords()) {
-			keywordList.add(str); // add C keywords
 		}
 	}
 
