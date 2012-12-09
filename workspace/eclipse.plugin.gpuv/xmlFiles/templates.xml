@@ -289,6 +289,10 @@
 	get_global_size(${dimindx})
 </template>
 	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_global_offset" name="get_global_offset">
+	get_global_offset(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
 				id="org.eclipse.cdt.ui.text.templates.c.get_group_id" name="get_group_id">
 	get_group_id(${dimindx})
 </template>
@@ -297,12 +301,117 @@
 	get_local_size(${dimindx})
 </template>
 	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
-				id="org.eclipse.cdt.ui.text.templates.c.get_num_groups" name="get_num_groups">
+				id="org.eclipse.cdt.ui.text.templates.c.gf_groups" name="get_num_groups">
 	get_num_groups(${dimindx})
 </template>
 	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="() -returns uint" enabled="true"
 				id="org.eclipse.cdt.ui.text.templates.c.get_work_dim" name="get_work_dim">
 	get_work_dim()
 </template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(uint) -returns size_t" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_local_id" name="get_local_id">
+	get_local_id(${dimindx})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_data_type1" name="get_image_channel_data_type">
+	get_image_channel_data_type(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_buffer_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_data_type2" name="get_image_channel_data_type">
+	get_image_channel_data_type(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_data_type3" name="get_image_channel_data_type">
+	get_image_channel_data_type(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image3d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_data_type4" name="get_image_channel_data_type">
+	get_image_channel_data_type(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_data_type5" name="get_image_channel_data_type">
+	get_image_channel_data_type(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_data_type6" name="get_image_channel_data_type">
+	get_image_channel_data_type(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_order1" name="get_image_channel_order">
+	get_image_channel_order(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_buffer_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_order2" name="get_image_channel_order">
+	get_image_channel_order(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_order3" name="get_image_channel_order">
+	get_image_channel_order(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image3d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_order4" name="get_image_channel_order">
+	get_image_channel_order(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_order5" name="get_image_channel_order">
+	get_image_channel_order(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_channel_order6" name="get_image_channel_order">
+	get_image_channel_order(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image3d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_depth" name="get_image_depth">
+	get_image_depth(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_t) -returns int2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_dim1" name="get_image_dim">
+	get_image_dim(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_array_t) -returns int2" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_dim2" name="get_image_dim">
+	get_image_dim(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image3d_t) -returns int4" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_dim3" name="get_image_dim">
+	get_image_dim(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_height1" name="get_image_height">
+	get_image_height(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image3d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_height2" name="get_image_height">
+	get_image_height(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_height3" name="get_image_height">
+	get_image_height(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_width1" name="get_image_width">
+	get_image_width(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_buffer_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_width2" name="get_image_width">
+	get_image_width(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_width3" name="get_image_width">
+	get_image_width(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image3d_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_width4" name="get_image_width">
+	get_image_width(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image1d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_width5" name="get_image_width">
+	get_image_width(${image})
+</template>
+	<template autoinsert="true" context="org.eclipse.cdt.ui.text.templates.c" deleted="false" description="(image2d_array_t) -returns int" enabled="true"
+				id="org.eclipse.cdt.ui.text.templates.c.get_image_width6" name="get_image_width">
+	get_image_width(${image})
+</template>
+	
 
 </templates>
