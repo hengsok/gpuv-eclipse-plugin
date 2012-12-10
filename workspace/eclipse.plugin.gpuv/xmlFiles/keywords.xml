@@ -332,6 +332,7 @@
     <name>long long4</name>
   </keyword>
   <keyword>
+
     <link>reservedDataTypes.html</link>
     <name>long long8</name>
   </keyword>
@@ -1822,6 +1823,8 @@
     <name>frexp</name>
   </keyword>
   <keyword>
+<<<<<<< HEAD
+=======
     <link>get_global_offset.html</link>
     <name>get_global_offset</name>
   </keyword>
@@ -1854,6 +1857,7 @@
     <name>get_local_id</name>
   </keywordtest>
   <keyword>
+>>>>>>> 21a1287a0784ad3a95b84694ed9c3befa81fa2a5
     <link>gl_event.html</link>
     <name>gl_event</name>
   </keyword>
