@@ -2,6 +2,7 @@ package eclipse.plugin.gpuv.builder;
 
 import java.util.Map;
 
+import org.eclipse.cdt.codan.core.CodanRuntime;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -75,7 +76,10 @@ public class GPUVBuilder extends IncrementalProjectBuilder {
 
 	protected void fullBuild(final IProgressMonitor monitor)
 			throws CoreException {
-
+		
+		//Triger Codan Manually
+		CodanRuntime.getInstance().getBuilder().processResource(new ActiveElementLocator().getActiveResource(), monitor);
+		
 		if(PythonCheck.isInstalled()){
 			// Call the method to look for current "in the view" file and run build on it
 			invokeBuildOnCurrentFile();

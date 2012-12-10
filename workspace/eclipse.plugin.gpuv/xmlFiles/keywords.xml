@@ -1849,10 +1849,10 @@
     <link>get_image_width.html</link>
     <name>get_image_width</name>
   </keyword>
-  <keyword>
+  <keywordtest>
     <link>get_local_id.html</link>
     <name>get_local_id</name>
-  </keyword>
+  </keywordtest>
   <keyword>
     <link>gl_event.html</link>
     <name>gl_event</name>

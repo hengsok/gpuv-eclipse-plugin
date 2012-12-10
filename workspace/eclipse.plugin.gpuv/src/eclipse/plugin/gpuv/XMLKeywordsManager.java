@@ -90,6 +90,7 @@ public class XMLKeywordsManager {
 			if(k.equals("__kernel"))
 				token = IToken.t_const;
 			map.put(k.toCharArray(), token);
+			System.out.println(k);
 		}
 	}
 
