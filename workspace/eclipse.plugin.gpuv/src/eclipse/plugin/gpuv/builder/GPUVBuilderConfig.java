@@ -65,7 +65,7 @@ public class GPUVBuilderConfig {
 		//Determine the location of this plugin to get location of GPUV binary
 		Bundle bundle = Platform.getBundle("eclipse.plugin.gpuv");
 		URL url = bundle.getEntry("GPUVerifyBinary");
-		GPUVDefaultConsole.printToConsole(url.toString());
+		//GPUVDefaultConsole.printToConsole(url.toString());
 		URL fileURL = null;
 		try {
 			fileURL = FileLocator.toFileURL(url);
