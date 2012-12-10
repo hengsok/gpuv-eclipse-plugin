@@ -1823,41 +1823,6 @@
     <name>frexp</name>
   </keyword>
   <keyword>
-<<<<<<< HEAD
-=======
-    <link>get_global_offset.html</link>
-    <name>get_global_offset</name>
-  </keyword>
-  <keyword>
-    <link>get_image_channel_data_type.html</link>
-    <name>get_image_channel_data_type</name>
-  </keyword>
-  <keyword>
-    <link>get_image_channel_order.html</link>
-    <name>get_image_channel_order</name>
-  </keyword>
-  <keyword>
-    <link>get_image_depth.html</link>
-    <name>get_image_depth</name>
-  </keyword>
-  <keyword>
-    <link>get_image_dim.html</link>
-    <name>get_image_dim</name>
-  </keyword>
-  <keyword>
-    <link>get_image_height.html</link>
-    <name>get_image_height</name>
-  </keyword>
-  <keyword>
-    <link>get_image_width.html</link>
-    <name>get_image_width</name>
-  </keyword>
-  <keywordtest>
-    <link>get_local_id.html</link>
-    <name>get_local_id</name>
-  </keywordtest>
-  <keyword>
->>>>>>> 21a1287a0784ad3a95b84694ed9c3befa81fa2a5
     <link>gl_event.html</link>
     <name>gl_event</name>
   </keyword>
