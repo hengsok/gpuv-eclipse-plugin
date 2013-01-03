@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+
+<!-- keywords with name, short option (if there are two versions),
+    type, description, arguments -->
+<keywords>
+
+<!-- GENERAL options -->
+  <keyword>
+    <name>Help</name>
+    <option>-h</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Display help message</description>
+  </keyword>
+  <keyword>
+    <name>Include path</name>
+    <option>-I</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>GENERAL</type>
+    <multiple>true</multiple>
+    <description>Add directory to include search path</description>
+  </keyword>
+  <keyword>
+    <name>Define</name>
+    <option>-D</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>GENERAL</type>
+    <multiple>true</multiple>
+     <description>Define symbol</description>
+  </keyword>
+  <keyword>
+    <name>findbugs</name>
+    <option>--findbugs</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Run tool in bug-finding mode</description>
+  </keyword>
+  <keyword>
+    <name>Loop unwind</name>
+    <option>--loop-unwind=X</option>
+    <argType>Integer</argType>
+    <argNum>1</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Explore traces that pass through at most X loop heads</description>
+  </keyword>
+  <keyword>
+    <name>No benign</name>
+    <option>--no-benign</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Do not tolerate benign data races</description>
+  </keyword>
+  <keyword>
+    <name>Only divergence</name>
+    <option>--only-divergence</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Only check for barrier divergence, not for races</description>
+  </keyword>
+  <keyword>
+    <name>Only intra-group</name>
+    <option>--only-intra-group</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Do not check for inter-group races</description>
+  </keyword>
+  <keyword>
+    <name>No Inference</name>
+    <option>--no-infer</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Turn off invariant inference</description>
+  </keyword>
+  <keyword>
+    <name>Verify</name>
+    <option>--verify</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Run tool in verification mode</description>
+  </keyword>
+  <keyword>
+    <name>Verbose</name>
+    <option>--verbose</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>GENERAL</type>
+    <multiple>false</multiple>
+    <description>Show commands to run and use verbose output</description>
+  </keyword>
+
+
+<!-- ADVANCED Options -->
+  <keyword>
+    <name>Adversarial abstraction</name>
+    <option>--adversarial-abstraction</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Completely abstract shared state, so that reads are nondeterministic</description>
+  </keyword>
+  <keyword>
+    <name>Array equalities</name>
+    <option>--array-equalities</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Generate equality candidate invariants for array variables</description>
+  </keyword>
+  <keyword>
+    <name>Equality abstraction</name>
+    <option>--equality-abstraction</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Make shared arrays nondeterministic, but consistent between threads, at barriers</description>
+  </keyword>
+  <keyword>
+    <name>No loop predicate invariants</name>
+    <option>--no-loop-predicate-invariants</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off automatic generation of loop invariants related to predicates, which can be incorrect</description>
+  </keyword>
+  <keyword>
+    <name>No smart prediction</name>
+    <option>--no-smart-predication</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off smart predication</description>
+  </keyword>
+  <keyword>
+    <name>No source location inference</name>
+    <option>--no-source-loc-infer</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off inference of source location information</description>
+  </keyword>
+  <keyword>
+    <name>No uniformity analysis</name>
+    <option>--no-uniformity-analysis</option>
+    <argType>NULL</argType>
+    <argNum>0</argNum>
+    <type>ADVANCED</type>
+    <multiple>false</multiple>
+    <description>Turn off uniformity analysis</description>
+  </keyword>
+  <keyword>
+    <name>Boogie option</name>
+    <option>--boogie-opt=</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>ADVANCED</type>
+    <multiple>true</multiple>
+    <description>Specify option to be passed to Boogie</description>
+  </keyword>
+  <keyword>
+    <name>Clang option</name>
+    <option>--clang-opt=</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>ADVANCED</type>
+    <multiple>true</multiple>
+    <description>Specify option to be passed to CLANG</description>
+  </keyword>
+  <keyword>
+    <name>VC generation engine option</name>
+    <option>--vcgen-opt=</option>
+    <argType>String</argType>
+    <argNum>1</argNum>
+    <type>ADVANCED</type>
+    <multiple>true</multiple>
+    <description>Specify option to be passed to be passed to VC generation engine</description>
+  </keyword>
+
+
+<!-- OPENCL options -->  
+  <keyword>
+    <name>Local size</name>
+    <option>--local_size=(X,Y,Z)</option>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
+    <type>OPENCL</type>
+    <multiple>false</multiple>
+    <description>Specify whether work-group is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword>
+    <name>Num Groups</name>
+    <option>--num_groups=(X,Y,Z)</option>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
+    <type>OPENCL</type>
+    <multiple>false</multiple>
+    <description>Specify whether grid of work-groups is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+
+<!-- CUDA options -->
+  <keyword>
+    <name>Block Dimension</name>
+    <option>--blockDim=(X,Y,Z)</option>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
+    <type>CUDA</type>
+    <multiple>false</multiple>
+    <description>Specify whether thread block is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  <keyword>
+    <name>Grid Dimension</name>
+    <option>--gridDim=(X,Y,Z)</option>
+    <argType>Integer</argType>
+    <argNum>3</argNum>
+    <type>CUDA</type>
+    <multiple>false</multiple>
+    <description>Specify whether grid of thread blocks is 1D, 2D or 3D and specify size for each dimension</description>
+  </keyword>
+  
+</keywords>

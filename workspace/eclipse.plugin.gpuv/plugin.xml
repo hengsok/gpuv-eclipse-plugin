@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="Configuration Action Set"
+            visible="true"
+            id="eclipse.plugin.gpuv.actionSet">
+         <menu
+               label="&amp;GPUVerify"
+               id="gpuvMenu">
+            <separator
+                  name="gpuvGroup">
+            </separator>
+         </menu>
+         <action
+               class="eclipse.plugin.gpuv.actions.ConfigAction"
+               icon="icons/config.ico"
+               id="eclipse.plugin.gpuv.actions.ConfigAction"
+               label="&amp;Configure analysis"
+               menubarPath="gpuvMenu/gpuvGroup"
+               toolbarPath="gpuvGroup"
+               tooltip="Configure GPUVerify options">
+         </action>
+         <action
+               class="eclipse.plugin.gpuv.actions.RunAction"
+               icon="icons/analysis.ico"
+               id="eclipse.plugin.gpuv.actions.RunAnalysisAction"
+               label="&amp;Run analysis"
+               menubarPath="gpuvMenu/gpuvGroup"
+               toolbarPath="gpuvGroup"
+               tooltip="Run analysis with applied options">
+         </action>
+         <action
+               class="eclipse.plugin.gpuv.actions.ToggleAutoAnalysisAction"
+               definitionId="org.eclipse.ui.project.buildAutomatically"
+               id="org.eclipse.ui.project.analyseAutomatically"
+               label="Analyse Automatically"
+               menubarPath="gpuvMenu/gpuvGroup"
+               state="true"
+               style="toggle">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="eclipse.plugin.gpuv.category.gpuverifyproject"
+            name="OpenCL Project">
+      </category>
+      <wizard
+            category="eclipse.plugin.gpuv.category.gpuverifyproject"
+            class="eclipse.plugin.gpuv.wizards.NewProjectWizard"
+            finalPerspective="eclipse.plugin.gpuv.perspective"
+            icon="icons/opencl.ico"
+            id="eclipse.plugin.gpuv.wizard.newProjectWizard"
+            name="GPUVerify Project"
+            project="true">
+      </wizard>
+      <wizard
+            category="eclipse.plugin.gpuv.category.gpuverifyproject"
+            class="eclipse.plugin.gpuv.wizards.NewFileWizard"
+            icon="icons/opencl.ico"
+            id="eclipse.plugin.gpuv.wizards.NewFileWizard"
+            name="New OpenCL File">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="eclipse.plugin.gpuv.perspectives.GPUVerifyPerspective"
+            fixed="true"
+            icon="icons/opencl.ico"
+            id="eclipse.plugin.gpuv.perspective"
+            name="GPUVerify Perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="eclipse.plugin.gpuv.perspective">
+
+         <view
+               id="org.eclipse.ui.navigator.ProjectExplorer"
+               minimized="false"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.views.ProblemView"
+               minimized="false"
+               ratio="0.8"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               ratio="0.8"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+         <hiddenMenuItem
+               id="org.eclipse.ui.run">
+         </hiddenMenuItem>
+         <hiddenMenuItem
+               id="project">
+         </hiddenMenuItem>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.cdt.core.language">
+      <language
+            class="eclipse.plugin.gpuv.language.OpenCLSourceCode"
+            id="eclipse.plugin.gpuv.language.opencl"
+            name="OpenCL">
+         <contentType
+               id="eclipse.plugin.gpuv.openclcontent"></contentType>
+      </language>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            base-type="org.eclipse.cdt.core.cSource"
+            file-extensions="cl"
+            id="eclipse.plugin.gpuv.openclcontent"
+            name="OpenCL Source File"
+            priority="high">
+      </content-type>
+      <file-association
+            content-type="eclipse.plugin.gpuv.openclcontent"
+            file-extensions="cl">
+      </file-association>
+   </extension>
+   <extension
+		id="eclipse.plugin.gpuv.builder.GPUVBuilder"
+		name="GPUV Builder"
+		point="org.eclipse.core.resources.builders">
+		<builder hasNature="true">
+			<run class="eclipse.plugin.gpuv.builder.GPUVBuilder" />
+		</builder>
+	</extension>
+	<extension
+		id="eclipse.plugin.gpuv.builder.GPUVNature"
+		name="GPUV Nature"
+		point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="eclipse.plugin.gpuv.builder.GPUVNature" />
+		</runtime>
+		<builder id="eclipse.plugin.gpuv.builder.GPUVBuilder"/> 
+	</extension>
+	<extension
+		id="eclipse.plugin.gpuv.builder.nature.problem"
+		name="Error"
+		point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.core.resources.problemmarker" />
+		<persistent value="true" />
+	</extension>
+ <extension
+       point="org.eclipse.ui.popupMenus">
+    <objectContribution
+          adaptable="true"
+          id="eclipse.plugin.gpuv.popupMenu"
+          objectClass="org.eclipse.core.resources.IResource">
+          <filter name="extension" value="cl" />
+       <action
+             class="eclipse.plugin.gpuv.actions.ConfigAction"
+             icon="icons/config.ico"
+             id="eclipse.plugin.gpuv.actions.ConfigAction"
+             label="&amp;Configure analysis"
+             menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
+             tooltip="Configure GPUVerify options">
+       </action>
+       <menu
+             id="eclipse.plugin.gpuv.analysisMenu"
+             label="&amp;GPUVerify Analysis"
+             path="analysis">
+       </menu>
+       <action
+             class="eclipse.plugin.gpuv.actions.RunAction"
+             icon="icons/analysis.ico"
+             id="eclipse.plugin.gpuv.actions.RunAnalysisAction"
+             label="&amp;Run analysis"
+             menubarPath="eclipse.plugin.gpuv.analysisMenu/configureAnalysis"
+             tooltip="Run analysis with applied options">
+       </action>
+    </objectContribution>
+ </extension>
+ <extension
+       point="org.eclipse.ui.editors.templates">
+    <include
+          file="xmlFiles/templates.xml">
+    </include>
+ </extension>
+</plugin>

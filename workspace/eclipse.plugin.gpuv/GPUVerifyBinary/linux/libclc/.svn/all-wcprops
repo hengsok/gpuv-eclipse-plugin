@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/llvm-project/!svn/ver/169362/libclc/trunk
+END
+CREDITS.TXT
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/llvm-project/!svn/ver/147756/libclc/trunk/CREDITS.TXT
+END
+README.TXT
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/llvm-project/!svn/ver/147756/libclc/trunk/README.TXT
+END
+compile-test.sh
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/llvm-project/!svn/ver/169362/libclc/trunk/compile-test.sh
+END
+LICENSE.TXT
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/llvm-project/!svn/ver/151129/libclc/trunk/LICENSE.TXT
+END
+configure.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/llvm-project/!svn/ver/169362/libclc/trunk/configure.py
+END

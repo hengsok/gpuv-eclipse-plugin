@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -f $(dirname $0)/bin/z3.exe
+ln $(dirname $0)/bin/z3 $(dirname $0)/bin/z3.exe
+
+python $(dirname $0)/GPUVerify.py $@
+
