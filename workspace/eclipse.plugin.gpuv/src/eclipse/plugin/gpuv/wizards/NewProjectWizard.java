@@ -94,8 +94,7 @@ public class NewProjectWizard extends Wizard implements INewWizard,
 			location = _pageOne.getLocationURI();
 		} // else location == null
 
-		IProject project = CustomProjectSupport.createProject(name, location,
-				monitor);
+		IProject project = CustomProjectSupport.createProject(name, location);
 
 		// Add GPUV nature to the .project description file
 		try {
