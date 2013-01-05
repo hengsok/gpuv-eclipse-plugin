@@ -21,30 +21,28 @@ public class PythonCheck {
 	 * @throws InterruptedException
 	 */
 	public static boolean isInstalled(){
-
 		Runtime rt = Runtime.getRuntime();
 		Process proc = null;
 		try {
 			proc = rt.exec("python --version");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			
+			BufferedReader stdError = new BufferedReader(new 
+					InputStreamReader(proc.getErrorStream()));
+			String s;
+			String[]output = null;
 
-		BufferedReader stdError = new BufferedReader(new 
-				InputStreamReader(proc.getErrorStream()));
-		String s;
-		String[]output = null;
-		try {
 			while ((s = stdError.readLine()) != null) {
 				output = s.split(" ");
 			}
+			
+			if (output[0].equals("Python"))
+				return true;
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (output[0].equals("Python"))
-			return true;
-		else
-			return false;
+		System.out.println("You do not have python installed.");
+		return false;
 	}
 	
 	/**
