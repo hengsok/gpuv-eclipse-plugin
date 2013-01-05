@@ -114,7 +114,7 @@ public class GPUVBuilderThread implements Runnable {
 
 		}
 
-		String command = getConfig().getCommand() + optionString + fullPath.makeAbsolute().toOSString();
+		String command = getConfig().getCommand() + optionString + "\"" + fullPath.makeAbsolute().toOSString() + "\"";
 		try {
 			p = Runtime.getRuntime().exec(command);
 		} catch (IOException e1) {
