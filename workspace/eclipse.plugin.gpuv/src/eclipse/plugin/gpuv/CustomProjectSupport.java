@@ -28,21 +28,19 @@ public class CustomProjectSupport {
 	 * @param natureId
 	 * @return
 	 */
-	public static IProject createProject(String projectName, URI location, IProgressMonitor monitor) {
+	public static IProject createProject(String projectName, URI location) {
 		Assert.isNotNull(projectName);
 		Assert.isTrue(projectName.trim().length() > 0);
 
-		IProject project = createBaseProject(projectName, location, monitor);
+		IProject project = createBaseProject(projectName, location);
 		try {
-			//addNature(project);
-
 			String[] paths = { "src", "bin" }; //$NON-NLS-1$ //$NON-NLS-2$
 			addToProjectStructure(project, paths);
 		} catch (CoreException e) {
 			e.printStackTrace();
 			project = null;
 		}
-
+		
 		return project;
 	}
 
@@ -89,9 +87,8 @@ public class CustomProjectSupport {
 	 * @param location
 	 * @param projectName
 	 */
-	private static IProject createBaseProject(String projectName, URI location, IProgressMonitor monitor) {
+	private static IProject createBaseProject(String projectName, URI location) {
 		// it is acceptable to use the ResourcesPlugin class
-		monitor.beginTask("Creating Project", IProgressMonitor.UNKNOWN);
 		IProject newProject = ResourcesPlugin.getWorkspace().getRoot()
 				.getProject(projectName);
 
@@ -107,7 +104,7 @@ public class CustomProjectSupport {
 
 			desc.setLocationURI(projectLocation);
 			try {
-				newProject = CCorePlugin.getDefault().createCDTProject(desc, newProject, monitor);
+				newProject = CCorePlugin.getDefault().createCDTProject(desc, newProject, null);
 				
 				if (!newProject.isOpen()) {
 					newProject.open(null);
