@@ -30,7 +30,7 @@ public class PythonCheck {
 					InputStreamReader(proc.getErrorStream()));
 			String s;
 			String[]output = null;
-			output[0] = "null";
+			//output[0] = "null";
 
 			while ((s = stdError.readLine()) != null) {
 				output = s.split(" ");
