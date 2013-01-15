@@ -14,6 +14,11 @@ Although GPUVerify tool is useful in verifying the kernels written in OpenCL and
 We started by creating an editor for OpenCL, which performs syntax highlighting, auto- completion of keywords and function names, description box and parameter indications for OpenCL built-in functions, and the error annotations (underlining syntax errors) for OpenCL language. Similarly to some Eclipse plugins that support specific programming languages, such as C++, we aimed to create a plugin that provides rich supportive functionalities to aid OpenCL developers. Implementation details for the features will be explained in the next section.
 
 
+##Usage
+This plugin supports both Windows and Linux platform. You just need to drop the plugin in the "dropin" folder of Eclipse. Read UserGuide for more information.
+
+On Linux, you would need to change permission of "GPUVerifyBinary" folder to 777 for the GPUVerify binaries to be executable. This folder is located in the plugin that you placed in "dropin" as mentioned above.
+
 
 ##License
 
