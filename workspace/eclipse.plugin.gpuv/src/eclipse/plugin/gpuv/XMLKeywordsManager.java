@@ -264,6 +264,7 @@ public class XMLKeywordsManager {
 	 * Eclipse is restarted.
 	 */
 	public static Map<String, String> getAppliedOptions() {
+		appliedOptionMap.clear();
 		String appliedFilename = new ActiveElementLocator().getOptionsFilename();
 		if(appliedFilename == null){
 			// cannot get the filename

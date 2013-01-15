@@ -113,8 +113,20 @@ public class GPUVBuilderThread implements Runnable {
 			optionString +=  t + " ";
 
 		}
+		
+		String openCLFilePath = "";
 
-		String command = getConfig().getCommand() + optionString + "\"" + fullPath.makeAbsolute().toOSString() + "\"";
+		String OS = System.getProperty("os.name").toLowerCase();
+		if((OS.indexOf("win") >= 0)){
+			openCLFilePath = "\"" + fullPath.makeAbsolute().toOSString() + "\"";
+		}else if((OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0 )) {
+			//Since it was noted that lower version of python in Linux still unable to manage the double quote
+			//to solve space in filepath problem, we have to remove it
+			openCLFilePath = fullPath.makeAbsolute().toOSString();
+		}
+		
+
+		String command = getConfig().getCommand() + optionString + openCLFilePath;
 		try {
 			p = Runtime.getRuntime().exec(command);
 		} catch (IOException e1) {
